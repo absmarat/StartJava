@@ -8,18 +8,22 @@ public class Reverser {
         int[] numbers = {};
         print(numbers);
         reverseArray(numbers);
+        System.out.println("После реверса: " + Arrays.toString(numbers));
 
         int[] numbers1 = null;
         print(numbers1);
         reverseArray(numbers1);
+        System.out.println("После реверса: " + Arrays.toString(numbers1));
 
         int[] numbers2 = {6, 8, 9, 1};
         print(numbers2);
         reverseArray(numbers2);
+        System.out.println("После реверса: " + Arrays.toString(numbers2));
 
         int[] numbers3 = {13, 8, 5, 3, 2, 1, 1};
         print(numbers3);
         reverseArray(numbers3);
+        System.out.println("После реверса: " + Arrays.toString(numbers3));
     }
 
     private static void print(int[] array) {
@@ -28,7 +32,6 @@ public class Reverser {
 
     private static void reverseArray(int[] array) {
         if (array == null) {
-            System.out.println("После реверса: " + array);
             return;
         }
         int len = array.length;
@@ -37,7 +40,5 @@ public class Reverser {
             array[i] = array[len];
             array[len] = temp;
         }
-        System.out.println("После реверса: " + Arrays.toString(array));
-
     }
 }
