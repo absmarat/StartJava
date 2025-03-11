@@ -4,54 +4,71 @@ public class Factorial {
 
     public static void main(String[] args) {
         int[] numbers = {};
-        calculateFactorial(numbers);
+        long[] factorials = calculate(numbers);
+        print(factorials, numbers);
 
         int[] numbers1 = null;
-        calculateFactorial(numbers1);
+        factorials = calculate(numbers1);
+        print(factorials, numbers1);
 
         int[] numbers2 = {8, 0, 9};
-        calculateFactorial(numbers2);
+        factorials = calculate(numbers2);
+        print(factorials, numbers2);
+
 
         int[] numbers3 = {-3, 1, 7, 13};
-        calculateFactorial(numbers3);
+        factorials = calculate(numbers3);
+        print(factorials, numbers3);
 
         int[] numbers4 = {-22, -0};
-        calculateFactorial(numbers4);
+        factorials = calculate(numbers4);
+        print(factorials, numbers4);
     }
 
-    private static void calculateFactorial (int... numbers) {
-        if (numbers == null) {
-            System.out.println("Массив ссылается на null!");
+    private static long[] calculate(int... numbers) {
+        if (numbers != null) {
+            int length = numbers.length;
+            long[] newArray = new long[length];
+            for (int i = 0; i < length; i++) {
+                long factorial = 1;
+                for (int j = 1; j <= numbers[i]; j++) {
+                    factorial = factorial * j;
+                    newArray[i] = factorial;
+                }
+            }
+            return newArray;
+        }
+        return null;
+    }
+
+    private static void print(long[] factorials, int[] originalArray) {
+        if (originalArray == null) {
+            System.out.println("null");
             return;
         }
 
-        if (numbers.length == 0) {
-            System.out.println("Массив является пустым!");
-            return;
+        int length = originalArray.length;
+        if (length == 0) {
+            System.out.println("Массив нулевой длины!");
         }
 
-        int length = numbers.length;
         for (int i = 0; i < length; i++) {
-            if (numbers[i] < 0) {
-                System.out.println("Ошибка: факториал " + numbers[i] + " не определён!");
+            if (originalArray[i] == 1 || originalArray[i] == 0) {
+                System.out.println(originalArray[i] + "! = 1");
                 continue;
             }
 
-            if (numbers[i] == 1 || numbers[i] == 0) {
-                System.out.println(numbers[i] + "! = " + 1);
+            if (originalArray[i] < 0) {
+                System.out.println("Ошибка: факториал " + originalArray[i] + " не определён!");
                 continue;
             }
 
-            int[] newArray = new int[length];
-            System.out.printf("%d! = ", numbers[i]);
-            int factorial = 1;
-            for (int j = 1; j <= numbers[i]; j++) {
-                factorial *= j;
-                newArray[i] = factorial;
+            System.out.printf("%d! = ", originalArray[i]);
+            for (int j = 1; j <= originalArray[i]; j++) {
                 System.out.print(j + " ");
-                System.out.print(j < numbers[i]? "* ": "= ");
+                System.out.print((j < originalArray[i])? "* ": "= ");
             }
-            System.out.println(newArray[i] + " ");
+            System.out.println(factorials[i]);
         }
     }
 }

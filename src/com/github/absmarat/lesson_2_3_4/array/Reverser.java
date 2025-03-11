@@ -33,7 +33,7 @@ public class Reverser {
         if (array == null) {
             return;
         }
-        
+
         int len = array.length;
         for (int i = 0; i < len; i++) {
             int temp = array[i];
