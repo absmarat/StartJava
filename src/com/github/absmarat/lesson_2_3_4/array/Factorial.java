@@ -15,7 +15,6 @@ public class Factorial {
         factorials = calculate(numbers2);
         print(factorials, numbers2);
 
-
         int[] numbers3 = {-3, 1, 7, 13};
         factorials = calculate(numbers3);
         print(factorials, numbers3);
