@@ -27,45 +27,46 @@ public class Factorial {
     private static long[] calculate(int... numbers) {
         if (numbers != null) {
             int length = numbers.length;
-            long[] newArray = new long[length];
+            long[] result = new long[length];
             for (int i = 0; i < length; i++) {
                 long factorial = 1;
                 for (int j = 1; j <= numbers[i]; j++) {
-                    factorial = factorial * j;
-                    newArray[i] = factorial;
+                    factorial *= j;
                 }
+                result[i] = factorial;
             }
-            return newArray;
+            return result;
         }
         return null;
     }
 
-    private static void print(long[] factorials, int[] originalArray) {
-        if (originalArray == null) {
+    private static void print(long[] factorials, int[] original) {
+        if (original == null) {
             System.out.println("null");
             return;
         }
 
-        int length = originalArray.length;
+        int length = original.length;
         if (length == 0) {
             System.out.println("Массив нулевой длины!");
+            return;
         }
 
         for (int i = 0; i < length; i++) {
-            if (originalArray[i] == 1 || originalArray[i] == 0) {
-                System.out.println(originalArray[i] + "! = 1");
+            if (original[i] == 1 || original[i] == 0) {
+                System.out.println(original[i] + "! = 1");
                 continue;
             }
 
-            if (originalArray[i] < 0) {
-                System.out.println("Ошибка: факториал " + originalArray[i] + " не определён!");
+            if (original[i] < 0) {
+                System.out.println("Ошибка: факториал " + original[i] + " не определён!");
                 continue;
             }
 
-            System.out.printf("%d! = ", originalArray[i]);
-            for (int j = 1; j <= originalArray[i]; j++) {
+            System.out.printf("%d! = ", original[i]);
+            for (int j = 1; j <= original[i]; j++) {
                 System.out.print(j + " ");
-                System.out.print((j < originalArray[i])? "* ": "= ");
+                System.out.print((j < original[i]) ? " * " : " = ");
             }
             System.out.println(factorials[i]);
         }
