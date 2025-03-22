@@ -4,62 +4,49 @@ public class ElementRemoval {
 
     public static void main(String[] args) {
         int[] ints = {-1, 15, 0, 14};
-
-        int index = 0;
-        int[] overwritten = overwrite(ints, ints[index]);
-        print(ints, overwritten, ints[index]);
-
-        index = 1;
-        overwritten = overwrite(ints, ints[index]);
-        print(ints, overwritten, ints[index]);
-
-        index = 2;
-        overwritten = overwrite(ints, ints[index]);
-        print(ints, overwritten, ints[index]);
-
-        index = 3;
-        overwritten = overwrite(ints, ints[index]);
-        print(ints, overwritten, ints[index]);
-    }
-
-    private static int[] overwrite(int[] nums, int index) {
-        int length = nums.length;
-        int[] result = new int[length];
-        for (int i = 0; i < length; i++) {
-            result[i] = (nums[i] > index) ? 0 : nums[i];
-        }
-        return result;
-    }
-
-    private static void print(int[] nums, int[] overwritten, int index) {
-        System.out.print("Исходный массив: ");
-        for (int x : overwritten) {
-            System.out.print(x + " ");
-        }
-        System.out.println();
-
-        int count = 0;
         float[] realNumbers = new float[15];
-        int length = realNumbers.length;
-        System.out.println("Изменённый массив: ");
-        for (int i = 0; i < length; i++) {
-            count++;
-            realNumbers[i] = (float) Math.random();
-            System.out.printf("%.3f ", realNumbers[i]);
-            if (count == 8) {
-                System.out.println();
-            }
-        }
-        System.out.println();
 
-        count = 0;
-        length = nums.length;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != overwritten[i]) {
+        for (int number : ints) {
+            float[] modified = fillArray(realNumbers, number);
+            print(realNumbers, modified, number);
+        }
+    }
+
+    private static float[] fillArray(float[] realNumbers, int number) {
+        int length = realNumbers.length;
+        float[] modified = new float[length];
+        for (int i = 0; i < length; i++) {
+            realNumbers[i] = (float) Math.random();
+            modified[i] = realNumbers[i] > number ? 0 : realNumbers[i];
+        }
+        return modified;
+    }
+
+    private static void print(float[] original, float[] modified, int number) {
+        int count = 0;
+        splitArray(original, count, "Исходный массив: ");
+        splitArray(modified, count, "Изменённый массив: ");
+
+        int length = modified.length;
+        for (int i = 0; i < length; i++) {
+            if (modified[i] != original[i]) {
                 count++;
             }
         }
-        System.out.println("Значение из ячейки по переданному индексу: " + index);
+        System.out.println("Значение из ячейки по переданному индексу: " + number);
         System.out.println("Количество обнулённых ячеек: " + count + "\n");
+    }
+
+    private static void splitArray(float[] array, int count, String msg) {
+        System.out.println(msg);
+        int length = array.length;
+        for (int i = 0; i < length; i++) {
+            if (count == 8) {
+                System.out.println();
+            }
+            count++;
+            System.out.printf("%.3f ", array[i]);
+        }
+        System.out.println();
     }
 }
