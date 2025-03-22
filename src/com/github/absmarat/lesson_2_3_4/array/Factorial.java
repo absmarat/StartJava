@@ -59,16 +59,16 @@ public class Factorial {
             }
 
             if (original[i] < 0) {
-                System.out.println("Ошибка: факториал " + original[i] + " не определён!");
+                System.out.println("Ошибка: факториал " + original[i] + "! не определён!");
                 continue;
             }
 
-            System.out.printf("%d! = ", original[i]);
+            System.out.printf("%d ", original[i]);
+            StringBuilder sb = new StringBuilder("! = ");
             for (int j = 1; j <= original[i]; j++) {
-                System.out.print(j + " ");
-                System.out.print((j < original[i]) ? " * " : " = ");
+                sb = (j < original[i]) ? sb.append(j).append(" * ") : sb.append(j).append(" = ");
             }
-            System.out.println(factorials[i]);
+            System.out.println(sb.toString() + factorials[i]);
         }
     }
 }
