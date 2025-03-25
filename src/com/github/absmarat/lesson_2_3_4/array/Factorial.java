@@ -63,12 +63,13 @@ public class Factorial {
                 continue;
             }
 
-            System.out.printf("%d ", original[i]);
+            System.out.printf("%d", original[i]);
             StringBuilder sb = new StringBuilder("! = ");
             for (int j = 1; j <= original[i]; j++) {
-                sb = (j < original[i]) ? sb.append(j).append(" * ") : sb.append(j).append(" = ");
+                sb.append(j);
+                sb = (j < original[i]) ? sb.append(" * ") : sb.append(" = ");
             }
-            System.out.println(sb.toString() + factorials[i]);
+            System.out.println(sb.append(factorials[i]));
         }
     }
 }
