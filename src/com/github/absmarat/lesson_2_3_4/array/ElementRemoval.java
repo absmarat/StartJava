@@ -3,26 +3,32 @@ package com.github.absmarat.lesson_2_3_4.array;
 public class ElementRemoval {
 
     public static void main(String[] args) {
+        int length = 15;
+        float[] realNumbers = new float[length];
         int[] ints = {-1, 15, 0, 14};
-        float[] realNumbers = new float[15];
-
-        for (int number : ints) {
-            float[] modified = fillArray(realNumbers, number);
-            print(realNumbers, modified, number);
+        for (int index : ints) {
+            if (index < 0 || index >= length) {
+                continue;
+            }
+            float[] modified = fillArray(realNumbers, index);
+            print(realNumbers, modified, index);
         }
     }
 
-    private static float[] fillArray(float[] realNumbers, int number) {
+    private static float[] fillArray(float[] realNumbers, int index) {
         int length = realNumbers.length;
         float[] modified = new float[length];
         for (int i = 0; i < length; i++) {
             realNumbers[i] = (float) Math.random();
-            modified[i] = realNumbers[i] > number ? 0 : realNumbers[i];
+
+            // ИНСТРУКЦИЯ СРАБАТЫВАЕТ НЕКОРРЕКТНО, НО ТОЛЬКО В ОТНОШЕНИИ ЗНАЧЕНИЯ ЯЧЕЙКИ ПОСЛЕДНЕГО
+            // ПЕРЕДАННОГО ИНДЕКСА.
+            modified[i] = realNumbers[i] > realNumbers[index] ? 0 : realNumbers[i];
         }
         return modified;
     }
 
-    private static void print(float[] original, float[] modified, int number) {
+    private static void print(float[] original, float[] modified, int index) {
         int count = 0;
         splitArray(original, count, "Исходный массив: ");
         splitArray(modified, count, "Изменённый массив: ");
@@ -33,7 +39,7 @@ public class ElementRemoval {
                 count++;
             }
         }
-        System.out.println("Значение из ячейки по переданному индексу: " + number);
+        System.out.printf("Значение из ячейки по переданному индексу: %.3f \n", original[index]);
         System.out.println("Количество обнулённых ячеек: " + count + "\n");
     }
 
