@@ -10,19 +10,20 @@ public class ElementRemoval {
             if (index < 0 || index >= length) {
                 continue;
             }
-            float[] modified = fillArray(realNumbers, index);
+            float[] modified = fillArrays(realNumbers, index);
             print(realNumbers, modified, index);
         }
     }
 
-    private static float[] fillArray(float[] realNumbers, int index) {
+    private static float[] fillArrays(float[] realNumbers, int index) {
         int length = realNumbers.length;
         float[] modified = new float[length];
         for (int i = 0; i < length; i++) {
             realNumbers[i] = (float) Math.random();
+            modified[i] = realNumbers[i];
+        }
 
-            // ИНСТРУКЦИЯ СРАБАТЫВАЕТ НЕКОРРЕКТНО, НО ТОЛЬКО В ОТНОШЕНИИ ЗНАЧЕНИЯ ЯЧЕЙКИ ПОСЛЕДНЕГО
-            // ПЕРЕДАННОГО ИНДЕКСА.
+        for (int i = 0; i < length; i++) {
             modified[i] = realNumbers[i] > realNumbers[index] ? 0 : realNumbers[i];
         }
         return modified;
@@ -32,6 +33,7 @@ public class ElementRemoval {
         int count = 0;
         splitArray(original, count, "Исходный массив: ");
         splitArray(modified, count, "Изменённый массив: ");
+        System.out.printf("Значение из ячейки по переданному индексу: %.3f \n", original[index]);
 
         int length = modified.length;
         for (int i = 0; i < length; i++) {
@@ -39,7 +41,6 @@ public class ElementRemoval {
                 count++;
             }
         }
-        System.out.printf("Значение из ячейки по переданному индексу: %.3f \n", original[index]);
         System.out.println("Количество обнулённых ячеек: " + count + "\n");
     }
 
