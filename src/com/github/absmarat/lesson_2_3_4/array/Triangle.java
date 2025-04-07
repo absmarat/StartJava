@@ -2,30 +2,28 @@ package com.github.absmarat.lesson_2_3_4.array;
 
 public class Triangle {
     public static void main(String[] args) {
-        int startPoint = 48;
-        int endPoint = 57;
-        boolean isIncrement = true;
-        String triangle = (create(startPoint, endPoint, isIncrement));
+        boolean isAscendingSort = true;
+        String triangle = (create(48, 57, isAscendingSort));
         print(triangle);
 
-        startPoint = 47;
-        endPoint = 105;
-        isIncrement = false;
-        triangle = (create(startPoint, endPoint, isIncrement));
+        isAscendingSort = false;
+        triangle = (create(105, 47, isAscendingSort));
         print(triangle);
 
-        startPoint = 65;
-        endPoint = 74;
-        isIncrement = false;
-        triangle = (create(startPoint, endPoint, isIncrement));
+        isAscendingSort = false;
+        triangle = (create(65, 74, isAscendingSort));
         print(triangle);
     }
 
-    private static String create(int startPoint, int endPoint, boolean isIncrement) {
+    private static String create(int startPoint, int endPoint, boolean isAscendingSort) {
+        if (startPoint > endPoint) {
+            System.out.println("Ошибка: левая граница (" + startPoint + ") > правой (" + endPoint + ")");
+        }
+
         int count = 1;
         int space = endPoint - startPoint;
         StringBuilder triangle = new StringBuilder();
-        if (isIncrement) {
+        if (isAscendingSort) {
             for (int i = startPoint; i <= endPoint; i++) {
                 triangle = triangle.append(" ".repeat(space)).repeat(startPoint, count).append("\n");
                 space--;
