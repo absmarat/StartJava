@@ -2,19 +2,13 @@ package com.github.absmarat.lesson_2_3_4.array;
 
 public class SubstringConversion {
     public static void main(String[] args) throws InterruptedException {
-        String sentence = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
-                "- Robert Martin\n";
-
-        sentence = convertToUpperCase(sentence);
-        print(sentence);
-
-        sentence = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
+        String sentence = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "- James Gosling\n";
         sentence = convertToUpperCase(sentence);
         print(sentence);
 
-        //ПРОВЕРОЧНАЯ СТРОКА
-        sentence = "Из ума, закалённого былыми горестями и унижениями, рождается мудрость!\n";
+        sentence = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
+                "- Robert Martin\n";
         sentence = convertToUpperCase(sentence);
         print(sentence);
 
@@ -64,19 +58,15 @@ public class SubstringConversion {
         length = punctuationSentence.length;
         if (shortestWordIndex < longestWordIndex) {
             for (int i = 0; i < length; i++) {
-                if ((i < shortestWordIndex) || (longestWordIndex < i)) {
-                    modifiedSentence = modifiedSentence.append(punctuationSentence[i]).append(" ");
-                } else {
-                    modifiedSentence = modifiedSentence.append(punctuationSentence[i].toUpperCase()).append(" ");
-                }
+                modifiedSentence = ((i < shortestWordIndex) || (longestWordIndex < i))
+                        ? modifiedSentence.append(punctuationSentence[i]).append(" ")
+                        : modifiedSentence.append(punctuationSentence[i].toUpperCase()).append(" ");
             }
         } else {
             for (int i = 0; i < length; i++) {
-                if ((i < longestWordIndex) || (shortestWordIndex < i)) {
-                    modifiedSentence = modifiedSentence.append(punctuationSentence[i]).append(" ");
-                } else {
-                    modifiedSentence = modifiedSentence.append(punctuationSentence[i].toUpperCase()).append(" ");
-                }
+                modifiedSentence = ((i < longestWordIndex) || (shortestWordIndex < i))
+                        ? modifiedSentence.append(punctuationSentence[i]).append(" ")
+                        : modifiedSentence.append(punctuationSentence[i].toUpperCase()).append(" ");
             }
         }
         return modifiedSentence.toString();
