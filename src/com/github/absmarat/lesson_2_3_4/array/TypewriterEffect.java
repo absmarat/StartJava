@@ -2,91 +2,75 @@ package com.github.absmarat.lesson_2_3_4.array;
 
 public class TypewriterEffect {
     public static void main(String[] args) throws InterruptedException {
-        String enteredTxt = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
+        String enteredText = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "- James Gosling\n";
-        enteredTxt = toUpperCaseRange(enteredTxt);
-        type(enteredTxt);
+        String[] modifiedText = toUpperCaseRange(enteredText);
+        type(modifiedText);
 
-        enteredTxt = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
-                "- Robert Martin\n";
-        enteredTxt = toUpperCaseRange(enteredTxt);
-        type(enteredTxt);
+        enteredText = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
+                "- Robert Martin";
+        modifiedText = toUpperCaseRange(enteredText);
+        type(modifiedText);
 
-        enteredTxt = null;
-        toUpperCaseRange(enteredTxt);
-        type(enteredTxt);
+        enteredText = null;
+        modifiedText = toUpperCaseRange(enteredText);
+        type(modifiedText);
 
-        enteredTxt = "";
-        enteredTxt = toUpperCaseRange(enteredTxt);
-        type(enteredTxt);
+        enteredText = "";
+        modifiedText = toUpperCaseRange(enteredText);
+        type(modifiedText);
     }
 
-    private static String toUpperCaseRange(String sentence) {
-        if (sentence == null) {
+    private static String[] toUpperCaseRange(String originalText) {
+        if (originalText == null || originalText.isBlank()) {
             return null;
         }
 
-        if (sentence.isBlank()) {
-            return sentence;
-        }
-
-        // УДАЛЕНИЕ (ЗАМЕНА) ЗНАКОВ ПРЕПИНАНИЯ
-        String noPunctuation = sentence.replaceAll("[\\p{P}\\s]+", " ");
-
-        // РАЗДЕЛЕНИЕ СТРОКИ НА МАССИВ ПОДСТРОК
-        String[] words = noPunctuation.split(" ");
-
-        // ОПРЕДЕЛЕНИЕ САМОГО КОРОТКОГО И САМОГО ДЛИННОГО СЛОВА В СТРОКЕ И ИХ ИНДЕКСОВ
+        String[] words = originalText.split(" ");
         String shortestWord = words[0];
         String longestWord = words[0];
         int shortestWordIndex = 0;
         int longestWordIndex = 0;
-        int length = words.length;
-        for (int i = 0; i < length; i++) {
-            if (words[i].length() < shortestWord.length()) {
-                shortestWord = words[i];
+
+        for (int i = 0; i < words.length; i++) {
+            String noPunctuation = words[i].replaceAll("[\\p{P}\\s]+", "");
+            if (noPunctuation.isEmpty()) continue;
+
+            if (noPunctuation.length() < shortestWord.length()) {
+                shortestWord = noPunctuation;
                 shortestWordIndex = i;
-            } else if (words[i].length() > longestWord.length()){
-                longestWord = words[i];
+            } else if (noPunctuation.length() > longestWord.length()) {
+                longestWord = noPunctuation;
                 longestWordIndex = i;
             }
         }
 
-        // ПРЕОБРАЗОВАНИЕ ПОДСТРОКИ В ВЕРХНИЙ РЕГИСТР
-        String[] punctuationSentence = sentence.split(" ");
-        StringBuilder modifiedSentence = new StringBuilder();
-        length = punctuationSentence.length;
-        for (int i = 0; i < length; i++) {
-            if (shortestWordIndex < longestWordIndex) {
-                modifiedSentence = ((i < shortestWordIndex) || (longestWordIndex < i))
-                        ? modifiedSentence.append(punctuationSentence[i]).append(" ")
-                        : modifiedSentence.append(punctuationSentence[i].toUpperCase()).append(" ");
-            } else {
-                modifiedSentence = ((i < longestWordIndex) || (shortestWordIndex < i))
-                        ? modifiedSentence.append(punctuationSentence[i]).append(" ")
-                        : modifiedSentence.append(punctuationSentence[i].toUpperCase()).append(" ");
+        if (shortestWordIndex > longestWordIndex) {
+            int swap = shortestWordIndex;
+            shortestWordIndex = longestWordIndex;
+            longestWordIndex = swap;
+        }
+
+        for (int i = shortestWordIndex; i <= longestWordIndex; i++) {
+            words[i] = words[i].toUpperCase();
+        }
+
+        return words;
+    }
+
+    private static void type(String[] words) throws InterruptedException {
+        if (words == null) {
+            System.out.println("\nОшибка: входной массив не может быть null.");
+            return;
+
+        }
+        for (String word : words) {
+            for (char ch : word.toCharArray()) {
+                System.out.print(ch);
+                Thread.sleep(100);
             }
+            System.out.print(" ");
         }
-        return modifiedSentence.toString();
+        System.out.printf("%n");
     }
-
-    private static void type(String sentence) throws InterruptedException {
-        if (sentence == null) {
-            System.out.println("null");
-            return;
-        }
-
-        if (sentence.isBlank()) {
-            System.out.println("Пустая строка.");
-            return;
-        }
-
-        char[] chars = sentence.toCharArray();
-        for (char ch : chars) {
-            System.out.print(ch);
-            //Thread.sleep(100);
-        }
-        System.out.println();
-    }
-
 }
