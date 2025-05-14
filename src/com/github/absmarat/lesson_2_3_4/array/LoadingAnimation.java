@@ -29,8 +29,8 @@ public class LoadingAnimation {
         }
 
         String result = (number > 70)
-                ? ("\r" + msg + ANSI_RED + "Access Granted!" + ANSI_RESET)
-                : ("\r" + msg + ANSI_GREEN + "Access Denied!" + ANSI_RESET);
+                ? (msg + ANSI_RED + "Access Granted!" + ANSI_RESET)
+                : (msg + ANSI_GREEN + "Access Denied!" + ANSI_RESET);
         System.out.println(result);
     }
 }
