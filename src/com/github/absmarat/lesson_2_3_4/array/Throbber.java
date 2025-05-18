@@ -9,27 +9,25 @@ public class Throbber {
 
     public static void main(String[] args) throws InterruptedException {
         char[] animationElements = {'-', '\\', '|', '/'};
-        int number = generateRandomNumber();
-        simulateHacking(animationElements, number);
-    }
-
-    private static int generateRandomNumber() {
-        Random rnd = new Random();
-        return rnd.nextInt(100);
-    }
-
-    private static void simulateHacking(char[] animationElements, int number) throws InterruptedException {
         String msg = "Hacking: ";
+        simulateHacking(animationElements, msg);
+        determainStatus(msg);
+    }
 
+    private static void simulateHacking(char[] animationElements, String msg) throws InterruptedException {
         for (int i = 0; i < 3; i++) {
             for (char element : animationElements) {
                 System.out.print(msg + element + "\r");
                 Thread.sleep(200);
             }
         }
+    }
 
+    private static void determainStatus(String msg) {
+        Random rdm = new Random();
+        int number = rdm.nextInt(100);
         System.out.print(msg);
         String result = (number > 70) ? (ANSI_RED + "Access Granted!") : (ANSI_GREEN + "Access Denied!");
-        System.out.println(result + ANSI_RESET);
+        System.out.print(result + ANSI_RESET);
     }
 }
