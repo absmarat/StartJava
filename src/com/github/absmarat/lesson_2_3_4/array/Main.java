@@ -1,10 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.array;
 
 public class Main {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-
     public static void main(String[] args) throws InterruptedException {
         simulateHackingProcess();
         createTriangle();
@@ -16,25 +12,20 @@ public class Main {
 
     // АНИМАЦИЯ ЗАГРУЗКИ
     private static void simulateHackingProcess() throws InterruptedException {
-        char[] animationElements = {'-', '\\', '|', '/'};
-        String msg = "Hacking: ";
-        Arrays.simulateHacking(animationElements, msg);
-        Console.determainStatus(msg);
+        Arrays.simulateHacking();
+        Console.determainStatus();
     }
 
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОЛВ В ВИДЕ ТРЕУГОЛЬНИКА
+    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     private static void createTriangle() {
-        boolean isAscendingSort = true;
-        String triangle = (Arrays.sortSymbols(48, 57, isAscendingSort));
-        Console.printTriangle(triangle);
+        String triangle = Arrays.sortSymbols('0', '9');
+        Console.printString(triangle);
 
-        isAscendingSort = false;
-        triangle = (Arrays.sortSymbols(105, 47, isAscendingSort));
-        Console.printTriangle(triangle);
+        triangle = Arrays.sortSymbols('i', '/');
+        Console.printString(triangle);
 
-        isAscendingSort = false;
-        triangle = (Arrays.sortSymbols(65, 74, isAscendingSort));
-        Console.printTriangle(triangle);
+        triangle = Arrays.sortSymbols('A', 'J');
+        Console.printString(triangle);
     }
 
     // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ

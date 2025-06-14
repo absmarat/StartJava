@@ -7,33 +7,38 @@ public final class Arrays {
         throw new AssertionError();
     }
 
-    // АНИМАЦИЯ ЗАГРУЗКИ
-    public static void simulateHacking(char[] animationElements, String msg) throws InterruptedException {
+     //АНИМАЦИЯ ЗАГРУЗКИ
+    public static void simulateHacking() throws InterruptedException {
+        char[] animationElements = {'-', '\\', '|', '/'};
+        String msg = "Hacking: ";
         Console.displayThrobber(animationElements, msg);
     }
 
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОЛВ В ВИДЕ ТРЕУГОЛЬНИКА
-    public static String sortSymbols(int startPoint, int endPoint, boolean isAscendingSort) {
-        if (startPoint > endPoint) {
-            Console.reportError(startPoint, endPoint);
+    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
+    public static String sortSymbols(char startSymbol, char endSymbol) {
+        boolean asc = true;
+
+        if (startSymbol > endSymbol) {
+            Console.reportError(startSymbol, endSymbol);
         }
 
         int count = 1;
-        int space = endPoint - startPoint;
+        int space = endSymbol - startSymbol;
         StringBuilder triangle = new StringBuilder();
-        if (isAscendingSort) {
-            for (int i = startPoint; i <= endPoint; i++) {
-                triangle = triangle.append(" ".repeat(space)).repeat(startPoint, count).append("\n");
+
+        if (asc) {
+            for (int i = startSymbol; i <= endSymbol; i++) {
+                triangle.append(" ".repeat(space)).repeat(startSymbol, count).append("\n");
                 space--;
                 count += 2;
-                startPoint++;
+                startSymbol++;
             }
         } else {
-            for (int i = endPoint; i >= startPoint; i--) {
-                triangle = triangle.append(" ".repeat(space)).repeat(endPoint, count).append("\n");
+            for (int i = endSymbol; i >= startSymbol; i--) {
+                triangle.append(" ".repeat(space)).repeat(endSymbol, count).append("\n");
                 count += 2;
                 space--;
-                endPoint--;
+                endSymbol--;
             }
         }
         return triangle.toString();

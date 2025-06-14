@@ -10,12 +10,16 @@ public final class Console {
     }
 
     // АНИМАЦИЯ ЗАГРУЗКИ
-    public static void determainStatus(String msg) {
+    public static void determainStatus() {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_GREEN = "\u001B[32m";
+        String msg = "Hacking: ";
         Random rdm = new Random();
         int number = rdm.nextInt(100);
         System.out.print(msg);
-        String result = (number > 70) ? (Main.ANSI_RED + "Access Granted!") : (Main.ANSI_GREEN + "Access Denied!");
-        System.out.print(result + Main.ANSI_RESET + "\n\n");
+        String result = (number > 70) ? (ANSI_RED + "Access Granted!") : (ANSI_GREEN + "Access Denied!");
+        System.out.print(result + ANSI_RESET + "\n\n");
     }
 
     public static void displayThrobber(char[] array, String msg) throws InterruptedException {
@@ -28,13 +32,13 @@ public final class Console {
         }
     }
 
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОЛВ В ВИДЕ ТРЕУГОЛЬНИКА
-    public static void printTriangle(String triangle) {
+    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
+    public static void printString(String triangle) {
         System.out.println(triangle);
     }
 
-    public static void reportError(int startPoint, int endPoint) {
-        System.out.println("Ошибка: левая граница (" + startPoint + ") > правой (" + endPoint + ")");
+    public static void reportError(int startSymbol, int endSymbol) {
+        System.out.println("Ошибка: левая граница (" + startSymbol + ") > правой (" + endSymbol + ")");
     }
 
     // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
@@ -61,7 +65,6 @@ public final class Console {
 
     public static void printErrorMessage(int index) {
         System.out.println("Ошибка! В массиве нет элемента с индексом " + index);
-
     }
 
     // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
@@ -113,10 +116,9 @@ public final class Console {
         for (String word : words) {
             for (char ch : word.toCharArray()) {
                 System.out.print(ch);
-                //Thread.sleep(100);
+                Thread.sleep(100);
             }
             System.out.print(" ");
         }
-        //System.out.printf("%n");
     }
 }
