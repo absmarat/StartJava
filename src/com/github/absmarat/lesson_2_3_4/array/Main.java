@@ -19,13 +19,13 @@ public class Main {
     // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     private static void createTriangle() {
         String triangle = Arrays.sortSymbols('0', '9');
-        Console.printStr(triangle);
+        Console.printString(triangle);
 
         triangle = Arrays.sortSymbols('i', '/');
-        Console.printStr(triangle);
+        Console.printString(triangle);
 
         triangle = Arrays.sortSymbols('A', 'J');
-        Console.printStr(triangle);
+        Console.printString(triangle);
     }
 
     // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
