@@ -16,29 +16,33 @@ public final class Arrays {
 
     // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     public static String sortSymbols(char startSymbol, char endSymbol) {
-        boolean asc = true;
-
         if (startSymbol > endSymbol) {
-            Console.reportError(startSymbol, endSymbol);
+            Console.reportError(endSymbol, startSymbol);
+            return null;
         }
 
-        int count = 1;
-        int space = endSymbol - startSymbol;
+        char[] chars = new char[endSymbol - startSymbol];
+        int i = 0;
+
+        for (char ch = startSymbol; ch < endSymbol; ch++) {
+            chars[i++] = ch;
+        }
+
         StringBuilder triangle = new StringBuilder();
+        boolean asc = true;
 
         if (asc) {
-            for (int i = startSymbol; i <= endSymbol; i++) {
-                triangle.append(" ".repeat(space)).repeat(startSymbol, count).append("\n");
-                space--;
-                count += 2;
-                startSymbol++;
+            for (i = 1; i <= chars.length; i++) {
+                triangle.append(" ".repeat(chars.length - i))
+                        .append(String.valueOf(chars[i - 1]).repeat(i * 2 - 1))
+                        .append("\n");
             }
         } else {
-            for (int i = endSymbol; i >= startSymbol; i--) {
-                triangle.append(" ".repeat(space)).repeat(endSymbol, count).append("\n");
-                count += 2;
-                space--;
-                endSymbol--;
+            int j = 1;
+            for (i = chars.length; i <= 1; j++, i++) {
+                triangle.append(" ".repeat(chars.length - i))
+                        .append(String.valueOf(chars[i - 1]).repeat(j * 2 - 1))
+                        .append("\n");
             }
         }
         return triangle.toString();
@@ -93,7 +97,7 @@ public final class Arrays {
     }
 
     // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
-    public static String[] convertToUpperCaseRange(String originalText) {
+    public static String[] convertToUppercase(String originalText) {
         if (originalText == null || originalText.isBlank()) {
             return null;
         }

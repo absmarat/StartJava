@@ -79,44 +79,44 @@ public class Main {
         String afterMsg = "После реверса: ";
 
         int[] numbers = {};
-        Console.outputArrayValues(numbers, beforeMsg);
+        Console.printNumbers(numbers, beforeMsg);
         Arrays.reverseArrayValues(numbers);
-        Console.outputArrayValues(numbers, afterMsg);
+        Console.printNumbers(numbers, afterMsg);
 
         int[] numbers1 = null;
-        Console.outputArrayValues(numbers1, beforeMsg);
+        Console.printNumbers(numbers1, beforeMsg);
         Arrays.reverseArrayValues(numbers1);
-        Console.outputArrayValues(numbers1, afterMsg);
+        Console.printNumbers(numbers1, afterMsg);
 
         int[] numbers2 = {6, 8, 9, 1};
-        Console.outputArrayValues(numbers2, beforeMsg);
+        Console.printNumbers(numbers2, beforeMsg);
         Arrays.reverseArrayValues(numbers2);
-        Console.outputArrayValues(numbers2, afterMsg);
+        Console.printNumbers(numbers2, afterMsg);
 
         int[] numbers3 = {13, 8, 5, 3, 2, 1, 1};
-        Console.outputArrayValues(numbers3, beforeMsg);
+        Console.printNumbers(numbers3, beforeMsg);
         Arrays.reverseArrayValues(numbers3);
-        Console.outputArrayValues(numbers3, afterMsg);
+        Console.printNumbers(numbers3, afterMsg);
     }
 
     // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
     private static void createTypewriterEffect() throws InterruptedException {
         String enteredText = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "- James Gosling\n";
-        String[] modifiedText = Arrays.convertToUpperCaseRange(enteredText);
-        Console.printTextWithTypewriterEffect(modifiedText);
+        String[] modifiedText = Arrays.convertToUppercase(enteredText);
+        Console.printText(modifiedText);
 
         enteredText = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                 "- Robert Martin\n";
-        modifiedText = Arrays.convertToUpperCaseRange(enteredText);
-        Console.printTextWithTypewriterEffect(modifiedText);
+        modifiedText = Arrays.convertToUppercase(enteredText);
+        Console.printText(modifiedText);
 
         enteredText = null;
-        modifiedText = Arrays.convertToUpperCaseRange(enteredText);
-        Console.printTextWithTypewriterEffect(modifiedText);
+        modifiedText = Arrays.convertToUppercase(enteredText);
+        Console.printText(modifiedText);
 
         enteredText = "";
-        modifiedText = Arrays.convertToUpperCaseRange(enteredText);
-        Console.printTextWithTypewriterEffect(modifiedText);
+        modifiedText = Arrays.convertToUppercase(enteredText);
+        Console.printText(modifiedText);
     }
 }

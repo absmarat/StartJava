@@ -34,22 +34,23 @@ public final class Console {
 
     // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     public static void printString(String triangle) {
+        if (triangle == null) return;
         System.out.println(triangle);
     }
 
     public static void reportError(int startSymbol, int endSymbol) {
-        System.out.println("Ошибка: левая граница (" + startSymbol + ") > правой (" + endSymbol + ")");
+        System.out.println("Ошибка: левая граница (" + endSymbol + ") > правой (" + startSymbol + ")\n");
     }
 
     // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
     public static void printArrays(float[] original, float[] modified, int index, int count) {
-        printArrayValues(original, "Исходный массив: ");
-        printArrayValues(modified, "Изменённый массив: ");
+        printValues(original, "Исходный массив: ");
+        printValues(modified, "Изменённый массив: ");
         System.out.printf("Значение из ячейки по переданному индексу: %.3f \n", original[index]);
         System.out.println("Количество обнулённых ячеек: " + count + "\n");
     }
 
-    public static void printArrayValues(float[] array, String msg) {
+    public static void printValues(float[] array, String msg) {
         int count = 0;
         System.out.println(msg);
         int length = array.length;
@@ -101,12 +102,12 @@ public final class Console {
     }
 
     // РЕВЕРС ЭЛЕМЕНТОВ МАССИВА
-    public static void outputArrayValues(int[] array, String msg) {
+    public static void printNumbers(int[] array, String msg) {
         System.out.println(msg + Arrays.toString(array));
     }
 
     // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
-    public static void printTextWithTypewriterEffect(String[] words) throws InterruptedException {
+    public static void printText(String[] words) throws InterruptedException {
         System.out.printf("%n");
         if (words == null) {
             System.out.println("Ошибка: входной массив не может быть null.");
@@ -116,7 +117,7 @@ public final class Console {
         for (String word : words) {
             for (char ch : word.toCharArray()) {
                 System.out.print(ch);
-                Thread.sleep(100);
+                //Thread.sleep(100);
             }
             System.out.print(" ");
         }
