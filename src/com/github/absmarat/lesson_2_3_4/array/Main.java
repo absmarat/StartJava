@@ -2,75 +2,12 @@ package com.github.absmarat.lesson_2_3_4.array;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        simulateHackingProcess();
-        createTriangle();
-        deleteArrayElement();
-        calculateFactorial();
         reverseArray();
+        simulateHacking();
+        calculateFactorial();
+        deleteArrayElement();
+        createTriangle();
         createTypewriterEffect();
-    }
-
-    // АНИМАЦИЯ ЗАГРУЗКИ
-    private static void simulateHackingProcess() throws InterruptedException {
-        Arrays.simulateHacking();
-        Console.determainStatus();
-    }
-
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
-    private static void createTriangle() {
-        String triangle = Arrays.sortSymbols('0', '9');
-        Console.printString(triangle);
-
-        triangle = Arrays.sortSymbols('i', '/');
-        Console.printString(triangle);
-
-        triangle = Arrays.sortSymbols('A', 'J');
-        Console.printString(triangle);
-    }
-
-    // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
-    private static void deleteArrayElement() {
-        int length = 15;
-        float[] realNumbers = new float[length];
-        int[] ints = {-1, 15, 0, 14};
-        float[] modified;
-        for (int index : ints) {
-            if (index < 0 || index >= length) {
-                Console.printErrorMessage(index);
-                continue;
-            }
-            modified = Arrays.fillArrays(realNumbers, index);
-            int count = 0;
-            for (int i = 0; i < length; i++) {
-                if (modified[i] != realNumbers[i]) {
-                    count++;
-                }
-            }
-            Console.printArrays(realNumbers, modified, index, count);
-        }
-    }
-
-    // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
-    private static void calculateFactorial() {
-        int[] numbers = {};
-        long[] factorials = Arrays.calculate(numbers);
-        Console.printExpr(factorials, numbers);
-
-        int[] numbers1 = null;
-        factorials = Arrays.calculate(numbers1);
-        Console.printExpr(factorials, numbers1);
-
-        int[] numbers2 = {8, 0, 9};
-        factorials = Arrays.calculate(numbers2);
-        Console.printExpr(factorials, numbers2);
-
-        int[] numbers3 = {-3, 1, 7, 13};
-        factorials = Arrays.calculate(numbers3);
-        Console.printExpr(factorials, numbers3);
-
-        int[] numbers4 = {-22, -0};
-        factorials = Arrays.calculate(numbers4);
-        Console.printExpr(factorials, numbers4);
     }
 
     // РЕВЕРС ЭЛЕМЕНТОВ МАССИВА
@@ -99,15 +36,82 @@ public class Main {
         Console.printNumbers(numbers3, afterMsg);
     }
 
+    // АНИМАЦИЯ ЗАГРУЗКИ
+    private static void simulateHacking() throws InterruptedException {
+        String result = Arrays.determineHackResult();
+        Console.displayThrobber(result);
+    }
+
+    // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
+    private static void calculateFactorial() {
+        int[] numbers = {};
+        long[] factorials = Arrays.getFactorial(numbers);
+        Console.printExpr(factorials, numbers);
+
+        int[] numbers1 = null;
+        factorials = Arrays.getFactorial(numbers1);
+        Console.printExpr(factorials, numbers1);
+
+        int[] numbers2 = {8, 0, 9};
+        factorials = Arrays.getFactorial(numbers2);
+        Console.printExpr(factorials, numbers2);
+
+        int[] numbers3 = {-3, 1, 7, 13};
+        factorials = Arrays.getFactorial(numbers3);
+        Console.printExpr(factorials, numbers3);
+
+        int[] numbers4 = {-22, -0};
+        factorials = Arrays.getFactorial(numbers4);
+        Console.printExpr(factorials, numbers4);
+    }
+
+    // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
+    private static void deleteArrayElement() {
+        int length = 15;
+        float[] floatNumbers = new float[length];
+        int[] ints = {-1, 15, 0, 14};
+        float[] modified;
+        for (int index : ints) {
+            if (index < 0 || index == length) {
+                Console.printErrorMessage(index);
+                continue;
+            }
+            modified = Arrays.fillArray(floatNumbers, index);
+            int count = 0;
+            for (int i = 0; i < length; i++) {
+                if (modified[i] != floatNumbers[i]) {
+                    count++;
+                }
+            }
+            Console.printArrays(floatNumbers, modified, index, count);
+        }
+    }
+
+    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
+    private static void createTriangle() {
+        String triangle = Arrays.sortSymbols('0', '9', false);
+        Console.printString(triangle);
+
+        triangle = Arrays.sortSymbols('i', '/', true);
+        Console.printString(triangle);
+
+        triangle = Arrays.sortSymbols('A', 'J', true);
+        Console.printString(triangle);
+    }
+
     // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
     private static void createTypewriterEffect() throws InterruptedException {
-        String enteredText = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
-                "- James Gosling\n";
+        String enteredText = """
+                Java - это C++, из которого убрали все пистолеты, ножи и дубинки.
+                - James Gosling
+                """;
         String[] modifiedText = Arrays.convertToUppercase(enteredText);
         Console.printText(modifiedText);
 
-        enteredText = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
-                "- Robert Martin\n";
+        enteredText = """
+                Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.
+                - Robert Martin
+                """;
         modifiedText = Arrays.convertToUppercase(enteredText);
         Console.printText(modifiedText);
 
