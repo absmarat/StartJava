@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.array;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public final class Console {
 
@@ -10,32 +9,24 @@ public final class Console {
     }
 
     // АНИМАЦИЯ ЗАГРУЗКИ
-    public static void determainStatus() {
-        String ANSI_RESET = "\u001B[0m";
-        String ANSI_RED = "\u001B[31m";
-        String ANSI_GREEN = "\u001B[32m";
+    public static void displayThrobber(String result) throws InterruptedException {
         String msg = "Hacking: ";
-        Random rdm = new Random();
-        int number = rdm.nextInt(100);
-        System.out.print(msg);
-        String result = (number > 70) ? (ANSI_RED + "Access Granted!") : (ANSI_GREEN + "Access Denied!");
-        System.out.print(result + ANSI_RESET + "\n\n");
-    }
-
-    public static void displayThrobber(char[] array, String msg) throws InterruptedException {
+        char[] spins = {'-', '\\', '|', '/'};
         System.out.println();
+
         for (int i = 0; i < 3; i++) {
-            for (char element : array) {
+            for (char element : spins) {
                 System.out.print(msg + element + "\r");
                 Thread.sleep(200);
             }
         }
+        System.out.println(msg + result);
     }
 
     // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
-    public static void printString(String triangle) {
-        if (triangle == null) return;
-        System.out.println(triangle);
+    public static void printString(String string) {
+        if (string == null) return;
+        System.out.println(string);
     }
 
     public static void reportError(int startSymbol, int endSymbol) {
@@ -53,19 +44,18 @@ public final class Console {
     public static void printValues(float[] array, String msg) {
         int count = 0;
         System.out.println(msg);
-        int length = array.length;
-        for (int i = 0; i < length; i++) {
+        for (float element : array) {
             if (count == 8) {
                 System.out.println();
             }
             count++;
-            System.out.printf("%.3f ", array[i]);
+            System.out.printf("%.3f ", element);
         }
         System.out.println();
     }
 
     public static void printErrorMessage(int index) {
-        System.out.println("Ошибка! В массиве нет элемента с индексом " + index);
+        System.out.println("\n" + "Ошибка! В массиве нет элемента с индексом " + index);
     }
 
     // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
@@ -76,7 +66,7 @@ public final class Console {
         }
 
         if (original.length == 0) {
-            System.out.println("Массив нулевой длины!");
+            System.out.println("\n" + "Массив нулевой длины!");
             return;
         }
 
@@ -94,11 +84,14 @@ public final class Console {
             StringBuilder expr = new StringBuilder(original[i] + "! = ");
             for (int j = 1; j <= original[i]; j++) {
                 expr.append(j);
-                expr = (j < original[i]) ? expr.append(" * ") : expr.append(" = ");
+                if ((j < original[i])) {
+                    expr.append(" * ");
+                } else {
+                    expr.append(" = ");
+                }
             }
             System.out.println(expr.append(factorials[i]));
         }
-        System.out.println();
     }
 
     // РЕВЕРС ЭЛЕМЕНТОВ МАССИВА
@@ -108,7 +101,6 @@ public final class Console {
 
     // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
     public static void printText(String[] words) throws InterruptedException {
-        System.out.printf("%n");
         if (words == null) {
             System.out.println("Ошибка: входной массив не может быть null.");
             return;
@@ -117,9 +109,10 @@ public final class Console {
         for (String word : words) {
             for (char ch : word.toCharArray()) {
                 System.out.print(ch);
-                //Thread.sleep(100);
+                Thread.sleep(100);
             }
             System.out.print(" ");
         }
+        System.out.printf("%n");
     }
 }
