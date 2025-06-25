@@ -20,10 +20,10 @@ public class Main {
         Arrays.reverseArrayValues(numbers);
         Console.printNumbers(numbers, afterMsg);
 
-        int[] numbers1 = null;
-        Console.printNumbers(numbers1, beforeMsg);
-        Arrays.reverseArrayValues(numbers1);
-        Console.printNumbers(numbers1, afterMsg);
+        //int[] numbers1 = null;
+        Console.printNumbers(null, beforeMsg);
+        Arrays.reverseArrayValues(null);
+        Console.printNumbers(null, afterMsg);
 
         int[] numbers2 = {6, 8, 9, 1};
         Console.printNumbers(numbers2, beforeMsg);
@@ -38,8 +38,9 @@ public class Main {
 
     // АНИМАЦИЯ ЗАГРУЗКИ
     private static void simulateHacking() throws InterruptedException {
-        String result = Arrays.determineHackResult();
-        Console.displayThrobber(result);
+        String msg = "Hacking: ";
+        Arrays.hack(msg);
+        Console.printHackResult(msg);
     }
 
     // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
@@ -48,9 +49,10 @@ public class Main {
         long[] factorials = Arrays.getFactorial(numbers);
         Console.printExpr(factorials, numbers);
 
-        int[] numbers1 = null;
-        factorials = Arrays.getFactorial(numbers1);
-        Console.printExpr(factorials, numbers1);
+        //int[] numbers1 = null;
+        //factorials = Arrays.getFactorial(numbers1);
+        //Console.printExpr(factorials, numbers1);
+        Console.printExpr(null, null);
 
         int[] numbers2 = {8, 0, 9};
         factorials = Arrays.getFactorial(numbers2);
@@ -115,12 +117,13 @@ public class Main {
         modifiedText = Arrays.convertToUppercase(enteredText);
         Console.printText(modifiedText);
 
-        enteredText = null;
-        modifiedText = Arrays.convertToUppercase(enteredText);
-        Console.printText(modifiedText);
+        //enteredText = null;
+        //modifiedText = Arrays.convertToUppercase(null);
+        Console.printText(null);
 
         enteredText = "";
         modifiedText = Arrays.convertToUppercase(enteredText);
         Console.printText(modifiedText);
+
     }
 }
