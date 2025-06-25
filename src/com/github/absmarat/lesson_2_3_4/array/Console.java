@@ -1,6 +1,7 @@
 package com.github.absmarat.lesson_2_3_4.array;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public final class Console {
 
@@ -9,28 +10,32 @@ public final class Console {
     }
 
     // АНИМАЦИЯ ЗАГРУЗКИ
-    public static void displayThrobber(String result) throws InterruptedException {
-        String msg = "Hacking: ";
+    public static void displayLoading(String msg) throws InterruptedException {
         char[] spins = {'-', '\\', '|', '/'};
         System.out.println();
 
         for (int i = 0; i < 3; i++) {
             for (char element : spins) {
-                System.out.print(msg + element + "\r");
-                Thread.sleep(200);
+                System.out.print(msg + element + '\r');
+                Thread.sleep(100);
             }
         }
-        System.out.println(msg + result);
+    }
+
+    public static void printHackResult(String msg) {
+        String ansiReset = "\u001B[0m";
+        String ansiRed = "\u001B[31m";
+        String ansiGreen = "\u001B[32m";
+        Random rdm = new Random();
+        int number = rdm.nextInt(100);
+        String result = (number > 70) ? (ansiRed + "Access Granted!") : (ansiGreen +  "Access Denied!");
+        System.out.println(msg +  result + ansiReset);
     }
 
     // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     public static void printString(String string) {
         if (string == null) return;
         System.out.println(string);
-    }
-
-    public static void reportError(int startSymbol, int endSymbol) {
-        System.out.println("Ошибка: левая граница (" + endSymbol + ") > правой (" + startSymbol + ")\n");
     }
 
     // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
@@ -115,4 +120,9 @@ public final class Console {
         }
         System.out.printf("%n");
     }
+
+    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
+    public static void reportError(int startSymbol, int endSymbol) {
+        System.out.println("Ошибка: левая граница (" + endSymbol + ") > правой (" + startSymbol + ")\n");
+   }
 }
