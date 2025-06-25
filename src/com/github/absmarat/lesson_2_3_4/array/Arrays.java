@@ -1,8 +1,5 @@
 package com.github.absmarat.lesson_2_3_4.array;
 
-
-import java.util.Random;
-
 public final class Arrays {
 
     private Arrays() {
@@ -47,15 +44,10 @@ public final class Arrays {
     }
 
     //АНИМАЦИЯ ЗАГРУЗКИ
-    public static String determineHackResult() {
-        String ansi_reset = "\u001B[0m";
-        String ansi_red = "\u001B[31m";
-        String ansi_green = "\u001B[32m";
-        Random rdm = new Random();
-        int number = rdm.nextInt(100);
-        String result = (number > 70) ? (ansi_red + "Access Granted!") : (ansi_green + "Access Denied!");
-        return result + ansi_reset;
+    public static void hack(String msg) throws InterruptedException {
+        Console.displayLoading(msg);
     }
+
 
     // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
     public static float[] fillArray(float[] floatNumbers, int index) {
