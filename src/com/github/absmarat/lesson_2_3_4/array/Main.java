@@ -20,7 +20,6 @@ public class Main {
         Arrays.reverseArrayValues(numbers);
         Console.printNumbers(numbers, afterMsg);
 
-        //int[] numbers1 = null;
         Console.printNumbers(null, beforeMsg);
         Arrays.reverseArrayValues(null);
         Console.printNumbers(null, afterMsg);
@@ -49,9 +48,6 @@ public class Main {
         long[] factorials = Arrays.getFactorial(numbers);
         Console.printExpr(factorials, numbers);
 
-        //int[] numbers1 = null;
-        //factorials = Arrays.getFactorial(numbers1);
-        //Console.printExpr(factorials, numbers1);
         Console.printExpr(null, null);
 
         int[] numbers2 = {8, 0, 9};
@@ -117,8 +113,6 @@ public class Main {
         modifiedText = Arrays.convertToUppercase(enteredText);
         Console.printText(modifiedText);
 
-        //enteredText = null;
-        //modifiedText = Arrays.convertToUppercase(null);
         Console.printText(null);
 
         enteredText = "";
