@@ -9,8 +9,7 @@ public final class Console {
         throw new AssertionError();
     }
 
-    // АНИМАЦИЯ ЗАГРУЗКИ
-    public static void displayLoading(String msg) throws InterruptedException {
+    public static String displayLoading(String msg) throws InterruptedException {
         char[] spins = {'-', '\\', '|', '/'};
         System.out.println();
 
@@ -20,25 +19,25 @@ public final class Console {
                 Thread.sleep(100);
             }
         }
-    }
-
-    public static void printHackResult(String msg) {
         String ansiReset = "\u001B[0m";
         String ansiRed = "\u001B[31m";
         String ansiGreen = "\u001B[32m";
         Random rdm = new Random();
         int number = rdm.nextInt(100);
         String result = (number > 70) ? (ansiRed + "Access Granted!") : (ansiGreen +  "Access Denied!");
-        System.out.println(msg +  result + ansiReset);
+
+        return msg + result + ansiReset;
     }
 
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
+    public static void printHackResult(String result) {
+        System.out.println(result);
+    }
+
     public static void printString(String string) {
         if (string == null) return;
         System.out.println(string);
     }
 
-    // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
     public static void printArrays(float[] original, float[] modified, int index, int count) {
         printValues(original, "Исходный массив: ");
         printValues(modified, "Изменённый массив: ");
@@ -63,7 +62,6 @@ public final class Console {
         System.out.println("\n" + "Ошибка! В массиве нет элемента с индексом " + index);
     }
 
-    // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
     public static void printExpr(long[] factorials, int[] original) {
         if (original == null) {
             System.out.println("null");
@@ -99,13 +97,11 @@ public final class Console {
         }
     }
 
-    // РЕВЕРС ЭЛЕМЕНТОВ МАССИВА
     public static void printNumbers(int[] array, String msg) {
         System.out.println(msg + Arrays.toString(array));
     }
 
-    // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
-    public static void printText(String[] words) throws InterruptedException {
+    public static void printTextWithTypewriterEffect(String[] words) throws InterruptedException {
         if (words == null) {
             System.out.println("Ошибка: входной массив не может быть null.");
             return;
@@ -121,7 +117,6 @@ public final class Console {
         System.out.printf("%n");
     }
 
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     public static void reportError(int startSymbol, int endSymbol) {
         System.out.println("Ошибка: левая граница (" + endSymbol + ") > правой (" + startSymbol + ")\n");
    }
