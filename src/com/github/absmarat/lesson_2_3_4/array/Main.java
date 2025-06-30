@@ -10,60 +10,55 @@ public class Main {
         createTypewriterEffect();
     }
 
-    // РЕВЕРС ЭЛЕМЕНТОВ МАССИВА
     private static void reverseArray() {
         String beforeMsg = "   До реверса: ";
         String afterMsg = "После реверса: ";
 
         int[] numbers = {};
         Console.printNumbers(numbers, beforeMsg);
-        Arrays.reverseArrayValues(numbers);
+        Arrays.reverse(numbers);
         Console.printNumbers(numbers, afterMsg);
 
         Console.printNumbers(null, beforeMsg);
-        Arrays.reverseArrayValues(null);
+        Arrays.reverse(null);
         Console.printNumbers(null, afterMsg);
 
         int[] numbers2 = {6, 8, 9, 1};
         Console.printNumbers(numbers2, beforeMsg);
-        Arrays.reverseArrayValues(numbers2);
+        Arrays.reverse(numbers2);
         Console.printNumbers(numbers2, afterMsg);
 
         int[] numbers3 = {13, 8, 5, 3, 2, 1, 1};
         Console.printNumbers(numbers3, beforeMsg);
-        Arrays.reverseArrayValues(numbers3);
+        Arrays.reverse(numbers3);
         Console.printNumbers(numbers3, afterMsg);
     }
 
-    // АНИМАЦИЯ ЗАГРУЗКИ
     private static void simulateHacking() throws InterruptedException {
-        String msg = "Hacking: ";
-        Arrays.hack(msg);
-        Console.printHackResult(msg);
+        String result = Arrays.hack();
+        Console.printHackResult(result);
     }
 
-    // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
     private static void calculateFactorial() {
         int[] numbers = {};
-        long[] factorials = Arrays.getFactorial(numbers);
+        long[] factorials = Arrays.calсFactorial(numbers);
         Console.printExpr(factorials, numbers);
 
         Console.printExpr(null, null);
 
         int[] numbers2 = {8, 0, 9};
-        factorials = Arrays.getFactorial(numbers2);
+        factorials = Arrays.calсFactorial(numbers2);
         Console.printExpr(factorials, numbers2);
 
         int[] numbers3 = {-3, 1, 7, 13};
-        factorials = Arrays.getFactorial(numbers3);
+        factorials = Arrays.calсFactorial(numbers3);
         Console.printExpr(factorials, numbers3);
 
         int[] numbers4 = {-22, -0};
-        factorials = Arrays.getFactorial(numbers4);
+        factorials = Arrays.calсFactorial(numbers4);
         Console.printExpr(factorials, numbers4);
     }
 
-    // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
     private static void deleteArrayElement() {
         int length = 15;
         float[] floatNumbers = new float[length];
@@ -85,7 +80,6 @@ public class Main {
         }
     }
 
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     private static void createTriangle() {
         String triangle = Arrays.sortSymbols('0', '9', false);
         Console.printString(triangle);
@@ -97,27 +91,26 @@ public class Main {
         Console.printString(triangle);
     }
 
-    // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
     private static void createTypewriterEffect() throws InterruptedException {
         String enteredText = """
                 Java - это C++, из которого убрали все пистолеты, ножи и дубинки.
                 - James Gosling
                 """;
         String[] modifiedText = Arrays.convertToUppercase(enteredText);
-        Console.printText(modifiedText);
+        Console.printTextWithTypewriterEffect(modifiedText);
 
         enteredText = """
                 Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.
                 - Robert Martin
                 """;
         modifiedText = Arrays.convertToUppercase(enteredText);
-        Console.printText(modifiedText);
+        Console.printTextWithTypewriterEffect(modifiedText);
 
-        Console.printText(null);
+        Console.printTextWithTypewriterEffect(null);
 
         enteredText = "";
         modifiedText = Arrays.convertToUppercase(enteredText);
-        Console.printText(modifiedText);
+        Console.printTextWithTypewriterEffect(modifiedText);
 
     }
 }
