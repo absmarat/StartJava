@@ -6,7 +6,6 @@ public final class Arrays {
         throw new AssertionError();
     }
 
-    // ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ
     public static String[] convertToUppercase(String originalText) {
         if (originalText == null || originalText.isBlank()) {
             return null;
@@ -43,13 +42,11 @@ public final class Arrays {
         return words;
     }
 
-    //АНИМАЦИЯ ЗАГРУЗКИ
-    public static void hack(String msg) throws InterruptedException {
-        Console.displayLoading(msg);
+    public static String hack() throws InterruptedException {
+        String msg = "Hacking: ";
+        return Console.displayLoading(msg);
     }
 
-
-    // УДАЛЕНИЕ ЭЛЕМЕНТОВ МАССИВА, ПРЕВЫШАЮЩИХ ЗАДАННОЕ ЗНАЧЕНИЕ
     public static float[] fillArray(float[] floatNumbers, int index) {
         int length = floatNumbers.length;
 
@@ -65,8 +62,7 @@ public final class Arrays {
         return modified;
     }
 
-    // ВЫЧИСЛЕНИЕ ФАКТОРИАЛА
-    public static long[] getFactorial(int... numbers) {
+    public static long[] calсFactorial(int... numbers) {
         if (numbers == null) {
             return null;
         }
@@ -83,8 +79,7 @@ public final class Arrays {
         return factorials;
     }
 
-    // РЕВЕРС ЭЛЕМЕНТОВ МАССИВА
-    public static void reverseArrayValues(int[] array) {
+    public static void reverse(int[] array) {
         if (array == null) {
             return;
         }
@@ -97,7 +92,6 @@ public final class Arrays {
         }
     }
 
-    // ВЫВОД ОТСОРТИРОВАННЫХ СИМВОЛОВ В ВИДЕ ТРЕУГОЛЬНИКА
     public static String sortSymbols(char startSymbol, char endSymbol, boolean asc) {
         if (startSymbol > endSymbol) {
             Console.reportError(endSymbol, startSymbol);
