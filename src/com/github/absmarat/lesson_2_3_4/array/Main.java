@@ -5,7 +5,7 @@ public class Main {
         reverseArray();
         simulateHacking();
         calculateFactorial();
-        deleteArrayElement();
+        fillArrayFloatNumbers();
         createTriangle();
         createTypewriterEffect();
     }
@@ -41,25 +41,25 @@ public class Main {
 
     private static void calculateFactorial() {
         int[] numbers = {};
-        long[] factorials = Arrays.calсFactorial(numbers);
+        long[] factorials = Arrays.calFctorial(numbers);
         Console.printExpr(factorials, numbers);
 
         Console.printExpr(null, null);
 
         int[] numbers2 = {8, 0, 9};
-        factorials = Arrays.calсFactorial(numbers2);
+        factorials = Arrays.calFctorial(numbers2);
         Console.printExpr(factorials, numbers2);
 
         int[] numbers3 = {-3, 1, 7, 13};
-        factorials = Arrays.calсFactorial(numbers3);
+        factorials = Arrays.calFctorial(numbers3);
         Console.printExpr(factorials, numbers3);
 
         int[] numbers4 = {-22, -0};
-        factorials = Arrays.calсFactorial(numbers4);
+        factorials = Arrays.calFctorial(numbers4);
         Console.printExpr(factorials, numbers4);
     }
 
-    private static void deleteArrayElement() {
+    private static void fillArrayFloatNumbers() {
         int length = 15;
         float[] floatNumbers = new float[length];
         int[] ints = {-1, 15, 0, 14};
@@ -96,21 +96,21 @@ public class Main {
                 Java - это C++, из которого убрали все пистолеты, ножи и дубинки.
                 - James Gosling
                 """;
-        String[] modifiedText = Arrays.convertToUppercase(enteredText);
-        Console.printTextWithTypewriterEffect(modifiedText);
+        String[] modifiedText = Arrays.convertMultipleSubstrings(enteredText);
+        Console.displayTypewriterEffect(modifiedText);
 
         enteredText = """
                 Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.
                 - Robert Martin
                 """;
-        modifiedText = Arrays.convertToUppercase(enteredText);
-        Console.printTextWithTypewriterEffect(modifiedText);
+        modifiedText = Arrays.convertMultipleSubstrings(enteredText);
+        Console.displayTypewriterEffect(modifiedText);
 
-        Console.printTextWithTypewriterEffect(null);
+        Console.displayTypewriterEffect(null);
 
         enteredText = "";
-        modifiedText = Arrays.convertToUppercase(enteredText);
-        Console.printTextWithTypewriterEffect(modifiedText);
+        modifiedText = Arrays.convertMultipleSubstrings(enteredText);
+        Console.displayTypewriterEffect(modifiedText);
 
     }
 }
