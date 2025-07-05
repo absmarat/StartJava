@@ -6,7 +6,7 @@ public final class Arrays {
         throw new AssertionError();
     }
 
-    public static String[] convertToUppercase(String originalText) {
+    public static String[] convertMultipleSubstrings(String originalText) {
         if (originalText == null || originalText.isBlank()) {
             return null;
         }
@@ -62,7 +62,7 @@ public final class Arrays {
         return modified;
     }
 
-    public static long[] calсFactorial(int... numbers) {
+    public static long[] calFctorial(int... numbers) {
         if (numbers == null) {
             return null;
         }
