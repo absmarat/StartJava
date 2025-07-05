@@ -101,7 +101,7 @@ public final class Console {
         System.out.println(msg + Arrays.toString(array));
     }
 
-    public static void printTextWithTypewriterEffect(String[] words) throws InterruptedException {
+    public static void displayTypewriterEffect(String[] words) throws InterruptedException {
         if (words == null) {
             System.out.println("Ошибка: входной массив не может быть null.");
             return;
