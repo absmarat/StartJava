@@ -3,7 +3,6 @@ package com.github.absmarat.lesson_2_3_4.guess;
 import java.util.Scanner;
 
 public class GuessNumber {
-
     private Player p1;
     private Player p2;
     private int targetNumber;
