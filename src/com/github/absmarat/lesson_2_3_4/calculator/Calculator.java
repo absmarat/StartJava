@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.calculator;
 
 public class Calculator {
-    
     private int firstNumber;
     private int secondNumber;
     private char operation;
@@ -36,6 +35,7 @@ public class Calculator {
                     return;
                 }
                 result = firstNumber / secondNumber;
+                break;
             case '^':
                 result = 1;
                 if (secondNumber < 0) {
