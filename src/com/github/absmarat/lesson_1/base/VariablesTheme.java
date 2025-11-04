@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_1.base;
 
 public class VariablesTheme {
-
     public static void main(String[] args) {
         // ЗАДАНИЕ 1
         System.out.println("1. Вывод характеристик компьютера в консоль.\n");
