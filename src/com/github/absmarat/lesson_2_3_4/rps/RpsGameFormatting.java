@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class RpsGameFormatting {
-
     private static final String ROCK = "R";
     private static final String SCISSORS = "S";
     private static final String PAPER = "P";
