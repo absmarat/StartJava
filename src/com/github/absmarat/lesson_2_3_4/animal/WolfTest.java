@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.animal;
 
 public class WolfTest {
-
     public static void main(String[] args) {
         Wolf wolfOne = new Wolf();
         wolfOne.setGender("самец");
