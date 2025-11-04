@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.method.naming;
 
 public class Main {
-
     public static void main(String[] args) { 
         execNonBooleanMethods();
         execBooleanMethods();
