@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.robot;
 
 public class Jaeger {
-
     private String modelName;
     private String origin;
     private String arming;
