@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.guess;
 
 public class Player {
-    
     private String name;
     private int number;
 
