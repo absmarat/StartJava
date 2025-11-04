@@ -1,12 +1,28 @@
 package com.github.absmarat.lesson_2_3_4.array;
 
 public final class Arrays {
-
     private Arrays() {
         throw new AssertionError();
     }
 
-    public static String[] convertMultipleSubstrings(String originalText) {
+    public static long[] calFctorial(int... numbers) {
+        if (numbers == null) {
+            return null;
+        }
+
+        int length = numbers.length;
+        long[] factorials = new long[length];
+        for (int i = 0; i < length; i++) {
+            long factorial = 1;
+            for (int j = 2; j <= numbers[i]; j++) {
+                factorial *= j;
+            }
+            factorials[i] = factorial;
+        }
+        return factorials;
+    }
+
+    public static String[] convertSubstringToUpperCase(String originalText) {
         if (originalText == null || originalText.isBlank()) {
             return null;
         }
@@ -42,11 +58,6 @@ public final class Arrays {
         return words;
     }
 
-    public static String hack() throws InterruptedException {
-        String msg = "Hacking: ";
-        return Console.displayLoading(msg);
-    }
-
     public static float[] fillArray(float[] floatNumbers, int index) {
         int length = floatNumbers.length;
 
@@ -62,21 +73,9 @@ public final class Arrays {
         return modified;
     }
 
-    public static long[] calFctorial(int... numbers) {
-        if (numbers == null) {
-            return null;
-        }
-
-        int length = numbers.length;
-        long[] factorials = new long[length];
-        for (int i = 0; i < length; i++) {
-            long factorial = 1;
-            for (int j = 2; j <= numbers[i]; j++) {
-                factorial *= j;
-            }
-            factorials[i] = factorial;
-        }
-        return factorials;
+    public static String hack() throws InterruptedException {
+        String msg = "Hacking: ";
+        return Console.displayLoading(msg);
     }
 
     public static void reverse(int[] array) {
