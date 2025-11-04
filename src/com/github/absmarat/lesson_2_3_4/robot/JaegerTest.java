@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.robot;
 
 public class JaegerTest {
-
     public static void main(String[] args) {
         Jaeger robot1 = new Jaeger();
         robot1.setModelName("Багровый Тайфун");
