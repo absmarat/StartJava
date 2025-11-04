@@ -1,10 +1,8 @@
 package com.github.absmarat.lesson_2_3_4.guess;
 
-
 import java.util.Scanner;
 
 public class GuessNumberTest {
-
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
         System.out.print("Введите имя первого игрока: ");
