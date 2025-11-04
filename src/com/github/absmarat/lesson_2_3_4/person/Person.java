@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.person;
 
 public class Person {
-
     String sex = "мужской";
     String name = "Евгений";
     float height = 185F;
