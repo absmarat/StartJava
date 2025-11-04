@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.animal;
 
 public class Wolf {
-    
     private String gender;
     private String name;
     private float weight;
