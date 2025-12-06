@@ -7,9 +7,9 @@ public class HangmanGame {
         Scanner scanner = new Scanner(System.in);
         StringBuilder incorrectLetters = new StringBuilder();
         StringBuilder mask = new StringBuilder();
-        String[] words = {"виселица", "игра", "компьютер", "алгоритм", "программирование"};
-        int index = (int) (0 + Math.random() * words.length);
-        String selectedWord = words[index];
+        String[] wordList = {"виселица", "игра", "компьютер", "алгоритм", "программирование"};
+        int index = (int) (0 + Math.random() * wordList.length);
+        String selectedWord = wordList[index];
         int attempts = 6;
 
         for (int i = 0; i < selectedWord.length(); i++) {
