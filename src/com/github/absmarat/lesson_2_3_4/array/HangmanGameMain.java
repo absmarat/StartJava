@@ -4,26 +4,26 @@ import java.util.Scanner;
 
 public class HangmanGameMain {
     public static void main(String[] args) {
-        Scanner console = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         HangmanGame game = new HangmanGame();
         String answer = "yes";
 
         while (answer.equals("yes")) {
             game.start();
             System.out.print("\nХотите продолжить игру? [yes/no]:  ");
-            answer = console.nextLine().toLowerCase();
+            answer = scanner.nextLine().toLowerCase();
 
             if (!answer.equals("yes") && !answer.equals("no")) {
-                answer = enterCorrectAnswer(console, answer);
+                answer = enterCorrectAnswer(scanner, answer);
             }
         }
-        console.close();
+        scanner.close();
     }
 
-    private static String enterCorrectAnswer(Scanner console, String answer) {
+    private static String enterCorrectAnswer(Scanner scanner, String answer) {
         while (!answer.equals("yes") && !answer.equals("no")) {
-            System.out.println("Введите корректный ответ [yes / no]: ");
-            answer = console.nextLine().toLowerCase();
+            System.out.print("Введите корректный ответ [yes / no]: ");
+            answer = scanner.nextLine().toLowerCase();
         }
         return answer;
     }
