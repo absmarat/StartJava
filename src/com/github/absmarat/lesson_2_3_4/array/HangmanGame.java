@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class HangmanGame {
     public void start() {
-        Scanner scan = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         StringBuilder incorrectLetters = new StringBuilder();
         StringBuilder mask = new StringBuilder();
         String[] words = {"виселица", "игра", "компьютер", "алгоритм", "программирование"};
@@ -21,8 +21,8 @@ public class HangmanGame {
         while (attempts > 0) {
             System.out.println("Угадываемое слово: " + String.valueOf(mask).toUpperCase());
             System.out.println("Неверно введённые буквы: " + String.valueOf(incorrectLetters).toUpperCase());
-            System.out.println("Введите букву из кириллического алфавита: ");
-            char guess = scan.next().toLowerCase().charAt(0);
+            System.out.print("Введите букву из кириллического алфавита: ");
+            char guess = scanner.next().toLowerCase().charAt(0);
 
             if (!isLetter(guess)) {
                 System.out.println("Символ " + "\"" + String.valueOf(guess).toUpperCase() + "\"" +
