@@ -6,7 +6,7 @@ public class HangmanGameMain {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
         String answer = "yes";
-                
+
         while (answer.equals("yes")) {
             HangmanGame game = new HangmanGame();
             game.start();
