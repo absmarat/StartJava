@@ -13,6 +13,7 @@ public class HangmanGameMain {
             System.out.print("\nХотите продолжить игру? [yes/no]:  ");
             answer = enterAnswer(console);
 
+            // Программа завершится, если ответ снова будет введён неверно.
             if (!answer.equals("yes") && !answer.equals("no")) {
                 System.out.print("Введите корректный ответ [yes / no]: ");
                 answer = enterAnswer(console);
