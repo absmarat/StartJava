@@ -11,7 +11,6 @@ public class HangmanGame {
             "|    / \\",
             "| GAME OVER!"
     };
-
     private static final String[] WORDS = {"виселица", "компьютер", "алгоритм", "программирование", "игра"};
     private static final int MAX_ATTEMPTS = HANGMAN_ELEMENTS.length;
     private static Scanner scanner;
