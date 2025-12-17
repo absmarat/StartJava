@@ -12,7 +12,7 @@ public class HangmanGame {
             "| GAME OVER!"
     };
     private static final String[] WORDS = {"виселица", "компьютер", "алгоритм", "программирование", "игра"};
-    private static final int MAX_ATTEMPTS = HANGMAN_ELEMENTS.length;
+    private static final int MAX_STEPS = HANGMAN_ELEMENTS.length;
     private static Scanner scanner;
     private static String selectedWord;
     private static int currentNumAttempts;
@@ -58,8 +58,8 @@ public class HangmanGame {
                 mask.replace(i, i + 1, String.valueOf(guess));
                 found = true;
 
-                if (currentNumAttempts < MAX_ATTEMPTS) {
-                    amountHangmanElements = MAX_ATTEMPTS - (++currentNumAttempts);
+                if (currentNumAttempts < MAX_STEPS) {
+                    amountHangmanElements = MAX_STEPS - (++currentNumAttempts);
                     System.out.println("Буква " + "\"" + String.valueOf(guess).toUpperCase() +
                             "\"" + " верна." + "Количество попыток: " + currentNumAttempts);
                     System.out.println(defineHangmanElements(amountHangmanElements));
@@ -69,7 +69,7 @@ public class HangmanGame {
 
         if (!found) {
             wrongLetters.append(guess).append(",");
-            amountHangmanElements = MAX_ATTEMPTS - (--currentNumAttempts);
+            amountHangmanElements = MAX_STEPS - (--currentNumAttempts);
             System.out.println("Буквы " + "\"" + String.valueOf(guess).toUpperCase() + "\"" +
                     " нет в угадываемом слове! Количество попыток: " + currentNumAttempts);
             System.out.println(defineHangmanElements(amountHangmanElements));
@@ -99,7 +99,7 @@ public class HangmanGame {
     private static void initializeGame() {
         scanner = new Scanner(System.in);
         selectedWord = WORDS[(int) (Math.random() * WORDS.length)];
-        currentNumAttempts = MAX_ATTEMPTS;
+        currentNumAttempts = MAX_STEPS;
         wrongLetters = new StringBuilder();
         mask = new StringBuilder("*".repeat(selectedWord.length()));
     }
