@@ -15,7 +15,7 @@ public class HangmanGame {
     private static final int MAX_STEPS = HANGMAN_ELEMENTS.length;
     private static Scanner scanner;
     private static String selectedWord;
-    private static int currentNumAttempts;
+    private static int attepmts;
     private static StringBuilder wrongLetters;
     private static StringBuilder mask;
 
@@ -23,7 +23,7 @@ public class HangmanGame {
         initializeGame();
         printWelcomeMessage();
 
-        while (!String.valueOf(mask).equals(selectedWord) && currentNumAttempts > 0) {
+        while (!String.valueOf(mask).equals(selectedWord) && attepmts > 0) {
             displayGameState();
             char guess = enterLetter();
 
@@ -58,10 +58,10 @@ public class HangmanGame {
                 mask.replace(i, i + 1, String.valueOf(guess));
                 found = true;
 
-                if (currentNumAttempts < MAX_STEPS) {
-                    amountHangmanElements = MAX_STEPS - (++currentNumAttempts);
+                if (attepmts < MAX_STEPS) {
+                    amountHangmanElements = MAX_STEPS - (++attepmts);
                     System.out.println("Буква " + "\"" + String.valueOf(guess).toUpperCase() +
-                            "\"" + " верна." + "Количество попыток: " + currentNumAttempts);
+                            "\"" + " верна." + "Количество попыток: " + attepmts);
                     System.out.println(defineHangmanElements(amountHangmanElements));
                 }
             }
@@ -69,9 +69,9 @@ public class HangmanGame {
 
         if (!found) {
             wrongLetters.append(guess).append(",");
-            amountHangmanElements = MAX_STEPS - (--currentNumAttempts);
+            amountHangmanElements = MAX_STEPS - (--attepmts);
             System.out.println("Буквы " + "\"" + String.valueOf(guess).toUpperCase() + "\"" +
-                    " нет в угадываемом слове! Количество попыток: " + currentNumAttempts);
+                    " нет в угадываемом слове! Количество попыток: " + attepmts);
             System.out.println(defineHangmanElements(amountHangmanElements));
         }
     }
@@ -99,7 +99,7 @@ public class HangmanGame {
     private static void initializeGame() {
         scanner = new Scanner(System.in);
         selectedWord = WORDS[(int) (Math.random() * WORDS.length)];
-        currentNumAttempts = MAX_STEPS;
+        attepmts = MAX_STEPS;
         wrongLetters = new StringBuilder();
         mask = new StringBuilder("*".repeat(selectedWord.length()));
     }
@@ -121,14 +121,14 @@ public class HangmanGame {
 
     private static void printWelcomeMessage() {
         System.out.println("\nДобро пожаловать в игру!\n" +
-                "У вас " + currentNumAttempts + " попыток, чтобы угадать слово.");
+                "У вас " + attepmts + " попыток, чтобы угадать слово.");
     }
 
     private static void printFinalResult() {
         if (String.valueOf(mask).equals(selectedWord)) {
             System.out.println("Поздравляю! Вы угадали слово " +
                     "\"" + String.valueOf(mask).toUpperCase() + "\"");
-        } else if (currentNumAttempts == 0) {
+        } else if (attepmts == 0) {
             System.out.println("Все попытки исчерпаны. Вы проиграли! Загаданное слово " +
                     "\"" + selectedWord.toUpperCase() + "\"");
         }
