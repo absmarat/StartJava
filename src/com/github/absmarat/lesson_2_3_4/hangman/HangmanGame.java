@@ -50,7 +50,7 @@ public class HangmanGame {
             printFinalResult();
         }
     }
-    
+
     private static void checkLetterValidity(char guess) {
         int amountHangmanElements = 0;
         boolean found = false;
@@ -121,7 +121,7 @@ public class HangmanGame {
     }
 
     private static void printWelcomeMessage() {
-        System.out.println("Добро пожаловать в игру!\n" +
+        System.out.println("\nДобро пожаловать в игру!\n" +
                 "У вас " + currentNumAttempts + " попыток, чтобы угадать слово.");
     }
 
