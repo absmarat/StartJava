@@ -50,7 +50,7 @@ public class HangmanGame {
             printFinalResult();
         }
     }
-
+    
     private static void checkLetterValidity(char guess) {
         int amountHangmanElements = 0;
         boolean found = false;
