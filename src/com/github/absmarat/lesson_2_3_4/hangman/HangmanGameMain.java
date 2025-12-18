@@ -14,6 +14,7 @@ public class HangmanGameMain {
             answer = enterAnswer(console);
 
             // Программа завершится, если ответ снова будет введён неверно.
+            // Без вложенного цикла while блок кода является недоработанным.
             if (!answer.equals("yes") && !answer.equals("no")) {
                 System.out.print("Введите корректный ответ [yes / no]: ");
                 answer = enterAnswer(console);
