@@ -12,7 +12,7 @@ public class HangmanGame {
             "| GAME OVER!"
     };
     private static final String[] WORDS = {"виселица", "компьютер", "алгоритм", "программирование", "игра"};
-    private static final int MAX_STEPS = HANGMAN_ELEMENTS.length;
+    private static final int MAX_ATTEMTS = HANGMAN_ELEMENTS.length;
     private static Scanner scanner;
     private static String selectedWord;
     private static int attepmts;
@@ -58,8 +58,8 @@ public class HangmanGame {
                 mask.replace(i, i + 1, String.valueOf(guess));
                 found = true;
 
-                if (attepmts < MAX_STEPS) {
-                    amountHangmanElements = MAX_STEPS - (++attepmts);
+                if (attepmts < MAX_ATTEMTS) {
+                    amountHangmanElements = MAX_ATTEMTS - (++attepmts);
                     System.out.println("Буква " + "\"" + String.valueOf(guess).toUpperCase() +
                             "\"" + " верна." + "Количество попыток: " + attepmts);
                     System.out.println(defineHangmanElements(amountHangmanElements));
@@ -69,7 +69,7 @@ public class HangmanGame {
 
         if (!found) {
             wrongLetters.append(guess).append(",");
-            amountHangmanElements = MAX_STEPS - (--attepmts);
+            amountHangmanElements = MAX_ATTEMTS - (--attepmts);
             System.out.println("Буквы " + "\"" + String.valueOf(guess).toUpperCase() + "\"" +
                     " нет в угадываемом слове! Количество попыток: " + attepmts);
             System.out.println(defineHangmanElements(amountHangmanElements));
@@ -99,7 +99,7 @@ public class HangmanGame {
     private static void initializeGame() {
         scanner = new Scanner(System.in);
         selectedWord = WORDS[(int) (Math.random() * WORDS.length)];
-        attepmts = MAX_STEPS;
+        attepmts = MAX_ATTEMTS;
         wrongLetters = new StringBuilder();
         mask = new StringBuilder("*".repeat(selectedWord.length()));
     }
