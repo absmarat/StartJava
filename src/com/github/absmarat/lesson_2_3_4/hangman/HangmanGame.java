@@ -62,7 +62,7 @@ public class HangmanGame {
                     amountHangmanElements = MAX_ATTEMTS - (++attepmts);
                     System.out.println("Буква " + "\"" + String.valueOf(guess).toUpperCase() +
                             "\"" + " верна." + "Количество попыток: " + attepmts);
-                    System.out.println(defineHangmanElements(amountHangmanElements));
+                    displayHangmanElements(amountHangmanElements);
                 }
             }
         }
@@ -72,17 +72,17 @@ public class HangmanGame {
             amountHangmanElements = MAX_ATTEMTS - (--attepmts);
             System.out.println("Буквы " + "\"" + String.valueOf(guess).toUpperCase() + "\"" +
                     " нет в угадываемом слове! Количество попыток: " + attepmts);
-            System.out.println(defineHangmanElements(amountHangmanElements));
+            displayHangmanElements(amountHangmanElements);
         }
     }
 
-    private static String defineHangmanElements(int amount) {
+    private static void displayHangmanElements(int amount) {
         StringBuilder elements = new StringBuilder();
 
         for (int i = 0; i < amount; i++) {
             elements.append(HANGMAN_ELEMENTS[i]).append("\n");
         }
-        return elements.toString();
+        System.out.println(elements);
     }
 
     private static void displayGameState() {
