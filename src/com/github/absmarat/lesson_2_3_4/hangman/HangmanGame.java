@@ -3,7 +3,7 @@ package com.github.absmarat.lesson_2_3_4.hangman;
 import java.util.Scanner;
 
 public class HangmanGame {
-    private static final String[] HANGMAN_ELEMENTS = {
+    private String[] gallows = {
             "_______",
             "|     |",
             "|     @",
@@ -11,101 +11,92 @@ public class HangmanGame {
             "|    / \\",
             "| GAME OVER!"
     };
-    private static final String[] WORDS = {"виселица", "компьютер", "алгоритм", "программирование", "игра"};
-    private static final int MAX_ATTEMTS = HANGMAN_ELEMENTS.length;
-    private static Scanner scanner;
-    private static String selectedWord;
-    private static int attepmts;
-    private static StringBuilder wrongLetters;
-    private static StringBuilder mask;
+    private int maxAttempts = gallows.length;
+    private String[] words = {"ВИ"};
+    private Scanner scanner;
+    private String selectedWord;
+    private int currAttempt;
+    private StringBuilder wrongLetters;
+    private StringBuilder mask;
 
-    public void start() {
-        initializeGame();
-        printWelcomeMessage();
-
-        while (!String.valueOf(mask).equals(selectedWord) && attepmts > 0) {
-            displayGameState();
-            char guess = enterLetter();
-
-            if (!isLetter(guess)) {
-                System.out.println("Символ " + "\"" + String.valueOf(guess).toUpperCase() + "\"" +
-                        " не корректен, введите букву кириллического алфавита!");
-                continue;
-            }
-
-            if (isReEnteredLetter(guess, mask)) {
-                System.out.println("Буква " + "\"" + String.valueOf(guess).toUpperCase() +
-                        "\"" + " уже угадана!");
-                continue;
-            }
-
-            if (isReEnteredLetter(guess, wrongLetters)) {
-                System.out.println("Буква " + "\"" + String.valueOf(guess).toUpperCase() +
-                        "\"" + " уже вводилась!");
-                continue;
-            }
-
-            checkLetterValidity(guess);
-            printFinalResult();
-        }
-    }
-
-    private static void checkLetterValidity(char guess) {
-        int amountHangmanElements = 0;
-        boolean found = false;
-        for (int i = 0; i < selectedWord.length(); i++) {
-            if (guess == selectedWord.charAt(i)) {
-                mask.replace(i, i + 1, String.valueOf(guess));
-                found = true;
-
-                if (attepmts < MAX_ATTEMTS) {
-                    amountHangmanElements = MAX_ATTEMTS - (++attepmts);
-                    System.out.println("Буква " + "\"" + String.valueOf(guess).toUpperCase() +
-                            "\"" + " верна." + "Количество попыток: " + attepmts);
-                    displayHangmanElements(amountHangmanElements);
-                }
-            }
-        }
-
-        if (!found) {
-            wrongLetters.append(guess).append(",");
-            amountHangmanElements = MAX_ATTEMTS - (--attepmts);
-            System.out.println("Буквы " + "\"" + String.valueOf(guess).toUpperCase() + "\"" +
-                    " нет в угадываемом слове! Количество попыток: " + attepmts);
-            displayHangmanElements(amountHangmanElements);
-        }
-    }
-
-    private static void displayHangmanElements(int amount) {
-        StringBuilder elements = new StringBuilder();
-
-        for (int i = 0; i < amount; i++) {
-            elements.append(HANGMAN_ELEMENTS[i]).append("\n");
-        }
-        System.out.println(elements);
-    }
-
-    private static void displayGameState() {
-        System.out.println("Угадываемое слово: " + String.valueOf(mask).toUpperCase());
-        System.out.println("Неверно введённые буквы: " + String.valueOf(wrongLetters).toUpperCase());
-    }
-
-    private static char enterLetter() {
-        System.out.print("Введите букву из кириллического алфавита: ");
-        char letter = scanner.next().toLowerCase().charAt(0);
-        return letter;
-    }
-
-    private static void initializeGame() {
+    public HangmanGame() {
         scanner = new Scanner(System.in);
-        selectedWord = WORDS[(int) (Math.random() * WORDS.length)];
-        attepmts = MAX_ATTEMTS;
+        selectedWord = words[(int) (Math.random() * words.length)];
+        currAttempt = maxAttempts;
         wrongLetters = new StringBuilder();
         mask = new StringBuilder("*".repeat(selectedWord.length()));
     }
 
-    private static boolean isLetter(char ch) {
-        return (ch >= 'а' && ch <= 'я') || ch == 'ё';
+    public void start() {
+        printWelcomeMessage(currAttempt);
+
+        while (!selectedWord.contentEquals(mask) && currAttempt > 0) {
+            displayGameState(mask, wrongLetters);
+            char guess = enterLetter(scanner);
+
+            if (isReEnteredLetter(guess, mask)) {
+                System.out.println("Буква " + "\"" + guess + "\"" + " уже угадана!");
+                continue;
+            }
+
+            if (isReEnteredLetter(guess, wrongLetters)) {
+                System.out.println("Буква " + "\"" + guess + "\"" + " уже вводилась!");
+                continue;
+            }
+
+            boolean found = false;
+            for (int i = 0; i < selectedWord.length(); i++) {
+                if (guess == selectedWord.charAt(i)) {
+                    mask.setCharAt(i, guess);
+                    found = true;
+
+                    if (currAttempt < maxAttempts) {
+                        System.out.printf("""
+                                Буква "%s" верна! Количество попыток:
+                                 """, guess, ++currAttempt);
+                        displayHangmanElements(maxAttempts, currAttempt, gallows);
+                    }
+                }
+            }
+
+            if (!found) {
+                wrongLetters.append(guess).append(",");
+                System.out.printf("""
+                        Буквы "%s" нет в угадываемом слове! Количество попыток: %d
+                        """, guess, --currAttempt);
+                displayHangmanElements(maxAttempts, currAttempt, gallows);
+            }
+            printGameResult(mask, selectedWord, currAttempt);
+        }
+    }
+
+    private static void printWelcomeMessage(int currAttempt) {
+        System.out.printf("""
+                Добро пожаловать в игру!
+                У вас %d попыток, чтобы угадать слово.
+                """, currAttempt);
+    }
+
+    private static void displayGameState(StringBuilder mask, StringBuilder wrongLetters) {
+        System.out.println("Угадываемое слово: " + mask);
+        System.out.println("Неверно введённые буквы: " + wrongLetters);
+    }
+
+    private static char enterLetter(Scanner scanner) {
+        char letter;
+        while (true) {
+            System.out.print("Введите букву из кириллического алфавита: ");
+            letter = scanner.next().toUpperCase().charAt(0);
+
+            if ((letter >= 'А' && letter <= 'Я') || letter == 'Ё') {
+                break;
+            } else {
+                System.out.printf("""
+                        Символ "%s" не корректен, введите букву кириллического алфавита!
+                        """, letter);
+            }
+        }
+        return letter;
     }
 
     private static boolean isReEnteredLetter(char letter, StringBuilder str) {
@@ -119,18 +110,26 @@ public class HangmanGame {
         return found;
     }
 
-    private static void printWelcomeMessage() {
-        System.out.println("\nДобро пожаловать в игру!\n" +
-                "У вас " + attepmts + " попыток, чтобы угадать слово.");
+    private static void displayHangmanElements(int maxAttempts, int currAttempt, String[] gallows) {
+        StringBuilder elements = new StringBuilder();
+        int hangmanElementsAmount = maxAttempts - currAttempt;
+
+        for (int i = 0; i < hangmanElementsAmount; i++) {
+            elements.append(gallows[i]).append("\n");
+        }
+        System.out.print(elements);
     }
 
-    private static void printFinalResult() {
-        if (String.valueOf(mask).equals(selectedWord)) {
-            System.out.println("Поздравляю! Вы угадали слово " +
-                    "\"" + String.valueOf(mask).toUpperCase() + "\"");
-        } else if (attepmts == 0) {
-            System.out.println("Все попытки исчерпаны. Вы проиграли! Загаданное слово " +
-                    "\"" + selectedWord.toUpperCase() + "\"");
-        }
+    private static void printGameResult(StringBuilder mask, String selectedWord, int currAttempt) {
+        System.out.println(selectedWord.contentEquals(mask) ? win(mask)
+                : currAttempt == 0 ? loss(selectedWord) : "");
+    }
+
+    private static String win(StringBuilder mask) {
+        return "Поздравляю! Вы угадали слово \"" + mask + "\"";
+    }
+
+    private static String loss(String selectedWord) {
+        return "Все попытки исчерпаны. Вы проиграли! Загаданное слово \"" + selectedWord + "\"";
     }
 }
