@@ -7,24 +7,18 @@ public class HangmanGameMain {
         Scanner console = new Scanner(System.in);
         String answer = "yes";
 
-        while (answer.equals("yes")) {
+        do {
             HangmanGame game = new HangmanGame();
-            game.start();
-            System.out.print("\nХотите продолжить игру? [yes/no]:  ");
-            answer = enterAnswer(console);
-
-            // Программа завершится, если ответ снова будет введён неверно.
-            // Без вложенного цикла while блок кода является недоработанным.
-            if (!answer.equals("yes") && !answer.equals("no")) {
-                System.out.print("Введите корректный ответ [yes / no]: ");
-                answer = enterAnswer(console);
+            if ("yes".equals(answer)) {
+                game.start();
+                System.out.print("Хотите продолжить игру? [yes/no]: ");
             }
-        }
-        console.close();
-    }
 
-    private static String enterAnswer(Scanner scanner) {
-        String answer = scanner.nextLine().toLowerCase();
-        return answer;
+            if (!"yes".equals(answer) && !"no".equals(answer)) {
+                System.out.print("Введите корректный ответ: ");
+            }
+            answer = console.nextLine();
+        } while (!"no".equals(answer));
+        console.close();
     }
 }
