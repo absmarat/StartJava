@@ -12,7 +12,7 @@ public class HangmanGame {
             "| GAME OVER!"
     };
     private int maxAttempts = gallows.length;
-    private String[] words = {"ВИ"};
+    private String[] words = {"ВИСЕЛИЦА", "КОМПЬЮТЕР", "ИГРА", "АЛГОРИТМ", "ПРОГРАММИРОВАНИЕ"};
     private Scanner scanner;
     private String selectedWord;
     private int currAttempt;
