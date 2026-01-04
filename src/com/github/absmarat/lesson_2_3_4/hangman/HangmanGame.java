@@ -121,15 +121,15 @@ public class HangmanGame {
     }
 
     private static void printGameResult(StringBuilder mask, String selectedWord, int currAttempt) {
-        System.out.println(selectedWord.contentEquals(mask) ? win(mask)
-                : currAttempt == 0 ? loss(selectedWord) : "");
+        System.out.println(selectedWord.contentEquals(mask) ? provideVictoryMessage(mask)
+                : currAttempt == 0 ? provideDefeatMessage(selectedWord) : "");
     }
 
-    private static String win(StringBuilder mask) {
+    private static String provideVictoryMessage(StringBuilder mask) {
         return "Поздравляю! Вы угадали слово \"" + mask + "\"";
     }
 
-    private static String loss(String selectedWord) {
+    private static String provideDefeatMessage(String selectedWord) {
         return "Все попытки исчерпаны. Вы проиграли! Загаданное слово \"" + selectedWord + "\"";
     }
 }
