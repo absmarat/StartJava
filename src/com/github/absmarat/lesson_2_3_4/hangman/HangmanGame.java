@@ -3,16 +3,9 @@ package com.github.absmarat.lesson_2_3_4.hangman;
 import java.util.Scanner;
 
 public class HangmanGame {
-    private String[] gallows = {
-            "_______",
-            "|     |",
-            "|     @",
-            "|    /|\\",
-            "|    / \\",
-            "| GAME OVER!"
-    };
-    private int maxAttempts = gallows.length;
-    private String[] words = {"ВИСЕЛИЦА", "КОМПЬЮТЕР", "ИГРА", "АЛГОРИТМ", "ПРОГРАММИРОВАНИЕ"};
+    private String[] gallows;
+    private int maxAttempts;
+    private String[] words;
     private Scanner scanner;
     private String selectedWord;
     private int currAttempt;
@@ -20,6 +13,16 @@ public class HangmanGame {
     private StringBuilder mask;
 
     public HangmanGame() {
+        gallows = new String[] {
+                "_______",
+                "|     |",
+                "|     @",
+                "|    /|\\",
+                "|    / \\",
+                "| GAME OVER!"
+        };
+        maxAttempts = gallows.length;
+        words = new String[] {"ВИСЕЛИЦА", "КОМПЬЮТЕР", "ИГРА", "АЛГОРИТМ", "ПРОГРАММИРОВАНИЕ"};
         scanner = new Scanner(System.in);
         selectedWord = words[(int) (Math.random() * words.length)];
         currAttempt = maxAttempts;
@@ -52,7 +55,7 @@ public class HangmanGame {
 
                     if (currAttempt < maxAttempts) {
                         System.out.printf("""
-                                Буква "%s" верна! Количество попыток:
+                                Буква "%s" верна! Количество попыток: %d
                                  """, guess, ++currAttempt);
                         displayHangmanElements(maxAttempts, currAttempt, gallows);
                     }
