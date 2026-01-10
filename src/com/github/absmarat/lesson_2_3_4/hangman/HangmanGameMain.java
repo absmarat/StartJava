@@ -17,7 +17,7 @@ public class HangmanGameMain {
             if (!"yes".equals(answer) && !"no".equals(answer)) {
                 System.out.print("Введите корректный ответ: ");
             }
-            answer = console.nextLine();
+            answer = console.nextLine().toLowerCase();
         } while (!"no".equals(answer));
         console.close();
     }
