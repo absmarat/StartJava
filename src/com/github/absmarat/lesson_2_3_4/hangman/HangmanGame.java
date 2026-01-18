@@ -14,9 +14,7 @@ public class HangmanGame {
     };
     private int maxAttempts;
     private int currAttempt;
-
     private String selectedWord;
-
     private Scanner scanner;
     private StringBuilder wrongLetters;
     private StringBuilder mask;
@@ -46,9 +44,8 @@ public class HangmanGame {
                 System.out.println("Буква " + "\"" + guess + "\"" + " уже вводилась!");
                 continue;
             }
-
             processGuess(guess);
-            displayHangmanElements();
+            displayGallows();
         }
         printGameResult();
     }
@@ -62,8 +59,9 @@ public class HangmanGame {
     }
 
     private void displayGameState() {
-        System.out.println("Угадываемое слово: " + mask);
-        System.out.println("Неверно введённые буквы: " + wrongLetters);
+        System.out.printf("\nУгадываемое слово: %s\n", mask);
+        System.out.printf("Неверно введённые буквы: %s\n", wrongLetters);
+        System.out.printf("Количество попыток: %s\n", currAttempt);
     }
 
     private char enterLetter() {
@@ -75,7 +73,7 @@ public class HangmanGame {
             if (isCyrillicLetter(letter)) {
                 break;
             }
-            System.out.println("Символ " + "\"" + letter + "\"" + " не корректен.");
+            System.out.printf("Символ \"%c\" не корректен.\n", letter);
         }
         return letter;
     }
@@ -105,35 +103,30 @@ public class HangmanGame {
 
         if (found) {
             if (currAttempt < maxAttempts) {
-                System.out.println("Буква " + "\"" + guess + "\" верна! " +
-                        "Количество попыток: " + (++currAttempt));
+                currAttempt++;
+                System.out.printf("Буква \"%c\" верна!\n", guess);
             }
         } else {
             wrongLetters.append(guess).append(",");
-            System.out.println("Буквы " + "\"" + guess + "\"" + " нет в угадываемом слове!" +
-                    " Количество попыток: " + (--currAttempt));
+            currAttempt--;
+            System.out.printf("Буквы \"%c\" нет в угадываемом слове!\n", guess);
         }
     }
 
-    private void displayHangmanElements() {
+    private void displayGallows() {
         StringBuilder elements = new StringBuilder();
-        int hangmanElementsAmount = maxAttempts - currAttempt;
+        int elementAmount = maxAttempts - currAttempt;
 
-        for (int i = 0; i < hangmanElementsAmount; i++) {
+        for (int i = 0; i < elementAmount; i++) {
             elements.append(gallows[i]).append("\n");
         }
         System.out.print(elements);
     }
 
     private void printGameResult() {
-        System.out.println(currAttempt > 0 ? provideVictoryMessage() : provideDefeatMessage());
-    }
-
-    private String provideVictoryMessage() {
-        return "Поздравляю! Вы угадали слово \"" + mask + "\"";
-    }
-
-    private String provideDefeatMessage() {
-        return "Все попытки исчерпаны. Вы проиграли! Загаданное слово \"" + selectedWord + "\"";
+        String victoryMessage = "Поздравляю! Вы угадали слово \"" + mask + "\"";
+        String defeatMessage = "Все попытки исчерпаны. Вы проиграли! Загаданное слово \"" +
+                selectedWord + "\"";
+        System.out.println(currAttempt > 0 ? victoryMessage : defeatMessage);
     }
 }
