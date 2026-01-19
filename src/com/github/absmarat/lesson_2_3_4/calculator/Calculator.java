@@ -1,61 +1,47 @@
 package com.github.absmarat.lesson_2_3_4.calculator;
 
 public class Calculator {
-    private int firstNumber;
-    private int secondNumber;
-    private char operation;
-    
-    public void setFirstNumber(int firstNumber) {
-        this.firstNumber = firstNumber;
-    }
-    
-    public void setSecondNumber(int secondNumber) {
-        this.secondNumber = secondNumber;
-    }
-    
-    public void setOperation(char operation) {
-        this.operation = operation;
-    }
+    public double calculate(String expression) {
+        String[] exprElements = expression.split(" ");
 
-    public void calculate() {
-        double result = 0;
-        switch (operation) {
-            case '+':
-                result = firstNumber + secondNumber;
-                break;
-            case '-':
-                result = firstNumber - secondNumber;
-                break;
-            case '*':
-                result = firstNumber * secondNumber;
-                break;
-            case '/':
-                if (secondNumber == 0) {
-                    System.out.println("Ошибка: деление на ноль запрещено!");
-                    return;
-                }
-                result = firstNumber / secondNumber;
-                break;
-            case '^':
-                result = 1;
-                if (secondNumber < 0) {
-                    for (int i = secondNumber; i < 0; i++) {
-                        result *= firstNumber;
-                    }
-                    result = 1 / result;
-                } else {
-                    for (int i = 1; i <= secondNumber; i++) {
-                        result *= firstNumber;
-                    }
-                }
-                break;
-            case '%':
-                result = firstNumber % secondNumber;
-                break;
-            default:
-                System.out.println("Ошибка! Операция " + operation + " не поддерживается.");
-                return;
+        if (exprElements.length != 3) {
+            System.out.println("Ошибка: выражение должно содержать три аргумента, например: 2 ^ 10");
+            return Double.NaN;
         }
-        System.out.println("Результат вычисления: " + result); 
+
+        try {
+            int firstNumber = Integer.parseInt(exprElements[0]);
+            char operation = exprElements[1].charAt(0);
+            int secondNumber = Integer.parseInt(exprElements[2]);
+
+            switch (operation) {
+                case '+':
+                    return firstNumber + secondNumber;
+                case '-':
+                    return firstNumber - secondNumber;
+                case '*':
+                    return firstNumber * secondNumber;
+                case '/':
+                    if (secondNumber == 0) {
+                        System.out.println("Ошибка: деление на ноль запрещено!");
+                        return Double.NaN;
+                    }
+                    return (double) firstNumber / secondNumber;
+                case '%':
+                    if (secondNumber == 0) {
+                        System.out.println("Ошибка: деление на ноль запрещено!");
+                        return Double.NaN;
+                    }
+                    return Math.floorMod(firstNumber, secondNumber);
+                case '^':
+                    return Math.pow(firstNumber, secondNumber);
+                default:
+                    System.out.println("Ошибка! Операция " + operation + " не поддерживается.");
+                    return Double.NaN;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Ошибка: некорректный формат числа в выражении");
+            return Double.NaN;
+        }
     }
 }
