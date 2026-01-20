@@ -1,10 +1,12 @@
 package com.github.absmarat.lesson_2_3_4.calculator;
 
 public class Calculator {
+    private static final int EXPRLENGTH = 3;
+
     public double calculate(String expression) {
         String[] exprElements = expression.split(" ");
 
-        if (exprElements.length != 3) {
+        if (exprElements.length != EXPRLENGTH) {
             System.out.println("Ошибка: выражение должно содержать три аргумента, например: 2 ^ 10");
             return Double.NaN;
         }
