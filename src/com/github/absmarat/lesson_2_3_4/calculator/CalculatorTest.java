@@ -1,6 +1,7 @@
 package com.github.absmarat.lesson_2_3_4.calculator;
 
 import java.text.DecimalFormat;
+
 import java.util.Scanner;
 
 public class CalculatorTest {
@@ -39,7 +40,7 @@ public class CalculatorTest {
 
     private static String formatResult(double result) {
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        String formattedNum = decimalFormat.format(result);
-        return formattedNum;
+        String formattedNumber = decimalFormat.format(result);
+        return formattedNumber;
     }
 }
