@@ -1,20 +1,20 @@
 package com.github.absmarat.lesson_2_3_4.calculator;
 
 public class Calculator {
-    private static final int EXPRLENGTH = 3;
+    private static final int EXPRESSION_LENGTH = 3;
 
     public double calculate(String expression) {
-        String[] exprElements = expression.split(" ");
+        String[] expressionElements = expression.split(" ");
 
-        if (exprElements.length != EXPRLENGTH) {
+        if (expressionElements.length != EXPRESSION_LENGTH) {
             System.out.println("Ошибка: выражение должно содержать три аргумента, например: 2 ^ 10");
             return Double.NaN;
         }
 
         try {
-            int firstNumber = Integer.parseInt(exprElements[0]);
-            char operation = exprElements[1].charAt(0);
-            int secondNumber = Integer.parseInt(exprElements[2]);
+            int firstNumber = Integer.parseInt(expressionElements[0]);
+            char operation = expressionElements[1].charAt(0);
+            int secondNumber = Integer.parseInt(expressionElements[2]);
 
             switch (operation) {
                 case '+':
@@ -24,17 +24,12 @@ public class Calculator {
                 case '*':
                     return firstNumber * secondNumber;
                 case '/':
-                    if (secondNumber == 0) {
-                        System.out.println("Ошибка: деление на ноль запрещено!");
-                        return Double.NaN;
-                    }
-                    return (double) firstNumber / secondNumber;
                 case '%':
                     if (secondNumber == 0) {
                         System.out.println("Ошибка: деление на ноль запрещено!");
                         return Double.NaN;
                     }
-                    return Math.floorMod(firstNumber, secondNumber);
+                    return divOrMod(firstNumber, secondNumber, operation);
                 case '^':
                     return Math.pow(firstNumber, secondNumber);
                 default:
@@ -42,8 +37,13 @@ public class Calculator {
                     return Double.NaN;
             }
         } catch (NumberFormatException e) {
-            System.out.println("Ошибка: некорректный формат числа в выражении");
+            System.out.println("Ошибка: введён нечисловой символ.");
             return Double.NaN;
         }
+    }
+
+    private double divOrMod(int firstNumber, int secondNumber, char operation) {
+        return (operation == '/') ? (double) firstNumber / secondNumber
+                : Math.floorMod(firstNumber, secondNumber);
     }
 }
