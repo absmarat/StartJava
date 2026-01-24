@@ -1,7 +1,6 @@
 package com.github.absmarat.lesson_2_3_4.calculator;
 
 import java.text.DecimalFormat;
-
 import java.util.Scanner;
 
 public class CalculatorTest {
@@ -13,7 +12,7 @@ public class CalculatorTest {
             Calculator calculator = new Calculator();
 
             if ("yes".equals(answer)) {
-                String expression = inputExpr(scan);
+                String expression = inputExpression(scan);
                 double result = calculator.calculate(expression);
                 printResult(expression, result);
                 System.out.print("\nХотите продолжить вычисления? [yes/no]:  ");
@@ -26,21 +25,17 @@ public class CalculatorTest {
         }
     }
 
-    private static String inputExpr(Scanner scan) {
+    private static String inputExpression(Scanner scan) {
         System.out.print("Введите выражение из трёх аргументов, например, 10 ^ 2: ");
         return scan.nextLine().trim();
     }
 
     private static void printResult(String expression, double result) {
-        if (!Double.isNaN(result)) {
-            String strFormattedNum = formatResult(result);
-            System.out.println(expression + " = " + strFormattedNum);
-        }
-    }
-
-    private static String formatResult(double result) {
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
         String formattedNumber = decimalFormat.format(result);
-        return formattedNumber;
+
+        if (!Double.isNaN(result)) {
+            System.out.println(expression + " = " + formattedNumber);
+        }
     }
 }
