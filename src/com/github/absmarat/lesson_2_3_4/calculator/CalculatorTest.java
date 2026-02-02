@@ -9,33 +9,33 @@ public class CalculatorTest {
         String answer = "yes";
 
         while (!"no".equals(answer)) {
-            Calculator calculator = new Calculator();
-
             if ("yes".equals(answer)) {
-                String expression = inputExpression(scan);
-                double result = calculator.calculate(expression);
-                printResult(expression, result);
+                try {
+                    String expression = inputExpression(scan);
+                    double result = Calculator.calculate(expression);
+                    printResult(expression, result);
+                } catch (InvalidExpressionException | InvalidNumberException | ArithmeticException |
+                        UnsupportedOperationException e) {
+                    System.out.println(e.getMessage());
+                }
                 System.out.print("\nХотите продолжить вычисления? [yes/no]:  ");
             }
 
             if (!"no".equals(answer) && !"yes".equals(answer)) {
                 System.out.print("Введите корректный ответ [yes / no]: ");
             }
-            answer = scan.nextLine().toLowerCase().trim();
+            answer = scan.nextLine().toLowerCase();
         }
     }
 
     private static String inputExpression(Scanner scan) {
         System.out.print("Введите выражение из трёх аргументов, например, 10 ^ 2: ");
-        return scan.nextLine().trim();
+        return scan.nextLine();
     }
 
     private static void printResult(String expression, double result) {
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
         String formattedNumber = decimalFormat.format(result);
-
-        if (!Double.isNaN(result)) {
-            System.out.println(expression + " = " + formattedNumber);
-        }
+        System.out.println(expression + " = " + formattedNumber);
     }
 }
