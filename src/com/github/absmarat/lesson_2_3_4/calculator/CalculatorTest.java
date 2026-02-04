@@ -12,7 +12,6 @@ public class CalculatorTest {
             if ("yes".equals(answer)) {
                 try {
                     String expression = inputExpression(scan);
-                    expression = cleanExpression(expression);
                     double result = Calculator.calculate(expression);
                     printResult(expression, result);
                 } catch (InvalidExpressionLengthException | InvalidNumberException | ArithmeticException |
@@ -25,7 +24,7 @@ public class CalculatorTest {
             if (!"no".equals(answer) && !"yes".equals(answer)) {
                 System.out.print("Введите корректный ответ [yes / no]: ");
             }
-            answer = scan.nextLine().toLowerCase();
+            answer = scan.nextLine().toLowerCase().trim();
         }
     }
 
