@@ -11,17 +11,17 @@ public class Calculator {
                     "Ошибка: выражение должно содержать три аргумента, например: 2 ^ 10");
         }
 
+        String operation = expressionElements[1];
+
+        if (operation.length() != 1) {
+            throw new UnsupportedOperationException(
+                    "Ошибка: оператор \"" + operation + "\" не поддерживается." +
+                            " Допустимые операторы: +, -, *, /, %, ^");
+        }
+
         try {
             int firstNumber = Integer.parseInt(expressionElements[0]);
             int secondNumber = Integer.parseInt(expressionElements[2]);
-            String operation = expressionElements[1];
-
-            if (operation.length() != 1) {
-                throw new UnsupportedOperationException(
-                        "Ошибка: оператор \"" + operation + "\" не поддерживается." +
-                        " Допустимые операторы: +, -, *, /, %, ^");
-            }
-
             return switch (operation) {
                 case "+" -> firstNumber + secondNumber;
                 case "-" -> firstNumber - secondNumber;
