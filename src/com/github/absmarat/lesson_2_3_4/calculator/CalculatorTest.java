@@ -15,7 +15,7 @@ public class CalculatorTest {
                     expression = cleanExpression(expression);
                     double result = Calculator.calculate(expression);
                     printResult(expression, result);
-                } catch (InvalidExpressionLengthException | InvalidNumberException | ArithmeticException |
+                } catch (InvalidExpressionLengthExeption | InvalidNumberException | ArithmeticException |
                          UnsupportedOperationException e) {
                     System.out.println(e.getMessage());
                 }
