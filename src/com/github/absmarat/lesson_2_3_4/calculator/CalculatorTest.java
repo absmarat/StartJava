@@ -15,7 +15,7 @@ public class CalculatorTest {
                     expression = cleanExpression(expression);
                     double result = Calculator.calculate(expression);
                     printResult(expression, result);
-                } catch (InvalidExpressionLengthExeption | InvalidNumberException | ArithmeticException |
+                } catch (InvalidExpressionLengthException | InvalidNumberException | ArithmeticException |
                          UnsupportedOperationException e) {
                     System.out.println(e.getMessage());
                 }
@@ -31,12 +31,12 @@ public class CalculatorTest {
 
     private static String inputExpression(Scanner scan) {
         System.out.print("Введите выражение из трёх аргументов, например, 10 ^ 2: ");
-        return scan.nextLine();
+        String expression = scan.nextLine();
+        return cleanExpression(expression);
     }
 
     private static String cleanExpression(String expression) {
-        String cleaned = expression.trim().replaceAll("\\s+", " ");
-        return cleaned;
+        return expression.trim().replaceAll("\\s+", " ");
     }
 
     private static void printResult(String expression, double result) {
