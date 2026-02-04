@@ -7,7 +7,7 @@ public class Calculator {
         String[] expressionElements = expression.split(" ");
 
         if (expressionElements.length != EXPRESSION_LENGTH) {
-            throw new InvalidExpressionLengthException(
+            throw new InvalidExpressionLengthExeption(
                     "Ошибка: выражение должно содержать три аргумента, например: 2 ^ 10");
         }
 
