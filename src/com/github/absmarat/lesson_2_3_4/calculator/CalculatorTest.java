@@ -12,10 +12,11 @@ public class CalculatorTest {
             if ("yes".equals(answer)) {
                 try {
                     String expression = inputExpression(scan);
+                    expression = cleanExpression(expression);
                     double result = Calculator.calculate(expression);
                     printResult(expression, result);
-                } catch (InvalidExpressionException | InvalidNumberException | ArithmeticException |
-                        UnsupportedOperationException e) {
+                } catch (InvalidExpressionLengthException | InvalidNumberException | ArithmeticException |
+                         UnsupportedOperationException e) {
                     System.out.println(e.getMessage());
                 }
                 System.out.print("\nХотите продолжить вычисления? [yes/no]:  ");
@@ -33,9 +34,14 @@ public class CalculatorTest {
         return scan.nextLine();
     }
 
+    private static String cleanExpression(String expression) {
+        String cleaned = expression.trim().replaceAll("\\s+", " ");
+        return cleaned;
+    }
+
     private static void printResult(String expression, double result) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        String formattedNumber = decimalFormat.format(result);
-        System.out.println(expression + " = " + formattedNumber);
+        DecimalFormat df = new DecimalFormat("#.###");
+        String formatted = df.format(result);
+        System.out.println(expression + " = " + formatted);
     }
 }
