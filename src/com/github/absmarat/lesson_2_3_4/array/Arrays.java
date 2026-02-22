@@ -1,15 +1,13 @@
 package com.github.absmarat.lesson_2_3_4.array;
 
+import java.util.Random;
+
 public final class Arrays {
     private Arrays() {
         throw new AssertionError();
     }
 
     public static long[] calFctorial(int... numbers) {
-        if (numbers == null) {
-            return null;
-        }
-
         int length = numbers.length;
         long[] factorials = new long[length];
         for (int i = 0; i < length; i++) {
@@ -22,11 +20,64 @@ public final class Arrays {
         return factorials;
     }
 
-    public static String[] convertSubstringToUpperCase(String originalText) {
-        if (originalText == null || originalText.isBlank()) {
+    public static float[] fillArray(float[] floatNumbers, int length) {
+        for (int i = 0; i < length; i++) {
+            floatNumbers[i] = (float) Math.random();
+        }
+        return floatNumbers;
+    }
+
+    public static char[] generateRandomSymbols(String[] ranges) {
+        StringBuilder password = new StringBuilder();
+        Random rdm = new Random();
+        int passwordLength = rdm.nextInt(6, 13);
+
+        for (int i = 0; i < passwordLength; i++) {
+            String range = ranges[rdm.nextInt(ranges.length)];
+            String[] bounds = range.split(",");
+            int lowBound = Integer.parseInt(bounds[0]);
+            int highBound = Integer.parseInt(bounds[1]);
+            char symbol = (char) rdm.nextInt(lowBound, highBound + 1);
+            password.append(symbol);
+        }
+        return password.toString().toCharArray();
+    }
+
+    public static int[] reverse(int[] array) {
+        int len = array.length;
+        for (int i = 0; i < len; i++) {
+            int temp = array[i];
+            array[i] = array[--len];
+            array[len] = temp;
+        }
+        return array;
+    }
+
+    public static String sortSymbols(char startSymbol, char endSymbol, boolean asc) {
+        if (startSymbol > endSymbol) {
+            Console.reportError(endSymbol, startSymbol);
             return null;
         }
 
+        char[] chars = new char[endSymbol - startSymbol];
+        int i = 0;
+
+        for (char ch = startSymbol; ch < endSymbol; ch++) {
+            chars[i++] = ch;
+        }
+
+        StringBuilder triangle = new StringBuilder();
+
+        for (i = 1; i <= chars.length; i++) {
+            int index = asc ? i - 1 : chars.length - i;
+            triangle.append(" ".repeat(chars.length - i))
+                    .append(String.valueOf(chars[index]).repeat(i * 2 - 1))
+                    .append("\n");
+        }
+        return triangle.toString();
+    }
+
+    public static String[] toUpperCaseRange(String originalText) {
         String[] words = originalText.split(" ");
         String shortestWord = words[0];
         String longestWord = words[0];
@@ -58,68 +109,12 @@ public final class Arrays {
         return words;
     }
 
-    public static float[] fillArray(float[] floatNumbers, int index) {
-        int length = floatNumbers.length;
-
-        for (int i = 0; i < length; i++) {
-            floatNumbers[i] = (float) Math.random();
-        }
-
+    public static float[] zeroOutSomeValues(float[] floatNumbers, int index, int length) {
         float[] modified = java.util.Arrays.copyOf(floatNumbers, length);
 
         for (int i = 0; i < length; i++) {
             modified[i] = floatNumbers[i] > floatNumbers[index] ? 0 : floatNumbers[i];
         }
         return modified;
-    }
-
-    public static String hack() throws InterruptedException {
-        String msg = "Hacking: ";
-        return Console.displayLoading(msg);
-    }
-
-    public static void reverse(int[] array) {
-        if (array == null) {
-            return;
-        }
-
-        int len = array.length;
-        for (int i = 0; i < len; i++) {
-            int temp = array[i];
-            array[i] = array[--len];
-            array[len] = temp;
-        }
-    }
-
-    public static String sortSymbols(char startSymbol, char endSymbol, boolean asc) {
-        if (startSymbol > endSymbol) {
-            Console.reportError(endSymbol, startSymbol);
-            return null;
-        }
-
-        char[] chars = new char[endSymbol - startSymbol];
-        int i = 0;
-
-        for (char ch = startSymbol; ch < endSymbol; ch++) {
-            chars[i++] = ch;
-        }
-
-        StringBuilder triangle = new StringBuilder();
-
-        if (asc) {
-            for (i = 1; i <= chars.length; i++) {
-                triangle.append(" ".repeat(chars.length - i))
-                        .append(String.valueOf(chars[i - 1]).repeat(i * 2 - 1))
-                        .append("\n");
-            }
-        } else {
-            int j = 1;
-            for (i = chars.length - 1; i >= 0; j++, i--) {
-                triangle.append(" ".repeat(chars.length - j))
-                        .append(String.valueOf(chars[i]).repeat(j * 2 - 1))
-                        .append("\n");
-            }
-        }
-        return triangle.toString();
     }
 }
