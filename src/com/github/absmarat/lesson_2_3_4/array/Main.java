@@ -4,10 +4,10 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         reverseArray();
         simulatePasswordHacking();
-//        calculateFactorial();
-//        fillArrayFloatNumbers();
-//        createTriangle();
-//        createTypewriterEffect();
+        calculateFactorial();
+        fillArrayFloatNumbers();
+        createTriangle();
+        createTypewriterEffect();
     }
 
     private static void reverseArray() {
