@@ -8,29 +8,54 @@ public final class Console {
         throw new AssertionError();
     }
 
-    public static String displayLoading(String msg) throws InterruptedException {
-        char[] spins = {'-', '\\', '|', '/'};
+    public static void displayLoading(char[] charactersSet) throws InterruptedException {
         System.out.println();
+        String symbols = new String(charactersSet);
+        char[] spins = {'-', '\\', '|', '/'};
 
         for (int i = 0; i < 3; i++) {
             for (char element : spins) {
-                System.out.print(msg + element + '\r');
+                System.out.print("\b" + element);
                 Thread.sleep(100);
             }
         }
+
+        boolean hasLower = false;
+        boolean hasUpper = false;
+        boolean hasDigit = false;
+        boolean hasSpecial = false;
+
+        for (char symbol : charactersSet) {
+            if (symbol >= 'a' && symbol <= 'z') {
+                hasLower = true;
+            } else if (symbol >= 'A' && symbol <= 'Z') {
+                hasUpper = true;
+            } else if (symbol >= '0' && symbol <= '9') {
+                hasDigit = true;
+            } else {
+                hasSpecial = true;
+            }
+        }
+
+        boolean isStrong = (charactersSet.length >= 8 && hasLower && hasUpper && hasSpecial && hasDigit) ?
+                true : false;
+        displayMsg(isStrong, symbols);
+    }
+
+    private static void displayMsg(boolean isStrong, String symbols) {
         String ansiReset = "\u001B[0m";
         String ansiRed = "\u001B[31m";
         String ansiGreen = "\u001B[32m";
-        Random rdm = new Random();
-        int number = rdm.nextInt(100);
-        String result = number > 70 ? ansiRed + "Access Granted!" : ansiGreen + "Access Denied!";
-
-        return msg + result + ansiReset;
+        if (isStrong) {
+            System.out.println(ansiRed + "\b✗ Strong password: " + ansiReset + symbols);
+        } else {
+            System.out.println(ansiGreen + "\b✓ Password cracked: " + ansiReset + symbols);
+        }
     }
 
     public static void displayTypewriterEffect(String[] words) throws InterruptedException {
         if (words == null) {
-            System.out.println("Ошибка: входной массив не может быть null.");
+            System.out.println("Ошибка: входной массив не может быть null или пустой.");
             return;
         }
 
@@ -46,10 +71,6 @@ public final class Console {
 
     public static void printNumbers(int[] array, String msg) {
         System.out.println(msg + Arrays.toString(array));
-    }
-
-    public static void printHackResult(String result) {
-        System.out.println(result);
     }
 
     public static void printExpr(long[] factorials, int[] original) {
@@ -77,11 +98,7 @@ public final class Console {
             StringBuilder expr = new StringBuilder(original[i] + "! = ");
             for (int j = 1; j <= original[i]; j++) {
                 expr.append(j);
-                if ((j < original[i])) {
-                    expr.append(" * ");
-                } else {
-                    expr.append(" = ");
-                }
+                expr.append((j < original[i]) ? " * " : " = ");
             }
             System.out.println(expr.append(factorials[i]));
         }
