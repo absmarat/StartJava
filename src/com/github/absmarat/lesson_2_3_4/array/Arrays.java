@@ -7,17 +7,27 @@ public final class Arrays {
         throw new AssertionError();
     }
 
-    public static long[] calFctorial(int... numbers) {
+    public static long[] calcFactorial(int... numbers) {
         int length = numbers.length;
         long[] factorials = new long[length];
+
         for (int i = 0; i < length; i++) {
-            long factorial = 1;
-            for (int j = 2; j <= numbers[i]; j++) {
-                factorial *= j;
+            if (numbers[i] < 0) {
+                factorials[i] = -1;
+            } else  if (numbers[i] > 20) {
+                factorials[i] = -2;
+            } else {
+                factorials[i] = factorial(numbers[i]);
             }
-            factorials[i] = factorial;
         }
         return factorials;
+    }
+
+    private static long factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        return n * factorial(n - 1);
     }
 
     public static float[] fillArray(float[] floatNumbers, int length) {
@@ -27,7 +37,7 @@ public final class Arrays {
         return floatNumbers;
     }
 
-    public static char[] generateRandomSymbols(String[] ranges) {
+    public static char[] generatePassword(String[] ranges) {
         StringBuilder password = new StringBuilder();
         Random rdm = new Random();
         int passwordLength = rdm.nextInt(6, 13);
@@ -45,12 +55,12 @@ public final class Arrays {
 
     public static int[] reverse(int[] array) {
         int len = array.length;
+        int[] reversedArray = new int[len];
+
         for (int i = 0; i < len; i++) {
-            int temp = array[i];
-            array[i] = array[--len];
-            array[len] = temp;
+            reversedArray[i] = array[len - i - 1];
         }
-        return array;
+        return reversedArray;
     }
 
     public static String sortSymbols(char startSymbol, char endSymbol, boolean asc) {
@@ -109,7 +119,7 @@ public final class Arrays {
         return words;
     }
 
-    public static float[] zeroOutSomeValues(float[] floatNumbers, int index, int length) {
+    public static float[] zeroValuesAboveIndexValue(float[] floatNumbers, int index, int length) {
         float[] modified = java.util.Arrays.copyOf(floatNumbers, length);
 
         for (int i = 0; i < length; i++) {
