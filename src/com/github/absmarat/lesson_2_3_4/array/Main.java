@@ -2,53 +2,53 @@ package com.github.absmarat.lesson_2_3_4.array;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        reverseArray();
+        reverseTransactions();
         simulatePasswordHacking();
         calculateFactorial();
-        fillArrayFloatNumbers();
+        zeroOutArrayElementsAboveIndexValue();
         createTriangle();
         createTypewriterEffect();
     }
 
-    private static void reverseArray() {
+    private static void reverseTransactions() {
         String beforeMsg = "   До реверса: ";
         String afterMsg = "После реверса: ";
-        int[][] initialData = {
+        int[][] transactionDataSets = {
                 {},
                 null,
                 {6, 8, 9, 1},
                 {13, 8, 5, 3, 2, 1, 1}
         };
 
-        for (int[] numbers : initialData) {
-            Console.printNumbers(numbers, beforeMsg);
-            int[] reversed = (numbers == null) ? null : Arrays.reverse(numbers);
+        for (int[] transactionSet : transactionDataSets) {
+            Console.printNumbers(transactionSet, beforeMsg);
+            int[] reversed = (transactionSet == null) ? null : Arrays.reverse(transactionSet);
             Console.printNumbers(reversed, afterMsg);
         }
     }
 
     private static void simulatePasswordHacking() throws InterruptedException {
         String[] ranges = {"48,57", "65,90", "97,122", "65,90", "33,47", "58,64", "123,126"};
-        char[] generatedPassword = Arrays.generateRandomSymbols(ranges);
+        char[] generatedPassword = Arrays.generatePassword(ranges);
         Console.displayLoading(generatedPassword);
     }
 
     private static void calculateFactorial() {
-        int[][] initialData = {
+        int[][] numberSets = {
                 {},
                 null,
-                {8, 0, 9},
-                {-3, 1, 7, 13},
-                {-22, -0}
+                {-5},
+                {7, 0, 21},
+                {1, 20, 5, -3}
         };
 
-        for (int[] numbers : initialData) {
-            long[] facrorials = (numbers == null) ? null : Arrays.calFctorial(numbers);
-            Console.printExpr(facrorials, numbers);
+        for (int[] numbers : numberSets) {
+            long[] factorials = (numbers == null) ? null : Arrays.calcFactorial(numbers);
+            Console.printExpr(factorials, numbers);
         }
     }
 
-    private static void fillArrayFloatNumbers() {
+    private static void zeroOutArrayElementsAboveIndexValue() {
         int length = 15;
         float[] floatNumbers = new float[length];
         int[] ints = {-1, 15, 0, 14};
@@ -60,7 +60,7 @@ public class Main {
                 continue;
             }
             filled = Arrays.fillArray(floatNumbers, length);
-            modified = Arrays.zeroOutSomeValues(filled, index, length);
+            modified = Arrays.zeroValuesAboveIndexValue(filled, index, length);
 
             int count = 0;
             for (int i = 0; i < length; i++) {
@@ -74,14 +74,14 @@ public class Main {
 
     private static void createTriangle() {
         boolean[] sortFlags = {true, true, false};
-        char[][] initialData = {
+        char[][] symbolRanges = {
                 {'0', '9'},
                 {'i', '/'},
                 {'A', 'J'}
         };
         int index = 0;
 
-        for (char[] symbols : initialData) {
+        for (char[] symbols : symbolRanges) {
             char startSymbol = symbols[0];
             char endSymbol = symbols[1];
             String triangle = Arrays.sortSymbols(startSymbol, endSymbol, sortFlags[index++]);
