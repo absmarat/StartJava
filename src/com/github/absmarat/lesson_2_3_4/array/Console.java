@@ -10,7 +10,6 @@ public final class Console {
 
     public static void displayLoading(char[] characterSet) throws InterruptedException {
         System.out.println();
-        String symbols = new String(characterSet);
         char[] spins = {'-', '\\', '|', '/'};
 
         for (int i = 0; i < 3; i++) {
@@ -76,6 +75,7 @@ public final class Console {
 
         isStrong = (characterSet.length >= 8 && hasLower && hasUpper && hasSpecial && hasDigit) ?
                 true : false;
+        String symbols = new String(characterSet);
         displayMsg(isStrong, symbols);
     }
 
@@ -117,7 +117,7 @@ public final class Console {
         }
 
         if (original.length == 0) {
-            System.out.println("\n" + "Массив нулевой длины!");
+            System.out.println("\nМассив нулевой длины!");
             return;
         }
 
@@ -129,6 +129,11 @@ public final class Console {
 
             if (original[i] < 0) {
                 System.out.println("Ошибка: факториал " + original[i] + "! не определён!");
+                continue;
+            }
+
+            if (original[i] > 20) {
+                System.out.println("Ошибка: факториал " + original[i] + "! слишком велик (максимум 20!)");
                 continue;
             }
 
