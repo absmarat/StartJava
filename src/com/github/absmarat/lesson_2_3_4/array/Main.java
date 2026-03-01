@@ -28,9 +28,10 @@ public class Main {
     }
 
     private static void simulatePasswordHacking() throws InterruptedException {
-        String[] ranges = {"48,57", "65,90", "97,122", "65,90", "33,47", "58,64", "123,126"};
-        char[] generatedPassword = Arrays.generatePassword(ranges);
-        Console.displayLoading(generatedPassword);
+        String[] asciiRanges = {"48,57", "65,90", "97,122", "33,47", "58,64", "91,96", "123,126"};
+        char[] password = Arrays.generatePassword(asciiRanges);
+        StringBuilder result = Arrays.checkPasswordStrength(password);
+        Console.displayPasswordStrengthResult(result);
     }
 
     private static void calculateFactorial() {
