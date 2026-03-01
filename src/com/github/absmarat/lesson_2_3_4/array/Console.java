@@ -1,92 +1,26 @@
 package com.github.absmarat.lesson_2_3_4.array;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public final class Console {
     private Console() {
         throw new AssertionError();
     }
 
-    public static void displayLoading(char[] characterSet) throws InterruptedException {
-        System.out.println();
+    public static void displayPasswordStrengthResult(StringBuilder result) throws InterruptedException {
+        displayLoading();
+        System.out.println(result);
+    }
+
+    private static void displayLoading() throws InterruptedException {
         char[] spins = {'-', '\\', '|', '/'};
+        System.out.println();
 
         for (int i = 0; i < 3; i++) {
             for (char element : spins) {
                 System.out.print("\b" + element);
                 Thread.sleep(100);
             }
-        }
-
-        boolean hasLower = false;
-        boolean hasUpper = false;
-        boolean hasDigit = false;
-        boolean hasSpecial = false;
-
-        for (char symbol : characterSet) {
-            if (symbol >= '0' && symbol <= '9') {
-                hasDigit = true;
-            } else if (symbol >= 'a' && symbol <= 'z') {
-                hasLower = true;
-            } else if (symbol >= 'A' && symbol <= 'Z') {
-                hasUpper = true;
-            } else {
-                hasSpecial = true;
-            }
-        }
-
-        boolean isStrong;
-
-        if (characterSet == null || characterSet.length == 0) {
-            System.out.println("\bПароль не может быть пустым!");
-            return;
-        }
-
-        if (characterSet.length < 8) {
-            System.out.println("\bПароль должен содержать не менее 8 символов!");
-            isStrong = false;
-        }
-
-        if (hasDigit && !hasLower && !hasUpper && !hasSpecial) {
-            System.out.println("\bПароль содержит только цифры");
-            isStrong = false;
-        }
-
-        if ((hasLower || hasUpper) && !hasDigit && !hasSpecial) {
-            System.out.println("\bПароль содержит только буквы!");
-            isStrong = false;
-        }
-
-        if (hasSpecial && !hasDigit && !hasLower && !hasUpper) {
-            System.out.println("\bПароль содержит только специальные символы!");
-            isStrong = false;
-        }
-
-        if (!hasSpecial) {
-            System.out.println("\bПароль не содержит специальные символы!");
-            isStrong = false;
-        }
-
-        if (!hasLower && !hasUpper) {
-            System.out.println("Пароль не содержит буквы нижнего и верхнего регистров!");
-            isStrong = false;
-        }
-
-        isStrong = (characterSet.length >= 8 && hasLower && hasUpper && hasSpecial && hasDigit) ?
-                true : false;
-        String symbols = new String(characterSet);
-        displayMsg(isStrong, symbols);
-    }
-
-    private static void displayMsg(boolean isStrong, String symbols) {
-        String ansiReset = "\u001B[0m";
-        String ansiRed = "\u001B[31m";
-        String ansiGreen = "\u001B[32m";
-        if (isStrong) {
-            System.out.println(ansiRed + "\b✗ Strong password: " + ansiReset + symbols);
-        } else {
-            System.out.println(ansiGreen + "\b✓ Password cracked: " + ansiReset + symbols);
         }
     }
 
