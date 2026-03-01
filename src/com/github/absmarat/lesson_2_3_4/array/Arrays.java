@@ -23,6 +23,101 @@ public final class Arrays {
         return factorials;
     }
 
+    public static StringBuilder checkPasswordStrength(char[] password) throws InterruptedException {
+        StringBuilder reasonWeakness = new StringBuilder();
+
+        if (password == null) {
+            reasonWeakness.append("Ошибка: массив равен null или пустой.");
+            return reasonWeakness;
+        }
+
+        boolean isBlacklisted = comparePasswordWithBlacklist(password);
+
+        if (isBlacklisted) {
+            reasonWeakness.append("Пароль находится в чёрном списке!");
+        }
+
+        if (password.length == 0) {
+            reasonWeakness.append("Пароль не может быть пустым!");
+            return reasonWeakness;
+        }
+
+        boolean hasLower = false;
+        boolean hasUpper = false;
+        boolean hasDigit = false;
+        boolean hasSpecial = false;
+
+        for (char symbol : password) {
+            if (symbol >= '0' && symbol <= '9') {
+                hasDigit = true;
+            } else if (symbol >= 'a' && symbol <= 'z') {
+                hasLower = true;
+            } else if (symbol >= 'A' && symbol <= 'Z') {
+                hasUpper = true;
+            } else {
+                hasSpecial = true;
+            }
+        }
+
+        if (password.length <= 7) {
+            reasonWeakness.append("\nПароль должен быть не менее 8 символов");
+        }
+
+        if (hasDigit && !hasLower && !hasUpper && !hasSpecial) {
+            reasonWeakness.append("\nПароль содержит только цифры");
+        }
+
+        if ((hasLower && hasUpper) && !hasDigit && !hasSpecial) {
+            reasonWeakness.append("\nПароль содержит только буквы");
+        }
+
+        if (hasSpecial && !hasLower && !hasUpper && !hasDigit) {
+            reasonWeakness.append("\nПароль содержит только специальные символы");
+        }
+
+        if (!hasSpecial && hasLower && hasUpper && hasDigit) {
+            reasonWeakness.append("\nПароль не содержит специальные символы");
+        }
+
+        if (!hasLower && !hasUpper) {
+            reasonWeakness.append("\nПароль не содержит буквы нижнего и верхнего регистров");
+        }
+
+        if (!hasDigit) {
+            reasonWeakness.append("\nПароль не содержит цифр");
+        }
+
+        String ansiReset = "\u001B[0m";
+        String ansiRed = "\u001B[31m";
+        String ansiGreen = "\u001B[32m";
+
+        StringBuilder status = new StringBuilder();
+        status = (password.length >= 8 && hasLower && hasUpper && hasSpecial && hasDigit) ?
+                status.append(ansiGreen).append("\b✗ Strong password: ").append(ansiReset).append(password) :
+                status.append(ansiRed).append("\b✓ Password cracked: ").append(ansiReset).append(password);
+        return status.append(reasonWeakness);
+    }
+
+    private static boolean comparePasswordWithBlacklist(char[] password) {
+        boolean isEquals = false;
+
+        String[][] blacklistedPasswords = {
+                {"123456", "1/?*6]^8"},
+                {"%@(#0-P=9;2", "{Acnu`Gl^{?"},
+
+        };
+
+        char[] symbols = new char[0];
+        for (int i = 0; i < blacklistedPasswords.length; i++) {
+            String[] blacklistedPassword = blacklistedPasswords[i];
+            for (String element : blacklistedPassword) {
+                symbols = element.toCharArray();
+                if (java.util.Arrays.equals(password, symbols)) return true;
+            }
+        }
+        return isEquals;
+    }
+
     private static long factorial(int n) {
         if (n == 0 || n == 1) {
             return 1;
@@ -38,9 +133,9 @@ public final class Arrays {
     }
 
     public static char[] generatePassword(String[] ranges) {
-        StringBuilder password = new StringBuilder();
         Random rdm = new Random();
         int passwordLength = rdm.nextInt(6, 13);
+        StringBuilder password = new StringBuilder();
 
         for (int i = 0; i < passwordLength; i++) {
             String range = ranges[rdm.nextInt(ranges.length)];
