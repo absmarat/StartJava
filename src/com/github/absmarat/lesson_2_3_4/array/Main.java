@@ -3,39 +3,32 @@ package com.github.absmarat.lesson_2_3_4.array;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         reverseTransactions();
-        simulatePasswordHacking();
         calculateFactorial();
-        zeroOutArrayElementsAboveIndexValue();
+        replaceWithZerosIfGreaterThanIndexValue();
         createTriangle();
+        simulatePasswordHacking();
         createTypewriterEffect();
     }
 
     private static void reverseTransactions() {
         String beforeMsg = "   До реверса: ";
         String afterMsg = "После реверса: ";
-        int[][] transactionDataSets = {
+        int[][] inputTransactions = {
                 {},
                 null,
                 {6, 8, 9, 1},
                 {13, 8, 5, 3, 2, 1, 1}
         };
 
-        for (int[] transactionSet : transactionDataSets) {
-            Console.printNumbers(transactionSet, beforeMsg);
-            int[] reversed = (transactionSet == null) ? null : Arrays.reverse(transactionSet);
+        for (int[] transactions : inputTransactions) {
+            Console.printNumbers(transactions, beforeMsg);
+            int[] reversed = (transactions == null) ? null : Arrays.reverse(transactions);
             Console.printNumbers(reversed, afterMsg);
         }
     }
 
-    private static void simulatePasswordHacking() throws InterruptedException {
-        String[] asciiRanges = {"48,57", "65,90", "97,122", "33,47", "58,64", "91,96", "123,126"};
-        char[] password = Arrays.generatePassword(asciiRanges);
-        StringBuilder result = Arrays.checkPasswordStrength(password);
-        Console.displayPasswordStrengthResult(result);
-    }
-
     private static void calculateFactorial() {
-        int[][] numberSets = {
+        int[][] inputNumbers = {
                 {},
                 null,
                 {-5},
@@ -43,33 +36,30 @@ public class Main {
                 {1, 20, 5, -3}
         };
 
-        for (int[] numbers : numberSets) {
-            long[] factorials = (numbers == null) ? null : Arrays.calcFactorial(numbers);
-            Console.printExpr(factorials, numbers);
+        for (int[] numbers : inputNumbers) {
+            long[] factorials = (numbers == null) ? null : Arrays.calcFactorials(numbers);
+            Console.printFactorialExpressions(factorials, numbers);
         }
     }
 
-    private static void zeroOutArrayElementsAboveIndexValue() {
+    private static void replaceWithZerosIfGreaterThanIndexValue() {
         int length = 15;
-        float[] floatNumbers = new float[length];
-        int[] ints = {-1, 15, 0, 14};
-        float[] filled;
-        float[] modified;
-        for (int index : ints) {
+        int[] indexes = {-1, 15, 0, 14};
+        for (int index : indexes) {
             if (index < 0 || index == length) {
-                Console.printErrorMessage(index);
+                Console.printErrorMessage("В массиве нет элемента с индексом " + index);
                 continue;
             }
-            filled = Arrays.fillArray(floatNumbers, length);
-            modified = Arrays.zeroValuesAboveIndexValue(filled, index, length);
-
+            float[] created = Arrays.createRandomArray(length);
+            float[] modified = Arrays.overwriteWithZerosIfGreaterThanIndex(created, index, length);
             int count = 0;
+
             for (int i = 0; i < length; i++) {
-                if (modified[i] != floatNumbers[i]) {
+                if (modified[i] != created[i]) {
                     count++;
                 }
             }
-            Console.printArrays(floatNumbers, modified, index, count);
+            Console.printArrays(created, modified, index, count);
         }
     }
 
@@ -90,9 +80,28 @@ public class Main {
         }
     }
 
+    private static void simulatePasswordHacking() throws InterruptedException {
+        int[][] asciiRanges = {
+                {48, 57},
+                {65, 90},
+                {97, 122},
+                {33, 47},
+                {58, 64},
+                {91, 96},
+                {123, 126}
+        };
+
+        Arrays.checkPasswordStrength("123456".toCharArray());
+
+        for (int i = 0; i < 3; i++) {
+            char[] password = (asciiRanges.length == 0) ? new char[0] : Arrays.genaratePassword(asciiRanges);
+            Arrays.checkPasswordStrength(password);
+        }
+    }
+
     private static void createTypewriterEffect() throws InterruptedException {
-        String[] quotes = {"Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
-                "- James Gosling\n",
+        String[] quotes = {"\nJava - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
+                        "- James Gosling\n",
                 "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                         "- Robert Martin\n",
                 null,
