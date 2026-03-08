@@ -7,39 +7,41 @@ public final class Arrays {
         throw new AssertionError();
     }
 
-    public static long[] calcFactorial(int... numbers) {
+    public static long[] calcFactorials(int... numbers) {
         int length = numbers.length;
         long[] factorials = new long[length];
 
         for (int i = 0; i < length; i++) {
-            if (numbers[i] < 0) {
-                factorials[i] = -1;
-            } else  if (numbers[i] > 20) {
-                factorials[i] = -2;
-            } else {
-                factorials[i] = factorial(numbers[i]);
-            }
+            factorials[i] = (numbers[i] < 0 || numbers[i] > 20) ? -1 : factorial(numbers[i]);
         }
         return factorials;
     }
 
-    public static StringBuilder checkPasswordStrength(char[] password) throws InterruptedException {
+    public static float[] createRandomArray(int length) {
+        float[] randomNumbers = new float[length];
+        for (int i = 0; i < length; i++) {
+            randomNumbers[i] = (float) Math.random();
+        }
+        return randomNumbers;
+    }
+
+    public static void checkPasswordStrength(char[] password) throws InterruptedException {
+        String[][] blacklist = {
+                {"admin"},
+                {"qwerty"},
+                {"123456"}
+        };
+
         StringBuilder reasonWeakness = new StringBuilder();
 
-        if (password == null) {
-            reasonWeakness.append("Ошибка: массив равен null или пустой.");
-            return reasonWeakness;
-        }
-
-        boolean isBlacklisted = comparePasswordWithBlacklist(password);
-
-        if (isBlacklisted) {
-            reasonWeakness.append("Пароль находится в чёрном списке!");
-        }
-
         if (password.length == 0) {
-            reasonWeakness.append("Пароль не может быть пустым!");
-            return reasonWeakness;
+            reasonWeakness.append("\nПароль пуст.");
+            Console.displayPasswordStrengthResult(reasonWeakness, password);
+            return;
+        }
+
+        if (isPasswordInBlacklist(password, blacklist)) {
+            reasonWeakness.append("\nПароль находится в чёрном списке.");
         }
 
         boolean hasLower = false;
@@ -90,32 +92,12 @@ public final class Arrays {
         String ansiReset = "\u001B[0m";
         String ansiRed = "\u001B[31m";
         String ansiGreen = "\u001B[32m";
-
         StringBuilder status = new StringBuilder();
-        status = (password.length >= 8 && hasLower && hasUpper && hasSpecial && hasDigit) ?
+        status = (password.length >= 8 && (hasLower && hasUpper) && hasSpecial && hasDigit) ?
                 status.append(ansiGreen).append("\b✗ Strong password: ").append(ansiReset).append(password) :
                 status.append(ansiRed).append("\b✓ Password cracked: ").append(ansiReset).append(password);
-        return status.append(reasonWeakness);
-    }
-
-    private static boolean comparePasswordWithBlacklist(char[] password) {
-        boolean isEquals = false;
-
-        String[][] blacklistedPasswords = {
-                {"123456", "1/?*6]^8"},
-                {"%@(#0-P=9;2", "{Acnu`Gl^{?"},
-
-        };
-
-        char[] symbols = new char[0];
-        for (int i = 0; i < blacklistedPasswords.length; i++) {
-            String[] blacklistedPassword = blacklistedPasswords[i];
-            for (String element : blacklistedPassword) {
-                symbols = element.toCharArray();
-                if (java.util.Arrays.equals(password, symbols)) return true;
-            }
-        }
-        return isEquals;
+        status.append(reasonWeakness);
+        Console.displayPasswordStrengthResult(status, password);
     }
 
     private static long factorial(int n) {
@@ -125,37 +107,49 @@ public final class Arrays {
         return n * factorial(n - 1);
     }
 
-    public static float[] fillArray(float[] floatNumbers, int length) {
-        for (int i = 0; i < length; i++) {
-            floatNumbers[i] = (float) Math.random();
-        }
-        return floatNumbers;
-    }
-
-    public static char[] generatePassword(String[] ranges) {
-        Random rdm = new Random();
-        int passwordLength = rdm.nextInt(6, 13);
+    public static char[] genaratePassword(int[][] asciiRange) {
+        Random random = new Random();
+        int passwordLength = random.nextInt(6, 13);
         StringBuilder password = new StringBuilder();
 
         for (int i = 0; i < passwordLength; i++) {
-            String range = ranges[rdm.nextInt(ranges.length)];
-            String[] bounds = range.split(",");
-            int lowBound = Integer.parseInt(bounds[0]);
-            int highBound = Integer.parseInt(bounds[1]);
-            char symbol = (char) rdm.nextInt(lowBound, highBound + 1);
+            int indexRange = random.nextInt(asciiRange.length);
+            int lowBound = asciiRange[indexRange][0];
+            int highBound = asciiRange[indexRange][1];
+            char symbol = (char) random.nextInt(lowBound, highBound + 1);
             password.append(symbol);
         }
         return password.toString().toCharArray();
     }
 
-    public static int[] reverse(int[] array) {
-        int len = array.length;
-        int[] reversedArray = new int[len];
-
-        for (int i = 0; i < len; i++) {
-            reversedArray[i] = array[len - i - 1];
+    private static boolean isPasswordInBlacklist(char[] password, String[][] blacklist) {
+        String passwordStr = new String(password);
+        for (String[] blacklistedPassword : blacklist) {
+            if (passwordStr.equals(blacklistedPassword[0])) {
+                return true;
+            }
         }
-        return reversedArray;
+        return false;
+    }
+
+    public static float[] overwriteWithZerosIfGreaterThanIndex(float[] original, int index, int length) {
+        float[] modified = original.clone();
+
+        for (int i = 0; i < length; i++) {
+            modified[i] = original[i] > original[index] ? 0 : original[i];
+        }
+        return modified;
+    }
+
+    public static int[] reverse(int[] array) {
+        int length = array.length;
+        int index = 0;
+        int[] reversed = new int[length];
+
+        for (int value : array) {
+            reversed[length - 1 - index++] = value;
+        }
+        return reversed;
     }
 
     public static String sortSymbols(char startSymbol, char endSymbol, boolean asc) {
@@ -212,14 +206,5 @@ public final class Arrays {
             words[i] = words[i].toUpperCase();
         }
         return words;
-    }
-
-    public static float[] zeroValuesAboveIndexValue(float[] floatNumbers, int index, int length) {
-        float[] modified = java.util.Arrays.copyOf(floatNumbers, length);
-
-        for (int i = 0; i < length; i++) {
-            modified[i] = floatNumbers[i] > floatNumbers[index] ? 0 : floatNumbers[i];
-        }
-        return modified;
     }
 }
