@@ -7,7 +7,12 @@ public final class Console {
         throw new AssertionError();
     }
 
-    public static void displayPasswordStrengthResult(StringBuilder result) throws InterruptedException {
+    public static void displayPasswordStrengthResult(StringBuilder result, char[] password)
+            throws InterruptedException {
+        if (password.length == 0) {
+            System.out.println(result);
+            return;
+        }
         displayLoading();
         System.out.println(result);
     }
@@ -44,37 +49,38 @@ public final class Console {
         System.out.println(msg + Arrays.toString(array));
     }
 
-    public static void printExpr(long[] factorials, int[] original) {
-        if (original == null) {
+    public static void printFactorialExpressions(long[] factorials, int[] originalNumbers) {
+        if (originalNumbers == null) {
             System.out.println("null");
             return;
         }
 
-        if (original.length == 0) {
+        if (originalNumbers.length == 0) {
             System.out.println("\nМассив нулевой длины!");
             return;
         }
 
-        for (int i = 0; i < original.length; i++) {
-            if (original[i] == 1 || original[i] == 0) {
-                System.out.println(original[i] + "! = 1");
+        for (int i = 0; i < originalNumbers.length; i++) {
+            if (originalNumbers[i] == 1 || originalNumbers[i] == 0) {
+                System.out.println(originalNumbers[i] + "! = 1");
                 continue;
             }
 
-            if (original[i] < 0) {
-                System.out.println("Ошибка: факториал " + original[i] + "! не определён!");
+            if (originalNumbers[i] < 0) {
+                System.out.println("Ошибка: факториал " + originalNumbers[i] + "! не определён!");
                 continue;
             }
 
-            if (original[i] > 20) {
-                System.out.println("Ошибка: факториал " + original[i] + "! слишком велик (максимум 20!)");
+            if (originalNumbers[i] > 20) {
+                System.out.println("Ошибка: " +
+                        "факториал " + originalNumbers[i] + "! слишком велик (максимум 20!)");
                 continue;
             }
 
-            StringBuilder expr = new StringBuilder(original[i] + "! = ");
-            for (int j = 1; j <= original[i]; j++) {
+            StringBuilder expr = new StringBuilder(originalNumbers[i] + "! = ");
+            for (int j = 1; j <= originalNumbers[i]; j++) {
                 expr.append(j);
-                expr.append((j < original[i]) ? " * " : " = ");
+                expr.append((j < originalNumbers[i]) ? " * " : " = ");
             }
             System.out.println(expr.append(factorials[i]));
         }
@@ -100,8 +106,8 @@ public final class Console {
         System.out.println();
     }
 
-    public static void printErrorMessage(int index) {
-        System.out.println("\n" + "Ошибка! В массиве нет элемента с индексом " + index);
+    public static void printErrorMessage(String message) {
+        System.out.println("\nОшибка!" + message);
     }
 
     public static void printString(String string) {
