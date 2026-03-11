@@ -25,23 +25,21 @@ public final class Arrays {
         return randomNumbers;
     }
 
-    public static void checkPasswordStrength(char[] password) throws InterruptedException {
-        String[][] blacklist = {
-                {"admin"},
-                {"qwerty"},
-                {"123456"}
-        };
-
+    public static boolean checkPasswordStrength(char[] password) throws InterruptedException {
         StringBuilder reasonWeakness = new StringBuilder();
+        boolean isStrong = true;
+
+        Console.displayLoading();
 
         if (password.length == 0) {
-            reasonWeakness.append("\nПароль пуст.");
-            Console.displayPasswordStrengthResult(reasonWeakness, password);
-            return;
+            reasonWeakness.append("\nПароль пуст ");
+            Console.displayReasons(reasonWeakness);
+            return false;
         }
 
-        if (isPasswordInBlacklist(password, blacklist)) {
-            reasonWeakness.append("\nПароль находится в чёрном списке.");
+        if (isPasswordInBlacklist(password)) {
+            reasonWeakness.append("Пароль находится в чёрном списке ");
+            isStrong = false;
         }
 
         boolean hasLower = false;
@@ -62,42 +60,45 @@ public final class Arrays {
         }
 
         if (password.length <= 7) {
-            reasonWeakness.append("\nПароль должен быть не менее 8 символов");
+            reasonWeakness.append("\nПароль должен быть не менее 8 символов ");
+            isStrong = false;
         }
 
         if (hasDigit && !hasLower && !hasUpper && !hasSpecial) {
-            reasonWeakness.append("\nПароль содержит только цифры");
+            reasonWeakness.append("\nПароль содержит только цифры ");
+            isStrong = false;
         }
 
         if ((hasLower && hasUpper) && !hasDigit && !hasSpecial) {
-            reasonWeakness.append("\nПароль содержит только буквы");
+            reasonWeakness.append("\nПароль содержит только буквы ");
+            isStrong = false;
         }
 
         if (hasSpecial && !hasLower && !hasUpper && !hasDigit) {
-            reasonWeakness.append("\nПароль содержит только специальные символы");
+            reasonWeakness.append("\nПароль содержит только специальные символы ");
+            isStrong = false;
         }
 
         if (!hasSpecial && hasLower && hasUpper && hasDigit) {
-            reasonWeakness.append("\nПароль не содержит специальные символы");
+            reasonWeakness.append("\nПароль не содержит специальные символы ");
+            isStrong = false;
         }
 
         if (!hasLower && !hasUpper) {
-            reasonWeakness.append("\nПароль не содержит буквы нижнего и верхнего регистров");
+            reasonWeakness.append("\nПароль не содержит буквы нижнего и верхнего регистров ");
+            isStrong = false;
         }
 
         if (!hasDigit) {
-            reasonWeakness.append("\nПароль не содержит цифр");
+            reasonWeakness.append("\nПароль не содержит цифр ");
+            isStrong = false;
         }
 
-        String ansiReset = "\u001B[0m";
-        String ansiRed = "\u001B[31m";
-        String ansiGreen = "\u001B[32m";
-        StringBuilder status = new StringBuilder();
-        status = (password.length >= 8 && (hasLower && hasUpper) && hasSpecial && hasDigit) ?
-                status.append(ansiGreen).append("\b✗ Strong password: ").append(ansiReset).append(password) :
-                status.append(ansiRed).append("\b✓ Password cracked: ").append(ansiReset).append(password);
-        status.append(reasonWeakness);
-        Console.displayPasswordStrengthResult(status, password);
+        if (!isStrong) {
+            Console.displayReasons(reasonWeakness);
+        }
+        reasonWeakness.setLength(0);
+        return isStrong;
     }
 
     private static long factorial(int n) {
@@ -107,22 +108,23 @@ public final class Arrays {
         return n * factorial(n - 1);
     }
 
-    public static char[] genaratePassword(int[][] asciiRange) {
-        Random random = new Random();
-        int passwordLength = random.nextInt(6, 13);
-        StringBuilder password = new StringBuilder();
+    public static char[] genaratePassword() {
+        Random rnd = new Random();
+        int passwordLength = rnd.nextInt(6, 13);
+        char[] password = new char[passwordLength];
 
         for (int i = 0; i < passwordLength; i++) {
-            int indexRange = random.nextInt(asciiRange.length);
-            int lowBound = asciiRange[indexRange][0];
-            int highBound = asciiRange[indexRange][1];
-            char symbol = (char) random.nextInt(lowBound, highBound + 1);
-            password.append(symbol);
+            password[i] = (char) rnd.nextInt(33, 127);
         }
-        return password.toString().toCharArray();
+        return password;
     }
 
-    private static boolean isPasswordInBlacklist(char[] password, String[][] blacklist) {
+    private static boolean isPasswordInBlacklist(char[] password) {
+        String[][] blacklist = {
+                {"admin"},
+                {"qwerty"},
+                {"123456"}
+        };
         String passwordStr = new String(password);
         for (String[] blacklistedPassword : blacklist) {
             if (passwordStr.equals(blacklistedPassword[0])) {
@@ -143,11 +145,10 @@ public final class Arrays {
 
     public static int[] reverse(int[] array) {
         int length = array.length;
-        int index = 0;
         int[] reversed = new int[length];
 
         for (int value : array) {
-            reversed[length - 1 - index++] = value;
+            reversed[--length] = value;
         }
         return reversed;
     }
