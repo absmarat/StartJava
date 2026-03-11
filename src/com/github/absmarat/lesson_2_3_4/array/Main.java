@@ -81,26 +81,18 @@ public class Main {
     }
 
     private static void simulatePasswordHacking() throws InterruptedException {
-        int[][] asciiRanges = {
-                {48, 57},
-                {65, 90},
-                {97, 122},
-                {33, 47},
-                {58, 64},
-                {91, 96},
-                {123, 126}
-        };
-
-        Arrays.checkPasswordStrength("123456".toCharArray());
+        boolean isStrong = Arrays.checkPasswordStrength("123456".toCharArray());
+        Console.displayPasswordStrengthResult(isStrong, "123456".toCharArray());
 
         for (int i = 0; i < 3; i++) {
-            char[] password = (asciiRanges.length == 0) ? new char[0] : Arrays.genaratePassword(asciiRanges);
-            Arrays.checkPasswordStrength(password);
+            char[] password = Arrays.genaratePassword();
+            isStrong = Arrays.checkPasswordStrength(password);
+            Console.displayPasswordStrengthResult(isStrong, password);
         }
     }
 
     private static void createTypewriterEffect() throws InterruptedException {
-        String[] quotes = {"\nJava - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
+        String[] quotes = {"\n\nJava - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                         "- James Gosling\n",
                 "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                         "- Robert Martin\n",
