@@ -7,17 +7,22 @@ public final class Console {
         throw new AssertionError();
     }
 
-    public static void displayPasswordStrengthResult(StringBuilder result, char[] password)
-            throws InterruptedException {
+    public static void displayPasswordStrengthResult(boolean isStrong, char[] password) {
         if (password.length == 0) {
-            System.out.println(result);
             return;
         }
-        displayLoading();
-        System.out.println(result);
+
+        StringBuilder message = new StringBuilder();
+        String ansiReset = "\u001B[0m";
+        String ansiRed = "\u001B[31m";
+        String ansiGreen = "\u001B[32m";
+        message = isStrong ?
+                message.append(ansiGreen).append("\n✗ Strong password: ").append(ansiReset).append(password)
+                : message.append(ansiRed).append("\n✓ Password cracked: ").append(ansiReset).append(password);
+        System.out.print("\b" + message);
     }
 
-    private static void displayLoading() throws InterruptedException {
+    public static void displayLoading() throws InterruptedException {
         char[] spins = {'-', '\\', '|', '/'};
         System.out.println();
 
@@ -27,6 +32,10 @@ public final class Console {
                 Thread.sleep(100);
             }
         }
+    }
+
+    public static void displayReasons(StringBuilder message) {
+        System.out.print("\b" + message);
     }
 
     public static void displayTypewriterEffect(String[] words) throws InterruptedException {
