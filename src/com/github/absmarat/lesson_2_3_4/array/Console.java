@@ -16,15 +16,13 @@ public final class Console {
         String ansiReset = "\u001B[0m";
         String ansiRed = "\u001B[31m";
         String ansiGreen = "\u001B[32m";
-        message = isStrong ?
-                message.append(ansiGreen).append("\n✗ Strong password: ").append(ansiReset).append(password)
-                : message.append(ansiRed).append("\n✓ Password cracked: ").append(ansiReset).append(password);
-        System.out.print("\b" + message);
+        message = isStrong ? message.append(ansiGreen).append("✗ Strong password: ")
+                : message.append(ansiRed).append("\n✓ Password cracked: ");
+        System.out.println(message.append(ansiReset).append(password));
     }
 
     public static void displayLoading() throws InterruptedException {
         char[] spins = {'-', '\\', '|', '/'};
-        System.out.println();
 
         for (int i = 0; i < 3; i++) {
             for (char element : spins) {
@@ -32,18 +30,14 @@ public final class Console {
                 Thread.sleep(100);
             }
         }
+        System.out.print("\b");
     }
 
     public static void displayReasons(StringBuilder message) {
-        System.out.print("\b" + message);
+        System.out.print(message);
     }
 
     public static void displayTypewriterEffect(String[] words) throws InterruptedException {
-        if (words == null) {
-            System.out.println("Ошибка: входной массив не может быть null или пустой.");
-            return;
-        }
-
         for (String word : words) {
             for (char ch : word.toCharArray()) {
                 System.out.print(ch);
