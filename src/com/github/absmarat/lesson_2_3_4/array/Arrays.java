@@ -108,6 +108,36 @@ public final class Arrays {
         return n * factorial(n - 1);
     }
 
+    public static int[] findShortestAndLongestWordIndexes(String originalText) {
+        String[] words = originalText.split(" ");
+        String shortestWord = words[0];
+        String longestWord = words[0];
+        int shortestWordIndex = 0;
+        int longestWordIndex = 0;
+
+        for (int i = 0; i < words.length; i++) {
+            String noPunctuation = words[i].replaceAll("[\\p{P}\\s]+", "");
+            if (noPunctuation.isEmpty()) continue;
+
+            if (noPunctuation.length() < shortestWord.length()) {
+                shortestWord = noPunctuation;
+                shortestWordIndex = i;
+            } else if (noPunctuation.length() > longestWord.length()) {
+                longestWord = noPunctuation;
+                longestWordIndex = i;
+            }
+        }
+
+        if (shortestWordIndex > longestWordIndex) {
+            int swap = shortestWordIndex;
+            shortestWordIndex = longestWordIndex;
+            longestWordIndex = swap;
+        }
+
+        int[] indexes = {shortestWordIndex, longestWordIndex};
+        return indexes;
+    }
+
     public static char[] genaratePassword() {
         Random rnd = new Random();
         int passwordLength = rnd.nextInt(6, 13);
@@ -177,33 +207,14 @@ public final class Arrays {
         return triangle.toString();
     }
 
-    public static String[] toUpperCaseRange(String originalText) {
+    public static String[] toUpperCaseRange(String originalText, int[] indexes) {
+        if (originalText == null) {
+            return null;
+        }
+
         String[] words = originalText.split(" ");
-        String shortestWord = words[0];
-        String longestWord = words[0];
-        int shortestWordIndex = 0;
-        int longestWordIndex = 0;
 
-        for (int i = 0; i < words.length; i++) {
-            String noPunctuation = words[i].replaceAll("[\\p{P}\\s]+", "");
-            if (noPunctuation.isEmpty()) continue;
-
-            if (noPunctuation.length() < shortestWord.length()) {
-                shortestWord = noPunctuation;
-                shortestWordIndex = i;
-            } else if (noPunctuation.length() > longestWord.length()) {
-                longestWord = noPunctuation;
-                longestWordIndex = i;
-            }
-        }
-
-        if (shortestWordIndex > longestWordIndex) {
-            int swap = shortestWordIndex;
-            shortestWordIndex = longestWordIndex;
-            longestWordIndex = swap;
-        }
-
-        for (int i = shortestWordIndex; i <= longestWordIndex; i++) {
+        for (int i = indexes[0]; i <= indexes[1]; i++) {
             words[i] = words[i].toUpperCase();
         }
         return words;
