@@ -47,7 +47,7 @@ public class Main {
         int[] indexes = {-1, 15, 0, 14};
         for (int index : indexes) {
             if (index < 0 || index == length) {
-                Console.printErrorMessage("В массиве нет элемента с индексом " + index);
+                Console.printErrorMessage(" В массиве нет элемента с индексом " + index);
                 continue;
             }
             float[] created = Arrays.createRandomArray(length);
@@ -92,16 +92,26 @@ public class Main {
     }
 
     private static void createTypewriterEffect() throws InterruptedException {
-        String[] quotes = {"\n\nJava - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
+        String[] quotes = {"\nJava - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                         "- James Gosling\n",
                 "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
-                        "- Robert Martin\n",
+                        "- Robert Martin",
                 null,
                 " "};
 
+        if (quotes == null) {
+            Console.printErrorMessage(" Входной массив не может быть null");
+            return;
+        }
+
         for (String quote : quotes) {
-            String[] modifiedText = (quote == null || quote.isBlank()) ? null
-                    : Arrays.toUpperCaseRange(quote);
+            if (quote == null || quote.isBlank()) {
+                Console.printErrorMessage(" Входной массив не может быть null или пустой");
+                return;
+            }
+
+            int[] shortestAndLongestWordIndexes = Arrays.findShortestAndLongestWordIndexes(quote);
+            String[] modifiedText = Arrays.toUpperCaseRange(quote, shortestAndLongestWordIndexes);
             Console.displayTypewriterEffect(modifiedText);
         }
     }
