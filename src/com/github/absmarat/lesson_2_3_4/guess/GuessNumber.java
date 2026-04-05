@@ -23,17 +23,18 @@ public class GuessNumber {
 
         System.out.println("Игра началась! У каждого игрока по " + MAX_ATTEMPTS + " попыток.");
 
+        Scanner console = new Scanner(System.in);
         int attempt = 1;
 
         while (attempt <= MAX_ATTEMPTS) {
             System.out.println("Попытка " + attempt);
 
-            if (hasNumberEquality(p1, attempt)) break;
+            if (hasNumberEquality(p1, console, attempt)) break;
             if (attempt >= MAX_ATTEMPTS) {
                 System.out.println("У " + p1.getName() + " закончились попытки!");
             }
 
-            if (hasNumberEquality(p2, attempt)) break;
+            if (hasNumberEquality(p2, console, attempt)) break;
             if (attempt >= MAX_ATTEMPTS) {
                 System.out.println("У " + p2.getName() + " закончились попытки!");
             }
@@ -43,9 +44,7 @@ public class GuessNumber {
                 p2.getName() + ": " + p2.buildIncorrectGuessesString());
     }
 
-    private boolean hasNumberEquality(Player player, int attempt) {
-        Scanner console = new Scanner(System.in);
-
+    private boolean hasNumberEquality(Player player, Scanner console, int attempt) {
         System.out.print(player.getName() + ", введи предполагаемое число: ");
 
         while (true) {
