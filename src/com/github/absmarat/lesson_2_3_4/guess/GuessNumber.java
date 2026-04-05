@@ -60,15 +60,15 @@ public class GuessNumber {
                 System.out.println(message);
                 return number == targetNumber;
             } catch (IllegalArgumentException exc) {
+                System.out.print(exc.getMessage() + player.getName() + ", попробуй ещё раз: ");
                 console.nextLine();
-                System.out.print(exc.getMessage() + " Попробуй ещё раз: ");
             }
         }
     }
 
     private int checkInteger(Scanner console) {
         while (!console.hasNextInt()) {
-            System.out.print("Ошибка! Введите целое число: ");
+            System.out.print("Ошибка! Введи целое число: ");
             console.next();
         }
         return console.nextInt();
