@@ -21,7 +21,7 @@ public class Player {
     public void setNumber(int number) {
         if (number < GuessNumber.MIN_NUMBER || number > GuessNumber.MAX_NUMBER) {
             throw new IllegalArgumentException("Число должно быть в диапазоне от " +
-                    GuessNumber.MIN_NUMBER + " до " + GuessNumber.MAX_NUMBER + ".");
+                    GuessNumber.MIN_NUMBER + " до " + GuessNumber.MAX_NUMBER + ". ");
         }
         incorrectNumbers[usedAttempts] = number;
     }
