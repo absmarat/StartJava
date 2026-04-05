@@ -31,12 +31,12 @@ public class GuessNumber {
 
             if (hasNumberEquality(p1, console, attempt)) break;
             if (attempt >= MAX_ATTEMPTS) {
-                System.out.println("У игрока" + p1.getName() + " закончились попытки!");
+                System.out.println("У игрока " + p1.getName() + " закончились попытки!");
             }
 
             if (hasNumberEquality(p2, console, attempt)) break;
             if (attempt >= MAX_ATTEMPTS) {
-                System.out.println("У игрока" + p2.getName() + " закончились попытки!");
+                System.out.println("У игрока " + p2.getName() + " закончились попытки!");
             }
             attempt++;
         }
