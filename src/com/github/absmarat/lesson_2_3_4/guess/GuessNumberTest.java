@@ -12,15 +12,24 @@ public class GuessNumberTest {
         System.out.print("Введите имя второго игрока: ");
         String secondName = console.nextLine();
         Player p2 = new Player(secondName);
+        String answer = "yes";
 
-        GuessNumber game = new GuessNumber(p1, p2);
-        String answer = "";
-        do {
-            game.start();
-            do {
+        while (!"no".equals(answer)) {
+            GuessNumber game = new GuessNumber(p1, p2);
+
+            if ("yes".equals(answer)) {
+                game.start();
                 System.out.print("Хотите продолжить игру? [yes/no]:");
-                answer = console.nextLine();
-            } while (!"yes".equals(answer) && !"no".equals(answer));
-        } while (!"no".equals(answer));
+            }
+
+            if (!"yes".equals(answer) && !"no".equals(answer)) {
+                System.out.print("Введите корректный ответ: ");
+            }
+
+            answer = console.nextLine().toLowerCase().trim();
+        }
+        console.close();
     }
 }
+
+
