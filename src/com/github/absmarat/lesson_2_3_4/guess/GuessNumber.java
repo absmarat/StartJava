@@ -3,6 +3,10 @@ package com.github.absmarat.lesson_2_3_4.guess;
 import java.util.Scanner;
 
 public class GuessNumber {
+    static final int MAX_ATTEMPTS = 10;
+    static final int MIN_NUMBER = 1;
+    static final int MAX_NUMBER = 100;
+
     private Player p1;
     private Player p2;
     private int targetNumber;
@@ -13,32 +17,63 @@ public class GuessNumber {
     }
 
     public void start() {
-        targetNumber = (int) (1 + Math.random() * 100);
-        System.out.println("Угадай число от 1 до 100.");
-        Scanner console = new Scanner(System.in);
-        while (true) {
-            System.out.print(p1.getName() + ", введи предполагаемое число: ");
-            p1.setNumber(console.nextInt());
-            boolean isEquality = hasEqualNumbers(p1.getNumber());
-            if (isEquality) break;
+        targetNumber = (int) (MIN_NUMBER + Math.random() * (MAX_NUMBER - MIN_NUMBER + 1));
+        p1.reset();
+        p2.reset();
 
-            System.out.print(p2.getName() + ", введи предполагаемое число: ");
-            p2.setNumber(console.nextInt());
-            isEquality = hasEqualNumbers(p2.getNumber());
-            if (isEquality) break;
+        System.out.println("Игра началась! У каждого игрока по " + MAX_ATTEMPTS + " попыток.");
+
+        Scanner console = new Scanner(System.in);
+        int attempt = 1;
+
+        while (attempt <= MAX_ATTEMPTS) {
+            System.out.println("Попытка " + attempt);
+
+            if (hasNumberEquality(p1, console, attempt)) break;
+            if (attempt >= MAX_ATTEMPTS) {
+                System.out.println("У " + p1.getName() + " закончились попытки!");
+            }
+
+            if (hasNumberEquality(p2, console, attempt)) break;
+            if (attempt >= MAX_ATTEMPTS) {
+                System.out.println("У " + p2.getName() + " закончились попытки!");
+            }
+            attempt++;
+        }
+        System.out.println(p1.getName() + ": " + p1.buildIncorrectGuessesString() + "   " +
+                p2.getName() + ": " + p2.buildIncorrectGuessesString());
+    }
+
+    private boolean hasNumberEquality(Player player, Scanner console, int attempt) {
+        System.out.print(player.getName() + ", введи предполагаемое число: ");
+
+        while (true) {
+            try {
+                int number = checkInteger(console);
+                player.setNumber(number);
+                player.incrementAttempts();
+                String comparison = (number > targetNumber) ? "больше" : "меньше";
+                String message = (number == targetNumber) ?
+                        player.getName() + " угадал число " + number + " с " + attempt + "-й попытки"
+                        : "  Число " + number + " " + comparison + " загаданного.";
+                System.out.println(message);
+                return number == targetNumber;
+            } catch (IllegalArgumentException exc) {
+                console.nextLine();
+                System.out.print(exc.getMessage() + " Попробуй ещё раз: ");
+            }
         }
     }
 
-    private boolean hasEqualNumbers(int playerNumber) {
-        if (playerNumber == targetNumber) {
-            System.out.println("  Ты победил(а)!");
-            return true;
+    private int checkInteger(Scanner console) {
+        while (!console.hasNextInt()) {
+            System.out.print("Ошибка! Введите целое число: ");
+            console.next();
         }
-        if (playerNumber > targetNumber) {
-            System.out.println("  Число " + playerNumber + " больше, чем загаданное.");
-        } else {
-            System.out.println("  Число " + playerNumber + " меньше, чем загаданное.");
-        }
-        return false;
+        return console.nextInt();
     }
 }
+
+
+
+
