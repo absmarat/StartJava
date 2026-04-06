@@ -5,13 +5,13 @@ import java.util.Arrays;
 public class Player {
     private String name;
     private int usedAttempts;
-    private int[] incorrectNumbers;
+    private int[] guesses;
 
     Player(String name) {
         this.name = name;
-        this.incorrectNumbers = new int[GuessNumber.MAX_ATTEMPTS];
+        this.guesses = new int[GuessNumber.MAX_ATTEMPTS];
         this.usedAttempts = 0;
-        Arrays.fill(incorrectNumbers, 0);
+        Arrays.fill(guesses, 0);
     }
 
     public String getName() {
@@ -23,20 +23,20 @@ public class Player {
             throw new IllegalArgumentException("Число должно быть в диапазоне от " +
                     GuessNumber.MIN_NUMBER + " до " + GuessNumber.MAX_NUMBER + ". ");
         }
-        incorrectNumbers[usedAttempts] = number;
+        guesses[usedAttempts] = number;
     }
 
-    public void incrementAttempts() {
+    public void incrementUsedAttempt() {
         usedAttempts++;
     }
 
     public void reset() {
         usedAttempts = 0;
-        Arrays.fill(incorrectNumbers, 0);
+        Arrays.fill(guesses, 0);
     }
 
-    public String buildIncorrectGuessesString() {
-        int[] currentNumbers = Arrays.copyOf(incorrectNumbers, usedAttempts);
+    public String buildGuessesString() {
+        int[] currentNumbers = Arrays.copyOf(guesses, usedAttempts);
         return Arrays.toString(currentNumbers).replaceAll("[\\[\\]]", "");
     }
 }
