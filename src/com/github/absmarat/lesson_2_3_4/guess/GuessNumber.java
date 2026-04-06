@@ -9,7 +9,7 @@ public class GuessNumber {
 
     private Player p1;
     private Player p2;
-    private int targetNumber;
+    private int hiddenNumber;
 
     public GuessNumber(Player p1, Player p2) {
         this.p1 = p1;
@@ -17,11 +17,11 @@ public class GuessNumber {
     }
 
     public void start() {
-        targetNumber = (int) (MIN_NUMBER + Math.random() * (MAX_NUMBER - MIN_NUMBER + 1));
+        hiddenNumber = (int) (MIN_NUMBER + Math.random() * MAX_NUMBER);
         p1.reset();
         p2.reset();
 
-        System.out.println("Игра началась! У каждого игрока по " + MAX_ATTEMPTS + " попыток.");
+        System.out.println("Игра началась! У каждого игрока " + MAX_ATTEMPTS + " попыток.");
 
         Scanner console = new Scanner(System.in);
         int attempt = 1;
@@ -40,8 +40,8 @@ public class GuessNumber {
             }
             attempt++;
         }
-        System.out.println(p1.getName() + ": " + p1.buildIncorrectGuessesString() + "   " +
-                p2.getName() + ": " + p2.buildIncorrectGuessesString());
+        System.out.println(p1.getName() + ": " + p1.buildGuessesString() + "   " +
+                p2.getName() + ": " + p2.buildGuessesString());
     }
 
     private boolean hasNumberEquality(Player player, Scanner console, int attempt) {
@@ -49,23 +49,22 @@ public class GuessNumber {
 
         while (true) {
             try {
-                int number = checkInteger(console);
+                int number = readValidInteger(console);
                 player.setNumber(number);
-                player.incrementAttempts();
-                String comparison = (number > targetNumber) ? "больше" : "меньше";
-                String message = (number == targetNumber) ?
+                player.incrementUsedAttempt();
+                String comparison = (number > hiddenNumber) ? "больше" : "меньше";
+                String message = (number == hiddenNumber) ?
                         player.getName() + " угадал число " + number + " с " + attempt + "-й попытки"
                         : "  Число " + number + " " + comparison + " загаданного.";
                 System.out.println(message);
-                return number == targetNumber;
+                return number == hiddenNumber;
             } catch (IllegalArgumentException exc) {
                 System.out.print(exc.getMessage() + player.getName() + ", попробуй ещё раз: ");
-                console.nextLine();
             }
         }
     }
 
-    private int checkInteger(Scanner console) {
+    private int readValidInteger(Scanner console) {
         while (!console.hasNextInt()) {
             System.out.print("Ошибка! Введи целое число: ");
             console.next();
