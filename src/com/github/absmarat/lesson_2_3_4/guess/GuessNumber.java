@@ -1,9 +1,10 @@
 package com.github.absmarat.lesson_2_3_4.guess;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    static final int MAX_ATTEMPTS = 10;
+    static final int MAX_ATTEMPTS = 1;
     static final int MIN_NUMBER = 1;
     static final int MAX_NUMBER = 100;
 
@@ -11,13 +12,15 @@ public class GuessNumber {
     private Player p2;
     private int hiddenNumber;
 
+    Random rnd = new Random();
+
     public GuessNumber(Player p1, Player p2) {
         this.p1 = p1;
         this.p2 = p2;
+        hiddenNumber = rnd.nextInt(MIN_NUMBER, MAX_NUMBER + 1);
     }
 
     public void start() {
-        hiddenNumber = (int) (MIN_NUMBER + Math.random() * MAX_NUMBER);
         p1.reset();
         p2.reset();
 
@@ -29,47 +32,65 @@ public class GuessNumber {
         while (attempt <= MAX_ATTEMPTS) {
             System.out.println("Попытка " + attempt);
 
-            if (hasNumberEquality(p1, console, attempt)) break;
-            if (attempt >= MAX_ATTEMPTS) {
-                System.out.println("У игрока " + p1.getName() + " закончились попытки!");
-            }
+            if (isGuessed(p1, console, attempt)) break;
+            checkAttemptCount(p1.getName(), attempt);
 
-            if (hasNumberEquality(p2, console, attempt)) break;
-            if (attempt >= MAX_ATTEMPTS) {
-                System.out.println("У игрока " + p2.getName() + " закончились попытки!");
-            }
+            if (isGuessed(p2, console, attempt)) break;
+            checkAttemptCount(p2.getName(), attempt);
+
             attempt++;
         }
-        System.out.println(p1.getName() + ": " + p1.buildGuessesString() + "   " +
-                p2.getName() + ": " + p2.buildGuessesString());
+        displayPlayerAttempts();
     }
 
-    private boolean hasNumberEquality(Player player, Scanner console, int attempt) {
+    private boolean isGuessed(Player player, Scanner console, int attempt) {
         System.out.print(player.getName() + ", введи предполагаемое число: ");
 
         while (true) {
             try {
-                int number = readValidInteger(console);
-                player.setNumber(number);
-                player.incrementUsedAttempt();
+                int number = inputNumber(console);
+                player.addNumber(number);
+
+                if (number == hiddenNumber) {
+                    System.out.println(player.getName() +
+                            " угадал(-а) число " + number + " c " + attempt + "-й попытки!");
+                    return true;
+                }
+
                 String comparison = (number > hiddenNumber) ? "больше" : "меньше";
-                String message = (number == hiddenNumber) ?
-                        player.getName() + " угадал число " + number + " с " + attempt + "-й попытки"
-                        : "  Число " + number + " " + comparison + " загаданного.";
-                System.out.println(message);
-                return number == hiddenNumber;
-            } catch (IllegalArgumentException exc) {
-                System.out.print(exc.getMessage() + player.getName() + ", попробуй ещё раз: ");
+                System.out.println("  Число " + number + " " + comparison + " загаданного.");
+                return false;
+            } catch (IllegalArgumentException e) {
+                System.out.print(e.getMessage() + player.getName() + ", попробуй ещё раз: ");
             }
         }
     }
 
-    private int readValidInteger(Scanner console) {
+    private int inputNumber(Scanner console) {
         while (!console.hasNextInt()) {
             System.out.print("Ошибка! Введи целое число: ");
             console.next();
         }
         return console.nextInt();
+    }
+
+    private void checkAttemptCount(String name, int attempt) {
+        if (attempt >= MAX_ATTEMPTS) {
+            System.out.println("У игрока " + name + " закончились попытки!");
+        }
+    }
+
+    private void displayPlayerAttempts() {
+        Player[] players = {p1, p2};
+
+        for (int i = 0; i < players.length; i++) {
+            System.out.print(players[i].getName() + ": ");
+            int[] playerNumbers = players[i].receiveGuesses();
+            for (int number : playerNumbers) {
+                System.out.print(number + " ");
+            }
+            System.out.print("   ");
+        }
     }
 }
 
