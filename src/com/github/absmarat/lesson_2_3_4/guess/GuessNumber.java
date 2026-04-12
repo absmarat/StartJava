@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    static final int MAX_ATTEMPTS = 1;
+    static final int MAX_ATTEMPTS = 10;
     static final int MIN_NUMBER = 1;
     static final int MAX_NUMBER = 100;
 
