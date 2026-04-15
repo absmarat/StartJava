@@ -21,8 +21,8 @@ public class Player {
     }
 
     public void reset() {
+        Arrays.fill(guesses, 0, attempts, 0);
         attempts = 0;
-        Arrays.fill(guesses, 0);
     }
 
     public void addNumber(int number) {
@@ -35,7 +35,6 @@ public class Player {
     }
 
     public int[] receiveGuesses() {
-        int[] currentNumbers = Arrays.copyOf(guesses, attempts);
-        return currentNumbers;
+        return Arrays.copyOf(guesses, attempts);
     }
 }
