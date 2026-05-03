@@ -3,7 +3,7 @@ package com.github.absmarat.lesson_2_3_4.guess;
 import java.util.Scanner;
 
 public class GuessNumberTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner console = new Scanner(System.in);
         System.out.print("Введите имя первого игрока: ");
         String firstName = console.nextLine();
@@ -12,10 +12,14 @@ public class GuessNumberTest {
         System.out.print("Введите имя второго игрока: ");
         String secondName = console.nextLine();
         Player p2 = new Player(secondName);
+
+        System.out.print("Введите имя третьего игрока: ");
+        String thirdName = console.nextLine();
+        Player p3 = new Player(thirdName);
         String answer = "yes";
 
         while (!"no".equals(answer)) {
-            GuessNumber game = new GuessNumber(p1, p2);
+            GuessNumber game = new GuessNumber(p1, p2, p3);
 
             if ("yes".equals(answer)) {
                 game.start();
