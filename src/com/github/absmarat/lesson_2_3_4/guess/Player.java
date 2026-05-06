@@ -8,9 +8,8 @@ import java.util.Arrays;
 
 public class Player {
     private String name;
-    private int attempts;
     private int[] guesses;
-    private int guess;
+    private int attempts;
     private int wins;
 
     Player(String name) {
@@ -27,38 +26,33 @@ public class Player {
     }
 
     public int getGuess() {
-        return guess;
+        return guesses[attempts - 1];
     }
 
-    public void setGuess(int guess) {
+    public void addGuess(int guess) {
         if (guess < MIN_NUMBER || guess > MAX_NUMBER) {
             throw new IllegalArgumentException("Число должно быть в диапазоне от " +
                     MIN_NUMBER + " до " + MAX_NUMBER + ".");
         }
-        this.guess = guess;
+        guesses[attempts] = guess;
+        attempts++;
     }
 
     public int getWins() {
         return wins;
     }
 
-    public void setWins(int wins) {
-        this.wins = wins;
+    public void addWin() {
+        wins++;
     }
 
     public void resetPlayerWins() {
         wins = 0;
     }
 
-    public void recordGuess(int guess) {
-        guesses[attempts] = guess;
-        attempts++;
-    }
-
     public void reset() {
         Arrays.fill(guesses, 0, attempts, 0);
         attempts = 0;
-        guess = 0;
     }
 
     public int[] receiveGuesses() {
