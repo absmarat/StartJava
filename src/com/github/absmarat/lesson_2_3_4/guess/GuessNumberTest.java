@@ -7,7 +7,7 @@ public class GuessNumberTest {
 
     public static void main(String[] args) throws InterruptedException {
         Scanner console = new Scanner(System.in);
-        Player[] players = addPlayers(console);
+        Player[] players = createPlayers(console);
         String answer = "yes";
 
         while (!"no".equals(answer)) {
@@ -25,7 +25,7 @@ public class GuessNumberTest {
         console.close();
     }
 
-    private static Player[] addPlayers(Scanner console) {
+    private static Player[] createPlayers(Scanner console) {
         Player[] players = new Player[PLAYERS];
         for (int i = 0; i < PLAYERS; i++) {
             System.out.print("Введите имя игрока №" + (i + 1) + ": ");
