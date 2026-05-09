@@ -44,13 +44,13 @@ public class GuessNumber {
             players[i] = players[random];
             players[random] = temp;
         }
-        displayNames();
+        castLots();
     }
 
-    private void displayNames() throws InterruptedException {
+    private void castLots() throws InterruptedException {
         System.out.print("\nРезультат жеребьёвки:  ");
+        animateSpinner();
         for (Player player : players) {
-            animateSpinner();
             System.out.print(player.getName() + "  ");
         }
     }
