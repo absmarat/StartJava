@@ -4,7 +4,7 @@ import java.time.Year;
 import java.util.Arrays;
 
 public class Bookcase {
-    static final int MAX_BOOKS = 3;
+    static final int MAX_BOOKS = 10;
     static final int MIN_LENGTH = 10;
     private int maxBookLength;
     private int bookCount;
