@@ -7,7 +7,6 @@ public class Book {
     private String author;
     private Year year;
 
-
     public Book(String title, String author, Year year) {
         this.title = title;
         this.author = author;
@@ -21,6 +20,5 @@ public class Book {
     @Override
     public String toString() {
         return "\"" + title + "\", " + author + ", " + year;
-
     }
 }
