@@ -3,6 +3,7 @@ package com.github.absmarat.graduation.bookcase;
 import java.time.Year;
 
 public class Book {
+    static final int MIN_YEAR = 1800;
     private String title;
     private String author;
     private Year year;
