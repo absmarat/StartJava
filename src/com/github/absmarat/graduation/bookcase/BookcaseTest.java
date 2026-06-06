@@ -1,12 +1,17 @@
 package com.github.absmarat.graduation.bookcase;
 
 import static com.github.absmarat.graduation.bookcase.Book.MIN_YEAR;
-import static com.github.absmarat.graduation.bookcase.Bookcase.MAX_BOOKS;
+import static com.github.absmarat.graduation.bookcase.Bookcase.CAPACITY;
 
 import java.time.Year;
 import java.util.Scanner;
 
 public class BookcaseTest {
+    private static final int MIN_MENU_ITEM = 1;
+    private static final int MAX_MENU_ITEM = 5;
+    private static final String FIRST_PHRASE = "название книги";
+    private static final String SECOND_PHRASE = "имя автора книги";
+
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         Bookcase bookcase = new Bookcase();
@@ -26,7 +31,7 @@ public class BookcaseTest {
     }
 
     private static void displayWelcomeMsg() throws InterruptedException {
-        int delay = 10;
+        int delay = 100;
         String msg = "ДОБРО ПОЖАЛОВАТЬ В КНИЖНЫЙ ШКАФ!";
         char[] characters = msg.toCharArray();
 
@@ -56,53 +61,52 @@ public class BookcaseTest {
 
     private static boolean makeChoice(Scanner scanner, Bookcase bookcase) {
         int item = enterMenuItem(scanner);
-        String msg = "";
 
         switch (item) {
             case 1:
-                msg = addBookToBookcase(scanner, bookcase);
+                addBook(scanner, bookcase);
                 break;
             case 2:
-                msg = findBookToBookcase(scanner, bookcase);
+                findBook(scanner, bookcase);
                 break;
             case 3:
-                msg = removeBookToBookcase(scanner, bookcase);
+                removeBook(scanner, bookcase);
                 break;
             case 4:
-                msg = clearBookcase(bookcase);
+                clearBookcase(bookcase);
                 break;
             case 5:
                 System.out.println("Работа завершена!");
                 return true;
             default:
         }
-        System.out.println(msg);
         return false;
     }
 
-    private static String addBookToBookcase(Scanner scanner, Bookcase bookcase) {
-        String title = inputTitle(scanner);
-        String author = inputAuthorName(scanner);
+    private static void addBook(Scanner scanner, Bookcase bookcase) {
+        String title = inputBookInfo(scanner, FIRST_PHRASE);
+        String author = inputBookInfo(scanner, SECOND_PHRASE);
         Year year = inputYear(scanner);
-        boolean isDone = bookcase.addBook(title, author, year);
-        return isDone ? "Книга успешно добавлена!" : "Не удалось добавить книгу. Шкаф заполнен.";
+        Book book = new Book(title, author, year);
+        boolean isDone = bookcase.addBook(book);
+        System.out.println((isDone) ? "Книга успешно добавлена!" :
+                "Не удалось добавить книгу. Шкаф заполнен.");
     }
 
-    private static String findBookToBookcase(Scanner scanner, Bookcase bookcase) {
-        String title = inputTitle(scanner);
-        boolean isDone = bookcase.findBook(title);
-        return isDone ? "Книга найдена!" : "Книга не найдена!";
+    private static void findBook(Scanner scanner, Bookcase bookcase) {
+        String title = inputBookInfo(scanner, FIRST_PHRASE);
+        Book book = bookcase.findBook(title);
+        System.out.println((book != null) ? "Искомая книга: " + book : "Книга не найдена!");
     }
 
-    private static String removeBookToBookcase(Scanner scanner, Bookcase bookcase) {
-        String title = inputTitle(scanner);
+    private static void removeBook(Scanner scanner, Bookcase bookcase) {
+        String title = inputBookInfo(scanner, FIRST_PHRASE);
         boolean isDone = bookcase.removeBook(title);
-        return isDone ? "Книга удалена!" : "Книги с таким названием нет в наличии!";
+        System.out.println((isDone) ? "Книга удалена!" : "Книги с таким названием нет в наличии!");
     }
 
-    private static String clearBookcase(Bookcase bookcase) {
+    private static void clearBookcase(Bookcase bookcase) {
         bookcase.clearBookcase();
-        return "Шкаф очищен!";
     }
 
     private static int enterMenuItem(Scanner scanner) {
@@ -111,45 +115,32 @@ public class BookcaseTest {
             if (scanner.hasNextInt()) {
                 int item = scanner.nextInt();
                 scanner.nextLine();
-                if (item >= 1 && item <= 5) {
+                if (item >= MIN_MENU_ITEM && item <= MAX_MENU_ITEM) {
                     return item;
                 } else {
-                    System.out.println("Ошибка! В меню пункт " + item + " не предусмотрен.");
+                    System.out.println("Ошибка: в меню пункт " + item + " не предусмотрен.");
                 }
             } else {
-                System.out.println("Ошибка! Необходимо ввести целое число.");
+                System.out.println("Ошибка: необходимо ввести целое число.");
                 scanner.nextLine();
             }
         }
     }
 
-    private static String inputTitle(Scanner scanner) {
-        String title;
+    private static String inputBookInfo(Scanner scanner, String line) {
+        String bookInfo;
         while (true) {
-            System.out.print("Введите название книги: ");
-            title = scanner.nextLine().trim();
-            if (!title.isBlank()) {
-                return title;
+            System.out.print("Введите " + line + ": ");
+            bookInfo = scanner.nextLine().trim();
+            if (!bookInfo.isBlank()) {
+                return bookInfo;
             }
-            System.out.println("Ошибка: название не может быть пустым.");
-        }
-    }
-
-    private static String inputAuthorName(Scanner scanner) {
-        String author;
-        while (true) {
-            System.out.print("Введите имя автора книги: ");
-            author = scanner.nextLine().trim();
-            if (!author.isBlank()) {
-                return author;
-            }
-            System.out.println("Ошибка: имя автора не может быть пустым.");
+            System.out.println("Ошибка: " + line + " не может быть пустым.");
         }
     }
 
     private static Year inputYear(Scanner scanner) {
         Year currentYear = Year.now();
-
         while (true) {
             System.out.print("Введите год издания книги: ");
 
@@ -172,7 +163,7 @@ public class BookcaseTest {
     private static void displayBookcaseStatus(Bookcase bookcase) {
         int currBookCount = bookcase.getBookCount();
         System.out.println("Количество книг в шкафу: " + currBookCount +
-                "   Количество пустых полок: " + (MAX_BOOKS - currBookCount));
+                "   Количество пустых полок: " + (CAPACITY - currBookCount));
         if (currBookCount == 0) {
             displayEmptyBookcaseMsg();
         }
@@ -185,9 +176,7 @@ public class BookcaseTest {
 
     private static void createBookcase(Bookcase bookcase) {
         StringBuilder bookshelves = new StringBuilder();
-        calculateBookcaseWidth(bookcase);
-        StringBuilder separator = new StringBuilder("-".repeat(bookcase.getBookcaseWidth()));
-
+        StringBuilder separator = new StringBuilder("-".repeat(bookcase.getWidth()));
         Book[] books = bookcase.getBooks();
         int bookCount = bookcase.getBookCount();
 
@@ -200,7 +189,7 @@ public class BookcaseTest {
             bookshelves.append("|");
             String book = books[i].toString();
             bookshelves.append(book);
-            int spaces = bookcase.getBookcaseWidth() - book.length();
+            int spaces = bookcase.getWidth() - book.length();
 
             if (spaces > 0) {
                 bookshelves.append(" ".repeat(spaces));
@@ -209,33 +198,12 @@ public class BookcaseTest {
             bookshelves.append("|").append(separator).append("|\n");
         }
 
-        int emptyBookshelves = MAX_BOOKS - bookCount;
+        int emptyBookshelves = CAPACITY - bookCount;
+
         for (int i = 0; i < emptyBookshelves; i++) {
-            bookshelves.append("|").append(" ".repeat(bookcase.getBookcaseWidth())).append("|\n");
+            bookshelves.append("|").append(" ".repeat(bookcase.getWidth())).append("|\n");
             bookshelves.append("|").append(separator).append("|\n");
         }
-        displayBookcase(bookshelves);
-    }
-
-    private static void calculateBookcaseWidth(Bookcase bookcase) {
-        if (bookcase.isActualWidth()) {
-            return;
-        }
-
-        Book[] books = bookcase.getBooks();
-        int maxBookLength = bookcase.getMaxBookLength();
-
-        for (Book book : books) {
-            int bookLength = book.toString().length();
-            if (bookLength > maxBookLength) {
-                maxBookLength = bookLength;
-            }
-        }
-        bookcase.setBookcaseWidth(Math.max(maxBookLength, Bookcase.MIN_BOOKCASE_WIDTH));
-        bookcase.setActualWidth(true);
-    }
-
-    private static void displayBookcase(StringBuilder bookshelvs) {
-        System.out.print("\n" + bookshelvs);
+        System.out.print("\n" + bookshelves);
     }
 }
