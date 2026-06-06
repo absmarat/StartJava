@@ -1,96 +1,67 @@
 package com.github.absmarat.graduation.bookcase;
 
-import java.time.Year;
 import java.util.Arrays;
 
 public class Bookcase {
-    static final int MAX_BOOKS = 3;
-    static final int MIN_BOOKCASE_WIDTH = 10;
-    private int maxBookLength;
+    static final int CAPACITY = 10;
     private int bookCount;
-    private int bookcaseWidth;
-    private boolean isActualWidth;
+    private int width;
     private Book[] books;
 
     public Bookcase() {
-        maxBookLength = 0;
         bookCount = 0;
-        bookcaseWidth = 0;
-        isActualWidth = true;
-        books = new Book[MAX_BOOKS];
-    }
-
-    public int getMaxBookLength() {
-        return maxBookLength;
+        width = 0;
+        books = new Book[CAPACITY];
     }
 
     public int getBookCount() {
         return bookCount;
     }
 
-    public int getBookcaseWidth() {
-        return bookcaseWidth;
-    }
-
-    public void setBookcaseWidth(int bookcaseWidth) {
-        this.bookcaseWidth = bookcaseWidth;
-    }
-
-    public boolean isActualWidth() {
-        return isActualWidth;
-    }
-
-    public void setActualWidth(boolean actualWidth) {
-        isActualWidth = actualWidth;
+    public int getWidth() {
+        return width;
     }
 
     public Book[] getBooks() {
         return Arrays.copyOf(books, bookCount);
     }
 
-    boolean addBook(String title, String author, Year year) {
-        if (bookCount >= MAX_BOOKS) {
+    boolean addBook(Book book) {
+        if (bookCount >= CAPACITY) {
             return false;
         }
-        books[bookCount] = new Book(title, author, year);
-        String addedBook = books[bookCount].toString();
-
-        if (addedBook.length() > bookcaseWidth) {
-            isActualWidth = false;
-            maxBookLength = 0;
-        }
+        books[bookCount] = book;
+        int length = books[bookCount].toString().length();
         bookCount++;
+
+        if (length > width) {
+            calculateWidth();
+        }
         return true;
     }
 
-    boolean findBook(String title) {
+    Book findBook(String title) {
         for (int i = 0; i < bookCount; i++) {
-            if (title.equals(books[i].getTitle())) {
-                return true;
+            if (title.equalsIgnoreCase(books[i].getTitle())) {
+                return books[i];
             }
         }
-        return false;
+        return null;
     }
 
     boolean removeBook(String title) {
         for (int i = 0; i < bookCount; i++) {
-            if (title.equals(books[i].getTitle())) {
-                String removedBook = books[i].toString();
+            if (title.equalsIgnoreCase(books[i].getTitle())) {
+                int length = books[i].toString().length();
 
                 System.arraycopy(books, i + 1, books, i, bookCount - i - 1);
 
                 books[--bookCount] = null;
 
-                if (removedBook.length() == bookcaseWidth) {
-                    isActualWidth = false;
-                    maxBookLength = 0;
+                if (length == width) {
+                    width = 0;
+                    calculateWidth();
                 }
-
-                if (bookCount == 0) {
-                    maxBookLength = 0;
-                    return true;
-                }
-
                 return true;
             }
         }
@@ -100,6 +71,15 @@ public class Bookcase {
     void clearBookcase() {
         Arrays.fill(books, 0, bookCount, null);
         bookCount = 0;
-        maxBookLength = 0;
+        width = 0;
+    }
+
+    private void calculateWidth() {
+        for (int i = 0; i < bookCount; i++) {
+            int length = books[i].toString().length();
+            if (length > width) {
+                width = length;
+            }
+        }
     }
 }
