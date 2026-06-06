@@ -6,12 +6,12 @@ public class Book {
     static final int MIN_YEAR = 1800;
     private String title;
     private String author;
-    private Year year;
+    private Year publicationYear;
 
-    public Book(String title, String author, Year year) {
+    public Book(String title, String author, Year publicationYear) {
         this.title = title;
         this.author = author;
-        this.year = year;
+        this.publicationYear = publicationYear;
     }
 
     public String getTitle() {
@@ -20,6 +20,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return "\"" + title + "\", " + author + ", " + year;
+        return "\"" + title + "\", " + author + ", " + publicationYear;
     }
 }
