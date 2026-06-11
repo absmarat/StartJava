@@ -117,8 +117,8 @@ public class BookcaseTest {
 
     private static void findBook(Scanner scanner, Bookcase bookcase) {
         String title = inputBookInfo(scanner, BOOK_TITLE_PROMT);
-        Book book = bookcase.findBook(title);
-        System.out.println((book != null) ? "Искомая книга: " + book : "Книга не найдена!");
+        Book foundBook = bookcase.findBook(title);
+        System.out.println((foundBook != null) ? "Искомая книга: " + foundBook : "Книга не найдена!");
     }
 
     private static void removeBook(Scanner scanner, Bookcase bookcase) {
@@ -197,10 +197,10 @@ public class BookcaseTest {
         StringBuilder filledShelves = new StringBuilder();
         Book[] books = bookcase.getBooks();
 
-        for (Book book : books) {
+        for (Book bookInfo : books) {
             filledShelves.append("|")
-                    .append(book)
-                    .append(" ".repeat(shelfWidth - book.toString().length()))
+                    .append(bookInfo)
+                    .append(" ".repeat(shelfWidth - bookInfo.toString().length()))
                     .append("|\n")
                     .append("|")
                     .append("-".repeat(shelfWidth))
