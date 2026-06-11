@@ -9,8 +9,6 @@ public class Bookcase {
     private Book[] books;
 
     public Bookcase() {
-        bookCount = 0;
-        width = 0;
         books = new Book[CAPACITY];
     }
 
