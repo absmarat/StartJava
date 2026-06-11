@@ -31,8 +31,7 @@ public class BookcaseTest {
     }
 
     private static void displayWelcomeMsg() throws InterruptedException {
-        String msg = "ДОБРО ПОЖАЛОВАТЬ В КНИЖНЫЙ ШКАФ!";
-        char[] charsMsg = msg.toCharArray();
+        char[] charsMsg = "ДОБРО ПОЖАЛОВАТЬ В КНИЖНЫЙ ШКАФ!".toCharArray();
 
         for (char ch : charsMsg) {
             System.out.print(ch);
