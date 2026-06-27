@@ -1,0 +1,66 @@
+\echo бшбндхр б йнмянкэ бяеу пнанрнб
+SELECT *
+FROM jaegers
+ORDER BY model_name;
+
+\echo бшбндхр б йнмянкэ рнкэйн ме смхврнфеммшу пнанрнб
+SELECT *
+FROM jaegers
+WHERE status = 'Active'
+ORDER BY model_name;
+
+\echo бшбндхр б йнмянкэ рнкэйн пнанрнб яепхх люпй-1 х люпй-4
+SELECT *
+FROM jaegers
+WHERE mark IN (1, 4)
+ORDER BY model_name;
+
+\echo бшбндхр б йнмянкэ бяеу пнанрнб, йпнле люпй-1 х люпй-4
+SELECT *
+FROM jaegers
+WHERE mark NOT IN (1, 4)
+ORDER BY mark DESC;
+
+\echo бшбндхр б йнмянкэ яюлшу ярюпшу пнанрнб
+SELECT *
+FROM jaegers
+WHERE launch = (SELECT MIN (launch)
+                         FROM jaegers)
+ORDER BY model_name;
+
+\echo бшбндхр б йнмянкэ пнанрнб, йнрнпше смхврнфхкх анкэье бяеу KAIJU
+SELECT 
+       model_name,
+       mark,
+       launch,
+       kaiju_kill
+FROM jaegers
+WHERE kaiju_kill >= (SELECT MAX (kaiju_kill)
+                              FROM jaegers)
+ORDER BY model_name;
+
+\echo бшбндхр б йнмянкэ япедмхи бея пнанрнб
+SELECT ROUND(AVG(weight), 3) AS avg_weight
+FROM jaegers;
+
+\echo сбекхвхбюер мю едхмхжс йнкхвеярбн сахршу KAIJU с ме смхврнфеммшу пнанрнб
+UPDATE jaegers
+        SET kaiju_kill = kaiju_kill + 1
+WHERE status = 'Active';
+
+SELECT *
+FROM jaegers
+ORDER BY model_name;
+
+\echo сдюкъер бяеу смхврнфеммшу пнанрнб
+DELETE FROM jaegers
+WHERE status = 'Destroyed';
+
+SELECT *
+FROM jaegers
+ORDER BY model_name;
+
+
+
+
+
