@@ -3,7 +3,7 @@ package com.github.absmarat.graduation.bookcase;
 import java.util.Arrays;
 
 public class Bookcase {
-    static final int CAPACITY = 10;
+    static final int CAPACITY = 2;
     private int bookCount;
     private int width;
     private Book[] books;
