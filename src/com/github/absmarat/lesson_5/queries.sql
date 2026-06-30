@@ -49,7 +49,7 @@ UPDATE jaegers
 
 SELECT *
   FROM jaegers
-ORDER BY model_name;
+ ORDER BY model_name;
 
 \echo УДАЛЯЕТ ВСЕХ УНИЧТОЖЕННЫХ РОБОТОВ
 DELETE FROM jaegers
