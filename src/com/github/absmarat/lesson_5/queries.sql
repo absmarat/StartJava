@@ -25,7 +25,7 @@ ORDER BY mark DESC;
 SELECT *
   FROM jaegers
 WHERE launch = (SELECT MIN (launch)
-                           FROM jaegers)
+                            FROM jaegers)
 ORDER BY model_name;
 
 \echo бшбндхр б йнмянкэ пнанрнб, йнрнпше смхврнфхкх анкэье бяеу KAIJU
@@ -35,7 +35,7 @@ SELECT model_name,
            kaiju_kill
   FROM jaegers
 WHERE kaiju_kill = (SELECT MAX (kaiju_kill)
-                              FROM jaegers)
+                               FROM jaegers)
 ORDER BY model_name;
 
 \echo бшбндхр б йнмянкэ япедмхи бея пнанрнб
