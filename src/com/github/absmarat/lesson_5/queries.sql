@@ -1,4 +1,4 @@
-\echo ВЫВОДИТ В КОНСОЛЬ ВСЕХ РОБОТОВ
+\echo Выводит в консоль всех роботов
 SELECT *
   FROM jaegers
 ORDER BY model_name;
